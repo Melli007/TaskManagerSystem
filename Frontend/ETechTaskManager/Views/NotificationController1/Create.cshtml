@@ -1,0 +1,225 @@
+﻿@model ETechTaskManager.Models.NotificationsViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<style>
+    /* Main container for the form */
+    .create-container {
+        max-width: 500px;
+        margin: 50px 400px;
+        background: #f9f9f9;
+        padding: 20px 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        font-family: Arial, sans-serif;
+    }
+
+    /* Form title */
+    .form-title {
+        color: #0077cc;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    /* Form section and input styling */
+    .form-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .styled-input {
+        border: 1px solid #0077cc;
+        border-radius: 4px;
+        padding: 10px;
+        transition: border-color 0.3s;
+    }
+
+        .styled-input:focus {
+            border-color: #299be4;
+            box-shadow: 0 0 5px rgba(41, 155, 228, 0.5);
+        }
+
+    /* Button styling */
+    .btn-create {
+        background-color: #0077cc;
+        border-color: #0077cc;
+        padding: 10px 20px;
+        color: #ffffff;
+        font-size: 16px;
+        border-radius: 4px;
+        margin-right: 20px;
+        margin-left: 43px;
+        margin-top: 21px;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 0 11px rgba(0, 0, 0, 0.15);
+    }
+
+        .btn-create:hover {
+            background-color: #299be4;
+            border-color: #299be4;
+            transform: scale(1.1);
+        }
+
+    /* Back to List link styling */
+    .btn-secondary {
+        background-color: #f2f2f2;
+        color: #566787;
+    }
+
+        .btn-secondary:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+
+    /* Error message styling */
+    .text-danger {
+        font-size: 0.9em;
+        margin-top: 5px;
+        display: block;
+    }
+
+    /* Floating label styles for input fields */
+    .input-container {
+        position: relative;
+        margin-bottom: 25px;
+    }
+
+        .input-container label {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            font-size: 16px;
+            color: #000000;
+            transition: all 0.5s ease-in-out;
+            pointer-events: none; /* Prevent label from blocking input clicks */
+        }
+
+        .input-container input {
+            border: 0;
+            border-bottom: 1px solid #000000;
+            background: transparent;
+            width: 100%;
+            padding: 8px 0 5px 0;
+            font-size: 16px;
+            color: #000000;
+        }
+
+    .Created input {
+        padding: 19px 0 5px 0;
+    }
+
+
+    .input-container input:focus {
+        border: none;
+        outline: none;
+        border-bottom: 2px solid #197fd3;
+    }
+
+        .input-container input:focus ~ label,
+        .input-container input:valid ~ label {
+            top: -12px;
+            font-size: 12px;
+            color: #197fd3; /* Optional: Change label color on focus */
+        }
+
+    /* Adjusted styling for the select dropdown */
+    .styled-select {
+        border: 1px solid #0077cc;
+        border-radius: 4px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        color: #333;
+        font-size: 16px;
+        width: 100%;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        transition: border-color 0.3s;
+    }
+
+        .styled-select:focus {
+            border-color: #299be4;
+            box-shadow: 0 0 5px rgba(41, 155, 228, 0.5);
+            outline: none;
+        }
+
+    /* Adjust label positioning */
+    .input-container select ~ label {
+        top: -12px;
+        font-size: 12px;
+        color: #197fd3; /* Optional: Change label color on focus */
+    }
+
+    /* Back to List link styling */
+    .btn-secondary {
+        display: inline-block; /* Make it behave like a button */
+        background-color: #f2f2f2;
+        color: #566787;
+        text-decoration: none; /* Remove underline */
+        padding: 10px 20px; /* Padding to match btn-create */
+        border-radius: 4px; /* Same border radius as other buttons */
+        transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        margin-left: 10px; /* Add margin for spacing */
+    }
+
+        .btn-secondary:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+</style>
+
+<div class="create-container">
+    <h2 class="form-title">Krijo Njoftim</h2>
+    <div class="form-section">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group input-container">
+                <input asp-for="Message" class="form-control" required />
+                <label asp-for="Message" class="control-label">Mesazhi</label>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+
+            <div class="form-group input-container">
+                <select asp-for="Recipient" class="form-control styled-select" required>
+                    <option value="" disabled selected>Zgjidhni Marrësin</option>
+                    <option value="-1">Të gjithve</option> <!-- Option to select all users -->
+                    @foreach (var user in Model.Users)
+                    {
+                        <option value="@user.Id">@user.FullName</option>
+                    }
+                </select>
+                <label asp-for="Recipient" class="control-label">Marrësi</label>
+                <span asp-validation-for="Recipient" class="text-danger"></span>
+            </div>
+
+            <div class="form-group input-container">
+                <select asp-for="Type" class="form-control styled-select" required>
+                    <option value="" disabled selected>Selekto Tipin</option>
+                    <option value="task">Task</option>
+                    <option value="Përkujtes">Përkujtes</option>
+                    <option value="Paralajmërim">Paralajmërim</option>
+                    <option value="Promocionale">Promocionale</option>
+                </select>
+                <label asp-for="Type" class="control-label">Tipi</label>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Krijo" class="btn btn-primary btn-create" />
+                <a asp-action="Index" class="btn-secondary">Anulo</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

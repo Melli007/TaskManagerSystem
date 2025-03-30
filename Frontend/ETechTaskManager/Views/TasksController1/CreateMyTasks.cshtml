@@ -1,0 +1,660 @@
+﻿@model ETechTaskManager.Models.TasksViewModel
+
+@{
+    ViewData["Title"] = "CreateMyTasks";
+
+}
+
+
+<style>
+        /* Main container for the form */
+        .create-container {
+            width: 700px;
+            max-width: 700px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: calc(100vh - 200px);
+            margin: 50px 280px;
+            background: #f9f9f9;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            font-family: Arial, sans-serif;
+        }
+
+        /* Form title */
+        .form-title {
+            color: #0077cc;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 2px solid #e5e7eb;
+            padding-top: 10px;
+            padding-bottom: 30px;
+        }
+
+        /* Form section and input styling */
+        .form-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .styled-input {
+            border: 1px solid #0077cc;
+            border-radius: 4px;
+            padding: 10px;
+            transition: border-color 0.3s;
+        }
+
+            .styled-input:focus {
+                border-color: #299be4;
+                box-shadow: 0 0 5px rgba(41, 155, 228, 0.5);
+            }
+
+        /* Button styling */
+        .btn-create {
+            background-color: #0077cc;
+            border-color: #0077cc;
+            padding: 10px 20px;
+            color: #ffffff;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-right: 20px;
+            margin-left: 43px;
+            margin-top: 21px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 11px rgba(0, 0, 0, 0.15);
+        }
+
+            .btn-create:hover {
+                background-color: #299be4;
+                border-color: #299be4;
+                transform: scale(1.1);
+            }
+
+        /* Back to List link styling */
+        .btn-secondary {
+            background-color: #f2f2f2;
+            color: #566787;
+        }
+
+            .btn-secondary:hover {
+                background-color: #ddd;
+                color: #333;
+            }
+
+        /* Error message styling */
+        .text-danger {
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Floating label styles for input fields */
+        .input-container {
+            position: relative;
+            margin-bottom: 25px;
+            margin-top: 25px;
+        }
+
+            .input-container label {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                font-size: 16px;
+                color: #000000;
+                transition: all 0.5s ease-in-out;
+                pointer-events: none; /* Prevent label from blocking input clicks */
+            }
+
+            .input-container input {
+                border: 0;
+                border-bottom: 1px solid #000000;
+                background: transparent;
+                width: 100%;
+                padding: 8px 0 5px 0;
+                font-size: 16px;
+                color: #000000;
+            }
+
+        .Created input {
+            padding: 19px 0 5px 0;
+        }
+
+
+        .input-container input:focus {
+            border: none;
+            outline: none;
+            border-bottom: 2px solid #197fd3;
+        }
+
+            .input-container input:focus ~ label,
+            .input-container input:valid ~ label {
+                top: -12px;
+                font-size: 12px;
+                color: #197fd3; /* Optional: Change label color on focus */
+            }
+
+        /* Adjusted styling for the select dropdown */
+        .styled-select {
+            border: 1px solid #0077cc;
+            border-radius: 4px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 16px;
+            width: 100%;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            transition: border-color 0.3s;
+        }
+
+            .styled-select:focus {
+                border-color: #299be4;
+                box-shadow: 0 0 5px rgba(41, 155, 228, 0.5);
+                outline: none;
+            }
+
+        /* Adjust label positioning */
+        .input-container select ~ label {
+            top: -12px;
+            font-size: 12px;
+            color: #197fd3; /* Optional: Change label color on focus */
+        }
+
+        /* Back to List link styling */
+        .btn-secondary {
+            display: inline-block; /* Make it behave like a button */
+            background-color: #f2f2f2;
+            color: #566787;
+            text-decoration: none; /* Remove underline */
+            padding: 10px 20px; /* Padding to match btn-create */
+            border-radius: 4px; /* Same border radius as other buttons */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+            margin-left: 10px; /* Add margin for spacing */
+            margin-top: 21px;
+        }
+
+            .btn-secondary:hover {
+                background-color: #ddd;
+                color: #333;
+            }
+
+        /* Textarea styling */
+        .styled-textarea {
+            border: 1px solid #000000; /* Match input borders */
+            border-radius: 4px;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9; /* Match the container background */
+            color: #333;
+            resize: none; /* Prevent resizing */
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+            .styled-textarea:focus {
+                border-color: #299be4; /* Highlight on focus */
+                box-shadow: 0 0 5px rgba(41, 155, 228, 0.5);
+                outline: none; /* Remove default outline */
+            }
+
+        /* Floating label effect for textarea */
+        .input-container textarea:focus + label,
+        .input-container textarea:not(:placeholder-shown) + label {
+            top: -20px;
+            font-size: 12px;
+            color: #197fd3;
+            background-color: #f9f9f9;
+            padding: 0 4px;
+            margin-left: -4px;
+        }
+
+        /* Placeholder to prevent misalignment */
+        .styled-textarea::placeholder {
+            color: transparent;
+        }
+
+        .Btop{
+            justify-content: flex-end;
+            display: flex;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .button-container{
+            margin-top:16px;
+        }
+
+        .ShtoniMo {
+            margin-top:40px;
+        }
+        /* CSS Styling for Checkmark and Clock Icon */
+
+        #deadline-btn{
+            height: 40px;
+            padding: 8px 16px;
+            width: auto;
+            line-height: 24px;
+            background-color: #fff;
+            color: #363636;
+            border-radius: 5px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            margin: 6px 8px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .03);
+        }
+        #deadline-icon svg {
+            transition: fill 0.3s ease;
+        }
+
+        #deadline-btn.active #deadline-icon svg {
+            fill: green;
+        }
+
+        .deadline-visible .form-group.Created {
+            display: block;
+        }
+
+        .form-group.Created {
+            display: none; /* Hidden by default */
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .visible {
+            display: block !important;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+            width: 600px;
+            height: 260px;
+            background-color: #ffffff;
+            padding: 10px 30px 40px;
+        }
+
+            .card h3 {
+                font-size: 22px;
+                font-weight: 600;
+            }
+
+        .drop_box {
+            margin: 10px 0;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 3px dotted #a3a3a3;
+            border-radius: 5px;
+        }
+
+            .drop_box h4 {
+                font-size: 16px;
+                font-weight: 400;
+                color: #2e2e2e;
+            }
+
+            .drop_box p {
+                margin-top: 10px;
+                margin-bottom: 20px;
+                font-size: 12px;
+                color: #a3a3a3;
+            }
+
+        .butoni {
+            text-decoration: none;
+            background-color: #0077cc;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+            transition: 0.3s;
+        }
+
+            .butoni:hover {
+                text-decoration: none;
+                background-color: #ffffff;
+                color: #0077cc;
+                padding: 10px 20px;
+                border: none;
+                outline: 1px solid #010101;
+            }
+
+            .butoni.selected {
+                background-color: #28a745; /* Green background */
+                color: #ffffff; /* White text */
+                border: none;
+            }
+
+        /* Style for the file name display */
+        .file-name {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Red button for unsupported files */
+    .butoni.unsupported {
+        background-color: #dc3545; /* Red background */
+        color: #ffffff; /* White text */
+        border: none;
+    }
+
+    /* Add shake animation for visual feedback */
+    .butoni.shake {
+        animation: shake 0.5s ease-in-out;
+    }
+
+    @@keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }
+
+
+        .form input {
+            margin: 10px 0;
+            width: 100%;
+            background-color: #e2e2e2;
+            border: none;
+            outline: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+        }
+
+        #images-files-btn {
+            height: 40px;
+            padding: 8px 16px;
+            width: auto;
+            line-height: 24px;
+            background-color: #fff;
+            color: #363636;
+            border-radius: 5px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            margin: 6px 8px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .03);
+        }
+
+        #images-files-icon svg {
+            transition: fill 0.3s ease;
+        }
+
+        #images-files-btn.active #images-files-icon svg {
+            fill: green;
+        }
+
+        .transition-container {
+            max-height: 0; /* Collapsed state */
+            opacity: 0; /* Fully hidden */
+            overflow: hidden; /* Prevent content from spilling out */
+            transition: max-height 0.5s ease, opacity 0.5s ease; /* Smooth transition */
+        }
+
+            /* Expanded state */
+            .transition-container.visible {
+                max-height: 500px; /* Adjust to fit the largest expected section content */
+                opacity: 1; /* Fully visible */
+            }
+</style>
+
+
+<div class="create-container">
+    <h2 class="form-title">Shtoni Taskin</h2>
+    <div class="form-section">
+
+        <form asp-action="CreateMyTasks" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group input-container">
+                <input asp-for="Title" class="form-control" required />
+                <label asp-for="Title" class="control-label">Titulli</label>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group input-container">
+                <textarea asp-for="Description" class="styled-textarea" rows="4" placeholder=" " required></textarea>
+                <label asp-for="Description" class="control-label" style="margin:10px;">Përshkrimi</label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group input-container">
+                <select asp-for="Status" class="form-control styled-select" required>
+                    <option value="" disabled selected>Selekto Statusin</option>
+                    <option value="Në Pritje">Në Pritje</option>
+                    <option value="Në Progres">Në Progres</option>
+                    <option value="Të Përfunduar">Të Përfunduar</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group input-container Created transition-container hidden" id="deadline-section">
+                <input asp-for="DueDate" class="form-control" />
+                <label asp-for="DueDate" class="control-label">Data e Afatit</label>
+                <span asp-validation-for="DueDate" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group input-container transition-container hidden" id="images-files-section">
+                <div class="card">
+                    <h3>Shtoni File</h3>
+                    <div class="drop_box">
+                        <header>
+                            <h4>Selekto nje file ketu</h4>
+                        </header>
+                        <p>Filet Suportojn: PDF, DOCX, TEXT, JPG, PNG, XLSX (maks 5MB)</p>
+                        <input asp-for="File" class="form-control" type="file" id="fileID" accept=".pdf,.docx,.txt,.jpg,.png,.xlsx" style="display:none;">
+                        <button type="button" class="butoni" id="fileSelectButton">Zgjedh File</button>
+                        <span id="fileNameDisplay" class="file-name"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Section -->
+            <p class="ShtoniMo">Dëshiron të shtosh më shumë?</p>
+            <div class="button-container">
+
+                <button id="deadline-btn" class="toggle-btn" type="button">
+                    <span id="deadline-icon">
+                        <!-- Default SVG for Time Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                            <path d="M8 3.5a.5.5 0 0 1 .5.5v4l3 1.5a.5.5 0 1 1-.5.866L8 8.5a.5.5 0 0 1-.25-.433V4a.5.5 0 0 1 .5-.5z" />
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm0-1A7 7 0 1 1 8 1a7 7 0 0 1 0 14z" />
+                        </svg>
+                    </span>
+                    Deadline
+                </button>
+
+                <button type="button" id="images-files-btn" class="toggle-btn">
+                    <span id="images-files-icon">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.25 15.75C14.84 15.75 14.5 16.09 14.5 16.5V18C14.5 18.69 13.94 19.25 13.25 19.25H5.75C5.06 19.25 4.5 18.69 4.5 18V6C4.5 5.31 5.06 4.75 5.75 4.75H9V9.5C9 9.91 9.34 10.25 9.75 10.25H14.5V11.5C14.5 11.91 14.84 12.25 15.25 12.25C15.66 12.25 16 11.91 16 11.5V9.5C16 9.3 15.92 9.11 15.78 8.97L10.28 3.47C10.14 3.33 9.95 3.25 9.75 3.25H5.75C4.23 3.25 3 4.48 3 6V18C3 19.52 4.23 20.75 5.75 20.75H13.25C14.77 20.75 16 19.52 16 18V16.5C16 16.09 15.66 15.75 15.25 15.75ZM10.5 5.81L13.44 8.75H10.5V5.81ZM20.94 14.29C20.9 14.38 20.85 14.46 20.78 14.53L17.78 17.53C17.63 17.68 17.44 17.75 17.25 17.75C17.06 17.75 16.87 17.68 16.72 17.53C16.43 17.24 16.43 16.76 16.72 16.47L18.44 14.75H9.75C9.34 14.75 9 14.41 9 14C9 13.59 9.34 13.25 9.75 13.25H18.44L16.72 11.53C16.43 11.24 16.43 10.76 16.72 10.47C17.01 10.18 17.49 10.18 17.78 10.47L20.78 13.47C20.85 13.54 20.9 13.62 20.94 13.71C21.02 13.89 21.02 14.1 20.94 14.28V14.29Z" fill="#000000" />
+                        </svg>
+                    </span>
+                    Images and Files
+                </button>
+
+            </div>
+
+
+            <div class="form-group Btop">
+                <input type="submit" value="Krijo" class="btn btn-primary btn-create">
+                <a asp-action="GetCreatedTasks" class="btn-secondary">Anulo</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const deadlineBtn = document.getElementById("deadline-btn");
+            const deadlineSection = document.getElementById("deadline-section");
+            const deadlineIcon = document.getElementById("deadline-icon");
+
+            const imagesFilesBtn = document.getElementById("images-files-btn");
+            const imagesFilesSection = document.getElementById("images-files-section");
+            const imagesFilesIcon = document.getElementById("images-files-icon");
+
+            const fileInput = document.getElementById("fileID");
+            const fileSelectButton = document.getElementById("fileSelectButton");
+            const fileNameDisplay = document.getElementById("fileNameDisplay");
+
+
+            // Toggle Deadline Section
+            deadlineBtn.addEventListener("click", () => {
+                if (deadlineSection.classList.contains("hidden")) {
+                    deadlineSection.classList.remove("hidden");
+                    deadlineSection.classList.add("visible");
+                    deadlineIcon.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M15.854 8a7.853 7.853 0 1 1-15.706 0 7.853 7.853 0 0 1 15.706 0zm-7.853-7A7 7 0 1 0 15 8a7 7 0 0 0-7.003-7z"/>
+                            <path d="M10.97 5.03a.75.75 0 0 1 1.05 1.05l-3.992 3.992a.75.75 0 0 1-1.06.02L4.992 7.614a.75.75 0 1 1 1.02-1.098l1.478 1.385 3.48-3.87z"/>
+                        </svg>`;
+                } else {
+                    deadlineSection.classList.remove("visible");
+                    deadlineSection.classList.add("hidden");
+                    deadlineIcon.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                            <path d="M8 3.5a.5.5 0 0 1 .5.5v4l3 1.5a.5.5 0 1 1-.5.866L8 8.5a.5.5 0 0 1-.25-.433V4a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm0-1A7 7 0 1 1 8 1a7 7 0 0 1 0 14z"/>
+                        </svg>`;
+                }
+            });
+
+            // Toggle Images and Files Section
+            imagesFilesBtn.addEventListener("click", () => {
+                if (imagesFilesSection.classList.contains("hidden")) {
+                    imagesFilesSection.classList.remove("hidden");
+                    imagesFilesSection.classList.add("visible");
+                    imagesFilesIcon.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M15.854 8a7.853 7.853 0 1 1-15.706 0 7.853 7.853 0 0 1 15.706 0zm-7.853-7A7 7 0 1 0 15 8a7 7 0 0 0-7.003-7z"/>
+                            <path d="M10.97 5.03a.75.75 0 0 1 1.05 1.05l-3.992 3.992a.75.75 0 0 1-1.06.02L4.992 7.614a.75.75 0 1 1 1.02-1.098l1.478 1.385 3.48-3.87z"/>
+                        </svg>`;
+                } else {
+                    imagesFilesSection.classList.remove("visible");
+                    imagesFilesSection.classList.add("hidden");
+                    imagesFilesIcon.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
+                            <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zM10 4a.5.5 0 0 1-.5-.5V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5h-3.5a.5.5 0 0 1-.5-.5z"/>
+                        </svg>`;
+                }
+            });
+
+            const supportedExtensions = ["pdf", "docx", "txt", "jpg", "png", "xlsx"];
+            const maxFileSize = 5 * 1024 * 1024; // 5MB
+
+            // File magic numbers (hexadecimal values for validation)
+            const fileSignatures = {
+                "pdf": [0x25, 0x50, 0x44, 0x46],                // PDF
+                "png": [0x89, 0x50, 0x4E, 0x47],                // PNG
+                "jpg": [0xFF, 0xD8],                            // JPG/JPEG
+                "docx": [0x50, 0x4B, 0x03, 0x04],               // DOCX (ZIP-based)
+                "xlsx": [0x50, 0x4B, 0x03, 0x04],               // XLSX (ZIP-based)
+                "txt": []                                       // TXT has no magic number
+            };
+
+            fileSelectButton.addEventListener("click", () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener("change", () => {
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const fileName = file.name;
+                    const fileExtension = fileName.split(".").pop().toLowerCase();
+                    const fileSize = file.size;
+
+                    if (!supportedExtensions.includes(fileExtension)) {
+                        showError(`.${fileExtension} nuk supportohet`);
+                        return;
+                    }
+
+                    if (fileSize > maxFileSize) {
+                        showError("File është shumë i madh (max 5MB)");
+                        return;
+                    }
+
+                    // Validate file content using FileReader
+                    validateFileContent(file, fileExtension)
+                        .then(isValid => {
+                            if (isValid) {
+                                showSuccess(fileName);
+                            } else {
+                                showError("Lloji i file-it nuk është valid!");
+                            }
+                        })
+                        .catch(() => showError("Gabim gjatë verifikimit të file-it!"));
+                }
+            });
+
+            function validateFileContent(file, extension) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+
+                    reader.onload = (e) => {
+                        const arr = new Uint8Array(e.target.result).subarray(0, 4); // Read first 4 bytes
+                        const magicNumbers = fileSignatures[extension];
+
+                        if (magicNumbers.length === 0) {
+                            // TXT files or files with no magic numbers
+                            resolve(true);
+                        } else {
+                            const isValid = magicNumbers.every((value, index) => arr[index] === value);
+                            resolve(isValid);
+                        }
+                    };
+
+                    reader.onerror = () => reject();
+                    reader.readAsArrayBuffer(file.slice(0, 4)); // Read first 4 bytes of the file
+                });
+            }
+
+            function showError(message) {
+                fileSelectButton.textContent = message;
+                fileSelectButton.classList.remove("selected");
+                fileSelectButton.classList.add("unsupported", "shake");
+                fileNameDisplay.textContent = "";
+                setTimeout(() => fileSelectButton.classList.remove("shake"), 500);
+            }
+
+            function showSuccess(fileName) {
+                fileSelectButton.textContent = "File është zgjedhur";
+                fileSelectButton.classList.remove("unsupported", "shake");
+                fileSelectButton.classList.add("selected");
+                fileNameDisplay.textContent = `File i zgjedhur: ${fileName}`;
+            }
+
+            // Reset file input and button when "Images and Files" button is clicked
+            imagesFilesBtn.addEventListener("click", () => {
+                if (imagesFilesSection.classList.contains("visible")) {
+                    // Section is being hidden, reset file input and button
+                    fileInput.value = ""; // Clear the file input
+                    fileSelectButton.textContent = "Zgjedh File"; // Reset button text
+                    fileSelectButton.classList.remove("selected", "unsupported"); // Remove styles
+                    fileNameDisplay.textContent = ""; // Clear file name display
+                }
+            });
+        });
+
+
+    </script>
+
+}

@@ -1,0 +1,699 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ETechTaskManager</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ETechTaskManager.styles.css" asp-append-version="true" />
+    @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+    @* Conditionally add Bootstrap 4.4.1 CSS if it's defined in the section *@
+    @if (IsSectionDefined("BootstrapCSS"))
+    {
+        @RenderSection("BootstrapCSS", required: false)
+    }
+
+    @RenderSection("ResetPassCss", required: false)
+
+    @RenderSection("LeaderboardCss", required: false)   
+
+    @RenderSection("Styles", required: false)
+
+
+    <style>
+        .notification-dropdown {
+            display: none; /* Initially hidden */
+            position: absolute; /* Position it below the bell icon */
+            right: 20px; /* Align it to the right */
+            background-color: white; /* Background color */
+            border: 1px solid #ccc; /* Border style */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            z-index: 1000; /* Stack above other elements */
+            width: 345px; /* Set the width */
+        }
+
+            .notification-dropdown.show {
+                display: block; /* Show when hovering */
+            }
+
+        /* Style the notification items */
+        .notification-item {
+            padding: 10px; /* Padding around items */
+            cursor: pointer; /* Pointer on hover */
+        }
+
+            .notification-item:hover {
+                background-color: var(--Light-grayish-blue-1); /* Change color on hover */
+            }
+
+        /* Dot styling */
+        .notification-dot {
+            position: absolute;
+            top: 15px; /* Adjust to align with the bell */
+            right: 30px;
+            height: 10px;
+            width: 10px;
+            background-color: red;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            transform: scale(0); /* Start scaled down */
+            animation: scaleUpDown 2s infinite ease-in-out; /* Animation to scale up and down */
+            opacity: 0; /* Start invisible */
+            transition: opacity 0.3s ease; /* Smooth opacity transition */
+        }
+
+        /* Animation to scale up and down with a pulse effect */
+        @@keyframes scaleUpDown {
+            0% {
+                transform: scale(0.8); /* Start scaled down */
+                opacity: 1; /* Start invisible */
+            }
+
+            50% {
+                transform: scale(1.5); /* Scale up to 1.2 times the original size */
+                opacity: 1; /* Fully visible */
+            }
+
+            100% {
+                transform: scale(0.8); /* Scale back down */
+                opacity: 1; /* Fade out */
+            }
+        }
+
+        /* Make the dot visible when there's an unread notification */
+        .notification-dot.show {
+            display: block; /* Show the dot */
+            animation: scaleUpDown 2s infinite ease-in-out; /* Apply the scale animation */
+            opacity: 1; /* Ensure the dot is visible */
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="checkbox">
+    <header class="header">
+        <h2 class="u-name">
+            Task <b>Manager</b>
+            <label for="checkbox">
+                <i id="navbtn" class="fa fa-bars" aria-hidden="true"></i>
+            </label>
+        </h2>
+
+        @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") != "Admin")
+        {
+            <div class="notification-icon" id="notification-icon">
+                <i class="fa fa-bell" aria-hidden="true"></i>
+                <div class="notification-dot" id="notification-dot"></div>
+                <div id="notification-container" class="notification-dropdown"></div>
+            </div>
+        }
+
+    </header>
+    <div class="body">
+        <nav class="side-bar">
+            <div class="user-p">
+                @if (ViewData["UserRole"]?.ToString() == "Admin")
+                {
+                    <img src="~/Images/AdminLogo-removebg-preview.png">
+                    <h4>ADMIN</h4>
+                }
+                else
+                {
+                    <img id="layoutProfilePicture"
+                         src="~/Images/user.png"
+                         alt="Layout Avatar"
+                         width="50" />
+                    <h4>@Context.Session.GetString("Username")</h4> <!-- Display the username -->
+                    <!-- Show "BANNED" badge if the user is banned -->
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("IsBanned") == "True")
+                    {
+                        <p style=" width:120px; margin:0px 45px 0px 56px; background-color: #ff0000; color: white; font-weight: bold; margin-top: 5px; padding: 5px 8px; border-radius: 5px; text-align: center; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);">
+                            BANNED
+                        </p>
+
+                    }
+
+                }
+            </div>
+
+            @if (ViewData["UserRole"]?.ToString() == "Admin")
+            {
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index","Home")">
+                            <i class="fa fa-tachometer" aria-hidden="true"></i>
+                            <span>Paneli Admin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","Users")">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <span>Menagjo Userat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Create","TasksController1")">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span>Krijo Taskin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("GetMessagesByUser","MessagesController1")">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                            <span>Komunikimet</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Leaderboard", "Users")">
+                            <i class="fa fa-trophy"></i>
+                            <span>Leaderboard</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Logout", "Home")">
+                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <style>
+                    .section-1 {
+                        height: 380px;
+                    }
+                </style>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index","Home")">
+                            <i class="fa fa-tachometer" aria-hidden="true"></i>
+                            <span>Paneli</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("GetAssignedTasks", "TasksController1")">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            <span>Detyrat e Mia</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Profile","Home")">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span>Profili</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Leaderboard", "Users")">
+                            <i class="fa fa-trophy"></i>
+                            <span>Leaderboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Logout", "Home")">
+                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            }
+        </nav>
+
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js" integrity="sha512-7SRCYIJtR6F8ocwW7UxW6wGKqbSyqREDbfCORCbGLatU0iugBLwyOXpzhkPyHIFdBO0K2VCu57fvP2Twgx1o2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const userId = '@Context.Request.Cookies["UserId"]'; // Retrieve user ID from cookies
+
+        // Pass userId globally so that it can be used in index.js
+        window.AppUserId = userId;
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7013/notificationHub?userId=" + userId)
+            .build();
+
+        connection.start().then(() => {
+            console.log("Connected to the SignalR hub");
+        }).catch(err => console.error(err.toString()));
+
+        connection.on("ReceiveNotification", (Id, user, message, type, date, IsRead) => {
+            console.log("Notification received:", { Id, user, message, type, date, IsRead });
+
+            // Update the notification dropdown dynamically
+            updateNotificationDropdown(Id, user, message, type, new Date(date).toLocaleString(), IsRead);
+
+            // Update unread count if applicable
+            const unreadCountElement = document.getElementById("to-be-read");
+            const unreadCount = unreadCountElement ? parseInt(unreadCountElement.innerText, 10) || 0 : 0;
+            if (!IsRead) {
+                unreadCountElement.innerText = unreadCount + 1;
+                toggleNotificationDot(unreadCount + 1);
+            }
+        });
+
+
+        // Handle notification updates
+        connection.on("NotificationUpdated", (notificationId, message, date) => {
+            console.log(`Notification ${notificationId} updated: ${message}`);
+
+            // Find the notification in the dropdown
+            const notificationElement = document.querySelector(`.message[data-id="${notificationId}"]`);
+            if (notificationElement) {
+                // Update the message and timestamp
+                notificationElement.querySelector(".CC").textContent = message;
+                notificationElement.querySelector(".time").textContent = new Date(date).toLocaleString();
+            }
+        });
+
+
+        // Handle notification deletions
+        connection.on("NotificationDeleted", (notificationId) => {
+            console.log(`Notification ${notificationId} deleted.`);
+
+            // Remove the notification from the dropdown
+            const notificationElement = document.querySelector(`.message[data-id="${notificationId}"]`);
+            if (notificationElement) {
+                notificationElement.remove();
+            }
+
+            // Decrease unread count if applicable
+            decreaseUnreadCount();
+        });
+
+        // Reconnect logic: attempt to reconnect every 5 seconds
+        connection.onclose(async () => {
+            console.log("Notification connection lost. Attempting to reconnect...");
+            try {
+                await connection.start();
+                console.log("Reconnected to NotificationHub");
+            } catch (err) {
+                console.error("Reconnection to NotificationHub failed: ", err.toString());
+                setTimeout(() => connection.start(), 5000); // Retry after 5 seconds
+            }
+        });
+
+        // SignalR Connection for TaskHub
+        const taskConnection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7013/taskHub?userId=" + userId)
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        // Start the connection and add reconnection logic
+        taskConnection.start().then(() => {
+            console.log("Connected to TaskHub");
+            console.log(`Using AppUserId: ${userId}`);
+        }).catch(err => console.error("Connection failed: ", err.toString()));
+
+
+        // Listen for task updates
+        taskConnection.on("ReceiveTask", (Id, title, description, status, createdAt, dueDate, createdByName, filePath) => {
+            console.log("Task received:", { Id, title, description, status, createdAt, dueDate, createdByName, filePath });
+
+            // Update the task table in the UI dynamically
+            updateTaskTable(Id, title, description, status, createdAt, dueDate, createdByName, filePath);
+        });
+
+        // Listen for task status updates
+        taskConnection.on("UpdateTaskStatus", (id, newStatus) => {
+            console.log(`Task ${id} status changed to: ${newStatus}`);
+
+            // Find the task row and update the status
+            const taskRow = document.querySelector(`tr[data-task-id="${id}"]`);
+            if (taskRow) {
+                const statusCell = taskRow.querySelector("td:nth-child(4)"); // Assuming status is in the 4th column
+                if (statusCell) {
+                    statusCell.textContent = newStatus;
+                }
+            }
+        });
+
+        // Listen for task updates (full update)
+        taskConnection.on("TaskUpdated", (id, title, description, status, dueDate, filePath) => {
+            console.log(`Task ${id} updated: ${title}`);
+
+            // Find the task row and update the task details
+            const taskRow = document.querySelector(`tr[data-task-id="${id}"]`);
+            if (taskRow) {
+                taskRow.querySelector("td:nth-child(2)").textContent = title; // Update title
+                taskRow.querySelector("td:nth-child(3)").textContent = description; // Update description
+                taskRow.querySelector("td:nth-child(4)").textContent = status; // Update status
+                taskRow.querySelector("td:nth-child(6)").textContent = new Date(dueDate).toLocaleString(); // Update due date
+                taskRow.querySelector("td:nth-child(7)").textContent = filePath;
+            }
+        });
+
+        // Listen for task deletions
+        taskConnection.on("TaskDeleted", (id) => {
+            console.log(`Task ${id} deleted.`);
+
+            // Remove the task row from the table
+            const taskRow = document.querySelector(`tr[data-task-id="${id}"]`);
+            if (taskRow) {
+                taskRow.remove();
+            }
+        });
+
+
+        taskConnection.on("ReceiveTaskUpdate", (totalTasks, completedTasks, inprogressTasks, pendingTasks, nodeadlineTasks) => {
+            console.log("Task counts updated:", { totalTasks, completedTasks, inprogressTasks, pendingTasks, nodeadlineTasks });
+
+            // Update the dashboard counts dynamically
+            document.querySelector('[data-dashboard="num_task"]').textContent = `${totalTasks} Gjitha Tasket`;
+            document.querySelector('[data-dashboard="completed"]').textContent = `${completedTasks} Te Përfunduara`;
+            document.querySelector('[data-dashboard="in_progress"]').textContent = `${inprogressTasks} Ne Progres`;
+            document.querySelector('[data-dashboard="pending"]').textContent = `${pendingTasks} Ne Pritje`;
+            document.querySelector('[data-dashboard="nodeadline_task"]').textContent = `${nodeadlineTasks} Pa Deadline`;
+        });
+
+        // Reconnect logic: attempt to reconnect every 5 seconds
+        taskConnection.onclose(async () => {
+            console.log("Connection lost. Reconnecting...");
+            try {
+                await taskConnection.start();
+                console.log("Reconnected to TaskHub");
+            } catch (err) {
+                console.error("Reconnection failed: ", err.toString());
+                setTimeout(() => taskConnection.start(), 5000); // Retry after 5 seconds
+            }
+        });
+        // Function to update the task table in the UI
+        function updateTaskTable(Id, title, description, status, createdAt, dueDate, createdByName, filePath) {
+            const taskTableBody = document.querySelector(".content-table tbody");
+            if (!taskTableBody) return;
+
+            // Check if a row for this task ID already exists
+            let existingRow = Array.from(taskTableBody.querySelectorAll("tr")).find(row => {
+                const taskIdCell = row.querySelector("td");
+                return taskIdCell && taskIdCell.textContent.trim() === Id.toString();
+            });
+
+            // Determine file cell content purely on the client
+            let fileCellContent = "";
+            if (filePath && filePath.trim() !== "") {
+                fileCellContent = `<a href="/TasksController1/DownloadFile?taskId=${Id}" class="btn btn-primary" title="Download File">
+                                       <svg fill="currentColor" height="24px" width="24px" version="1.1" id="Capa_1" class="download-icon" style="margin-left: 20;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         viewBox="0 0 29.978 29.978" xml:space="preserve">
+                                    <g>
+                                    <path d="M25.462,19.105v6.848H4.515v-6.848H0.489v8.861c0,1.111,0.9,2.012,2.016,2.012h24.967c1.115,0,2.016-0.9,2.016-2.012	v-8.861H25.462z" />
+                                    <path d="M14.62,18.426l-5.764-6.965c0,0-0.877-0.828,0.074-0.828s3.248,0,3.248,0s0-0.557,0-1.416c0-2.449,0-6.906,0-8.723
+                c0,0-0.129-0.494,0.615-0.494c0.75,0,4.035,0,4.572,0c0.536,0,0.524,0.416,0.524,0.416c0,1.762,0,6.373,0,8.742
+                c0,0.768,0,1.266,0,1.266s1.842,0,2.998,0c1.154,0,0.285,0.867,0.285,0.867s-4.904,6.51-5.588,7.193
+                C15.092,18.979,14.62,18.426,14.62,18.426z" /><g></svg>
+                                        Download
+                                   </a>`;
+            } else {
+                fileCellContent = "<span>Nuk Ka File</span>";
+            }
+
+            if (existingRow) {
+                // Update existing task row
+                const cells = existingRow.querySelectorAll("td");
+                cells[1].textContent = Id;
+                cells[2].textContent = title;
+                cells[3].textContent = description;
+                cells[4].textContent = status;
+                cells[5].textContent = new Date(createdAt).toLocaleString();
+                cells[6].textContent = new Date(dueDate).toLocaleString();
+                cells[7].textContent = createdByName;
+                cells[8].textContent = filePath;
+            } else {
+                // Add a new row for the task
+                const newRow = document.createElement("tr");
+                newRow.dataset.taskId = Id; // Use data attribute to store task ID
+                newRow.innerHTML = `
+                    <td>${Id}</td>
+                    <td>${title}</td>
+                    <td>${description}</td>
+                    <td>${status}</td>
+                    <td>${new Date(createdAt).toLocaleString()}</td>
+                    <td>${new Date(dueDate).toLocaleString()}</td>
+                    <td>${createdByName}</td>
+                    <td>${fileCellContent}</td>
+
+                    <td>
+                        <form asp-action="ChangeStatus" asp-route-id="${Id}" method="post">
+                            <button type="submit" class="btn btn-primary dropbtn">Ndrysho Statusin</button>
+                        </form>
+                    </td>
+                `;
+                taskTableBody.appendChild(newRow);
+            }
+        }
+
+
+        // 2) MessageHub setup (for chat)
+        const signalRConnection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7013/messageHub?userId=" + userId)
+            .build();
+
+        signalRConnection.start()
+            .then(() => console.log("Connected to messageHub from _Layout."))
+            .catch(err => console.error("Failed to connect messageHub:", err));
+
+
+        document.getElementById("notification-icon").addEventListener("click", function (event) {
+            event.stopPropagation();
+            const container = document.getElementById("notification-container");
+
+            // Always fetch new notifications when the dropdown is opened
+            fetch('/NotificationController1/GetNotifications')
+                .then(response => response.text())
+                .then(data => {
+                    container.innerHTML = data;
+                    container.classList.add("show");
+                })
+                .catch(error => console.error('Error loading notifications:', error));
+        });
+
+
+        document.getElementById("notification-container").addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+
+        document.body.addEventListener("click", function () {
+            const container = document.getElementById("notification-container");
+            container.classList.remove("show");
+        });
+
+
+        document.addEventListener("DOMContentLoaded", async function () {
+
+            // Now you can use `await` here
+            if ('@HttpContextAccessor.HttpContext.Session.GetString("UserRole")' !== 'Admin') {
+                const userId = '@HttpContextAccessor.HttpContext.Session.GetString("UserId")';
+
+                if (!userId) {
+                    console.log("No userId found.");
+                    return;
+                }
+
+                try {
+                    const pathResponse = await fetch(`https://localhost:7013/api/Users/GetProfilePicturePath/${userId}`);
+                    if (!pathResponse.ok) {
+                        throw new Error("Failed to retrieve user's profile picture path.");
+                    }
+                    const pathData = await pathResponse.json();
+
+                    if (!pathData.profilePicturePath) {
+                        console.log("No profile picture path in DB for userId:", userId);
+                        return;
+                    }
+
+                    const layoutPicElement = document.getElementById("layoutProfilePicture");
+                    if (layoutPicElement) {
+                        layoutPicElement.src = pathData.profilePicturePath;
+                        console.log("Layout pic updated to:", pathData.profilePicturePath);
+                    }
+                } catch (error) {
+                    console.error("Error fetching layout pic path:", error);
+                }
+            }
+
+            fetch(`/NotificationController1/GetUnreadNotificationCount`)
+                .then(response => response.text())  // Use .text() instead of .json() for plain text response
+                .then(unreadCount => {
+                    const count = parseInt(unreadCount, 10) || 0; // Convert the response to an integer (default to 0 if invalid)
+                    console.log('Unread count:', count);  // Check the unread count value here
+
+                    const unreadCountElement = document.getElementById("to-be-read");
+                    if (unreadCountElement) {
+                        unreadCountElement.innerText = count; // Update the unread count in the element
+                    }
+
+                    toggleNotificationDot(count);  // Update the notification dot based on unread count
+                })
+                .catch(error => console.error('Error fetching unread notification count:', error));
+        });
+
+
+        function toggleNotificationDot(unreadCount) {
+            const dot = document.getElementById("notification-dot");
+            if (unreadCount > 0) {
+                dot.style.display = 'block';  // Show the dot if unread notifications exist
+            } else {
+                dot.style.display = 'none';  // Hide the dot if there are no unread notifications
+            }
+        }
+
+        function markAsRead(notificationId) {
+            fetch(`/NotificationController1/MarkAsRead/${notificationId}/`, {
+                method: 'POST',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        const notificationElement = document.querySelector(`.message[data-id="${notificationId}"]`);
+                        if (notificationElement) {
+                            notificationElement.classList.remove('unread-message');
+                            notificationElement.classList.add('read-message');
+
+                            const dot = notificationElement.querySelector('.dot');
+                            if (dot) {
+                                dot.remove();
+                            }
+
+                            decreaseUnreadCount();
+                        }
+                    } else {
+                        console.error('Error marking notification as read');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+        // Updated function to mark all notifications as read
+        function markAllAsRead(userId) {
+            fetch(`/NotificationController1/MarkAllAsRead/${userId}/`, {
+                method: 'POST',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Find all unread notifications in the dropdown and mark them as read
+                        const notificationItems = document.querySelectorAll('.message.unread-message');  // Only unread notifications
+                        notificationItems.forEach(item => {
+                            const notificationId = item.getAttribute('data-id');  // Get the notification ID
+                            markAsRead(notificationId);  // Call the function to mark it as read
+                        });
+
+                        // Reset the unread count to zero and hide the global notification dot
+                        const unreadCountElement = document.getElementById("to-be-read");
+                        unreadCountElement.innerText = '0';
+                        toggleNotificationDot(0); // Hide the global notification dot
+                    } else {
+                        console.error('Failed to mark all notifications as read');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function decreaseUnreadCount() {
+            const notificationNum = document.querySelector("#to-be-read");
+            if (notificationNum) {
+                let count = parseInt(notificationNum.innerText);
+                if (count > 0) {
+                    count -= 1;
+                    notificationNum.innerText = count;
+                }
+                if (count === 0) {
+                    toggleNotificationDot(0); // Hide the dot when count reaches 0
+                }
+            }
+        }
+
+        function deleteAllNotifications(userId) {
+            if (confirm("Are you sure you want to delete all notifications?")) {
+                fetch(`/NotificationController1/DeleteAllNotifications/${userId}`,{
+                    method: 'POST',
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Remove all notifications from the view after deletion
+                            document.querySelectorAll('.messages .message').forEach(msg => msg.remove());
+                            // Update unread count
+                            document.getElementById("to-be-read").innerText = '0';
+                            toggleNotificationDot(0);
+
+                            // Hide the close button or reset its visibility
+                            const closeButton = document.querySelector('.close');
+                            if (closeButton) {
+                                closeButton.style.display = 'none'; // Hide the close button
+                            }
+                        } else {
+                            console.error('Failed to delete all notifications');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        // Function to update the notification dropdown with new messages
+        function updateNotificationDropdown(Id, user, message, type, date, IsRead) {
+            // Get the container where the messages are displayed (the "messages" div)
+            const messageContainer = document.querySelector(".messages");
+
+            // Create a new message element
+            const messageItem = document.createElement("div");
+            messageItem.classList.add("message", IsRead ? "read-message" : "unread-message");
+            messageItem.setAttribute("data-id", Id);
+            messageItem.setAttribute("onclick", `markAsRead(${Id})`);
+
+             const messageContent = `
+        <div class="information">
+            <div class="top-information">
+                <p>
+                    ${type}: "<span class="CC">${message}</span>"
+                </p>
+                ${!IsRead ? '<span class="dot"></span>' : ''}
+            </div>
+            <p class="time">${date}</p>
+        </div>
+    `;
+
+            messageItem.innerHTML = messageContent;
+
+            // Append the new message item to the message container
+            messageContainer.appendChild(messageItem);
+
+            // Log to check if the message was added
+            console.log("New message added", messageItem);
+
+            // Ensure the close button is visible if it exists
+            const closeButton = document.querySelector('.close');
+            if (closeButton) {
+                closeButton.style.display = 'block';
+            }
+        }
+
+        // Function to update the state of a notification to 'read' in the UI
+        function updateNotificationReadState(notificationId) {
+            const notificationElement = document.querySelector(`.message[data-id="${notificationId}"]`);
+            if (notificationElement) {
+                notificationElement.classList.remove('unread-message');
+                notificationElement.classList.add('read-message');
+                const dot = notificationElement.querySelector('.dot');
+                if (dot) {
+                    dot.remove();
+                }
+            }
+        }
+
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

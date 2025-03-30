@@ -1,0 +1,165 @@
+﻿@model ETechTaskManager.Models.TasksViewModel
+
+@{
+    ViewData["Title"] = "Delete Task";
+}
+
+<style>
+    /* Main container for the form */
+    .delete-container {
+        max-width: 600px;
+        margin: 50px 320px;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        border: 1px solid #e0e0e0;
+        WIDTH: 500PX;
+    }
+
+    /* Form title */
+    .form-title {
+        color: #0077cc;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 28px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* Button styling */
+    .btn-delete {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        padding: 12px 24px;
+        color: #ffffff;
+        font-size: 18px;
+        border-radius: 5px;
+        margin-right: 40px;
+        transition: background-color 0.3s, transform 0.3s;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+        margin-left: 37px;
+    }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+
+    /* Back to List link styling */
+    .btn-secondary {
+        display: inline-block; /* Make it behave like a button */
+        background-color: #f2f2f2;
+        color: #566787;
+        text-decoration: none; /* Remove underline */
+        padding: 12px 24px; /* Padding to match btn-delete */
+        border-radius: 5px; /* Same border radius as other buttons */
+        transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        margin-left: 10px; /* Add margin for spacing */
+        font-weight: bold;
+    }
+
+        .btn-secondary:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+
+    /* Form section and input styling */
+    .form-section {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    /* Description list styling */
+    dl.row {
+        margin: 0;
+        font-size: larger;
+    }
+
+    dt {
+        font-weight: bold;
+        color: #0077cc;
+    }
+
+    dd {
+        margin-left: 0; /* Remove default left margin for dd */
+        margin-bottom: 10px; /* Space between each item */
+    }
+
+    hr {
+        margin: 15px 0; /* Add space above and below the horizontal line */
+        border: 0;
+        border-top: 1px solid #e0e0e0;
+    }
+
+</style>
+
+<div class="delete-container">
+    <h2 class="form-title">Fshi Taskin</h2>
+    <div class="form-section">
+        <h2 class="text-center">Jeni i sigurt që dëshironi ta fshini këtë task?</h2>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-4">
+                Task ID
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <hr />
+            <dt class="col-sm-4">
+                Titulli
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <hr />
+            <dt class="col-sm-4">
+                Përshkrimi
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <hr />
+            <dt class="col-sm-4">
+                Caktuar për
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.AssignedToName)
+            </dd>
+            <hr />
+            <dt class="col-sm-4">
+                Statusi
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <hr />
+            <dt class="col-sm-4">
+                Krijuar Në
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.CreatedAt)
+            </dd>
+            <hr />
+            <dt class="col-sm-4">
+                Data e Afatit
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.DueDate)
+            </dd>
+        </dl>
+    </div>
+    <form asp-action="Delete" asp-route-returnUrl="@ViewBag.ReturnUrl">
+        <input type="submit" value="Fshi Taskin" class="btn btn-danger btn-delete" />
+        <a href="@ViewContext.HttpContext.Request.Headers["Referer"].ToString()" class="btn-secondary">Anulo</a>
+    </form>
+</div>

@@ -1,0 +1,387 @@
+﻿@model ETechTaskManager.Models.UsersViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Profile";
+}
+
+@section BootstrapCSS
+{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+}
+
+<style>
+    .card {
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0,0,0,.125);
+        border-radius: .25rem;
+    }
+
+    .card-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1rem;
+    }
+
+    .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+
+        .gutters-sm > .col, .gutters-sm > [class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+    .mb-3, .my-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .bg-gray-300 {
+        background-color: #e2e8f0;
+    }
+
+    .h-100 {
+        height: 100% !important;
+    }
+
+    .shadow-none {
+        box-shadow: none !important;
+    }
+
+    .close{
+        float:none;
+    }
+
+    .karda {
+        position: fixed;
+        top: 270px; /* Start clearly visible near the top */
+        z-index: 1000;
+        background-color: #fff; /* Ensure visibility */
+        width: 300px; /* Fixed width for clarity */
+        transition: box-shadow 0.2s ease-in-out, transform 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+
+        .karda:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+    .profile-picture-container {
+        display: inline-block;
+        position: relative;
+        width: 150px; /* Matches the width of the profile image */
+        height: 150px; /* Matches the height of the profile image */
+    }
+
+    .add-icon {
+        position: absolute;
+        top: -4px; /* Adjust based on your preference */
+        right: -12px; /* Adjust based on your preference */
+        width: 27px; /* Size of the "+" icon */
+        height: 27px;
+        font-size: 14px;
+        background-color: #007bff; /* Bootstrap primary color */
+        color: #fff;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+
+        .add-icon:hover {
+            background-color: #0056b3; /* Darker shade for hover */
+        }
+</style>
+
+<div class="row d-flex justify-content-center align-items-center" style="margin-top: 15px;">
+    <div class="col-md-4">
+        <div class="karda">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                        <div class="profile-picture-container position-relative">
+                            <!-- Fallback to default if ProfilePicturePath is empty -->
+                            <img id="profilePicture"
+                                 src="@(string.IsNullOrEmpty(Model.ProfilePicturePath)
+                                      ? "https://localhost:7097/Images/user.png"
+                                      : Model.ProfilePicturePath)"
+                                 alt="Profile Picture"
+                                 class="rounded-circle"
+                                 width="150" />
+
+                            <button id="uploadButton" class="add-icon btn btn-primary rounded-circle">
+                                <i class="fa fa-plus"></i>
+                            </button>
+
+                            <!-- Hidden form for file input -->
+                            <form id="uploadForm" method="post" enctype="multipart/form-data" style="display: none;">
+                                <input id="profilePictureInput" type="file" name="file" accept=".jpg,.jpeg,.png" />
+                            </form>
+                        </div>
+                    <div class="mt-3">
+                        <h4>@Model.FullName</h4>
+
+                        <p class="text-secondary mb-1">@Model.Profession</p>
+                        <p class="text-muted font-size-sm">  </p> <!--Ktu do te paraqitet addressa e userit-->
+                        <button class="btn btn-primary" id="performancaBtn">Performanca</button> <!--Keto buttona duhen te ndryshon-->
+                            <button class="btn btn-outline-primary" id="komunikimetBtn">Komunikimet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Emri Mbiemri</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        @Model.FullName
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Username</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        @Model.Username
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Email</h6> <!--Paraqitja e numrit te userit ne Databaz duhet te shtohet-->
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        @Model.Email
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Password</h6> <!--Paraqitja e numrit te userit ne Databaz duhet te shtohet-->
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        ***************
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Numri Telefonit</h6> <!--Ne Address duhet te paraqitet ktu dhe duhet te shtohet ne databaz apo te fshihet krejta-->
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        @Model.Phone
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="@Url.Action("EditProfile", "Home")" class="btn btn-primary">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gutters-sm"> <!--Te krijohet nje menyr per ti paraqitur achibments e nje useri apo e gjitha pjesmarjet ne projekte dhe statusi i tyre projekte te mbledhen po te bashkangjituara me statuset e tyre dhe po ashtu tituli i tyre te paraqitet si dropdown -->
+            <div class="col-sm-12 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h6 class="d-flex align-items-center mb-3">
+                            <i class="material-icons text-info mr-2">detyrat</i>Statusi i Projektit
+                        </h6>
+                        @if (Model.Tasks != null && Model.Tasks.Any())
+                        {
+                            foreach (var task in Model.Tasks)
+                            {
+                                <small>@task.Title (@task.Status)</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    @{
+                                        int progress = 0; // Default progress
+                                        if (task.Status == "Në Pritje")
+                                        {
+                                            progress = 0;
+                                        }
+                                        else if (task.Status == "Në Progres")
+                                        {
+                                            progress = 45;
+                                        }
+                                        else if (task.Status == "Të Përfunduara")
+                                        {
+                                            progress = 100;
+                                        }
+                                    }
+                                    <div class="progress-bar bg-primary" role="progressbar"
+                                         style="width: @(progress)%"
+                                         aria-valuenow="@(progress)"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-secondary">No tasks assigned yet.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+         
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+        // 1) Trigger hidden file input
+        document.getElementById("uploadButton").addEventListener("click", function () {
+            document.getElementById("profilePictureInput").click();
+        });
+
+        // 2) Handle file upload
+        document.getElementById("profilePictureInput").addEventListener("change", async function () {
+            try {
+                const fileInput = this;
+                const formData = new FormData();
+                const userId = "@ViewData["UserId"]";
+
+                formData.append("UserId", userId);
+                formData.append("File", fileInput.files[0]);
+
+                // Step A: Call the UploadProfilePicture endpoint
+                const uploadResponse = await fetch("https://localhost:7013/api/Users/UploadProfilePicture", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (!uploadResponse.ok) {
+                    throw new Error("Failed to upload profile picture.");
+                }
+
+                // We don't care about the returned JSON if it only has "Message".
+                // Step B: Make a second call to GET the updated path
+                const pathResponse = await fetch(`https://localhost:7013/api/Users/GetProfilePicturePath/${userId}`);
+                if (!pathResponse.ok) {
+                    throw new Error("Failed to retrieve updated profile path.");
+                }
+                const pathData = await pathResponse.json();
+
+                console.log("Path from server:", pathData);
+
+                if (!pathData.profilePicturePath) {
+                    alert("No profile picture path found!");
+                    return;
+                }
+                // Step C: Update <img> src
+                document.getElementById("profilePicture").src = pathData.profilePicturePath;
+
+                // ALSO update the layout's <img> if it exists
+                const layoutPicElement = document.getElementById("layoutProfilePicture");
+                if (layoutPicElement) {
+                    layoutPicElement.src = pathData.profilePicturePath;
+                }
+
+                alert("Profile picture updated successfully!");
+
+
+            } catch (error) {
+                console.error("Error uploading/retrieving profile picture:", error);
+                alert("Failed to upload or retrieve profile picture. Please try again.");
+            }
+        });
+
+        document.getElementById("performancaBtn").addEventListener("click", function () {
+            // Fetch the user ID from ViewData
+            const userId = "@ViewData["UserId"]";
+
+
+            fetch(`https://localhost:7013/api/Pdf/GenerateInvoice/${userId}`, {
+                method: 'POST'
+            })
+
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to generate PDF");
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.style.display = "none";
+                    a.href = url;
+                    a.download = `Invoice_${userId}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error("Error generating PDF:", error);
+                    alert("Failed to generate PDF");
+                });
+        });
+
+        document.getElementById("komunikimetBtn").addEventListener("click", function () {
+            const userId = "@ViewData["UserId"]";
+            window.location.href = '@Url.Action("GetMessagesByUser", "MessagesController1")';
+        });
+
+        // Smooth scrolling animation for .karda with viewport clamping
+        document.addEventListener("DOMContentLoaded", function () {
+            const karda = document.querySelector(".karda");
+            let currentY = 270; // initial position
+            let desiredY = currentY;
+            let scrolling = false;
+
+            function animate() {
+                const lerpFactor = 0.1;
+                const delta = desiredY - currentY;
+                if (Math.abs(delta) > 0.1) {
+                    currentY += delta * lerpFactor;
+                    karda.style.transform = `translateY(${currentY}px)`;
+                    requestAnimationFrame(animate);
+                } else {
+                    currentY = desiredY;
+                    karda.style.transform = `translateY(${currentY}px)`;
+                    scrolling = false;
+                }
+            }
+
+            document.addEventListener("scroll", function () {
+                desiredY = window.scrollY;
+
+                // Calculate maximum Y so karda doesn't go off the visible viewport bottom
+                const kardaHeight = karda.offsetHeight;
+                const viewportHeight = window.innerHeight;
+                // karda should never go below bottom of the viewport
+                // maxVisibleY ensures it stops before leaving the screen
+                const maxVisibleY = viewportHeight - kardaHeight - 300;
+                if (desiredY > maxVisibleY) {
+                    desiredY = maxVisibleY;
+                }
+
+                if (!scrolling) {
+                    scrolling = true;
+                    requestAnimationFrame(animate);
+                }
+            });
+        });
+    </script>
+}

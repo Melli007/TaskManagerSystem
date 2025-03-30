@@ -1,0 +1,952 @@
+﻿@model List<ETechTaskManager.Models.UsersViewModel>
+
+@{
+    ViewData["Title"] = "Leaderboard";
+    var professions = new List<string> { "Tester", "IT Support", "Cyber Security Specialist", "Project Manager", "Developer" };
+    var rank = 1;
+    var userRole = ViewData["UserRole"]?.ToString() ?? "User";
+
+}
+
+@section LeaderboardCss {
+<style>
+
+    :root {
+        --primary-color: #2A2F4F;
+            --secondary-color: #1976d2;
+        --gold: linear-gradient(135deg, #FFD700 0%, #FFEC8B 100%);
+        --silver: linear-gradient(135deg, #C0C0C0 0%, #E5E4E2 100%);
+        --bronze: linear-gradient(135deg, #CD7F32 0%, #E6BE8A 100%);
+        --text-dark: #2A2F4F;
+        --text-light: #FDE2F3;
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        --border-radius: 20px;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #E3F2FD, #FFFFFF); /* Soft blue to white */
+        margin: 0;
+        min-height: 100vh;
+    }
+
+        .container{
+            max-width:80vw;
+            width:100%;
+        }
+
+    .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    h2.leaderboard-title {
+        text-align: center;
+        font-size: 2.5rem;
+        color: var(--text-dark);
+        margin-bottom: 3rem;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    h2.leaderboard-title::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: var(--secondary-color);
+        margin: 0.5rem auto;
+        border-radius: 2px;
+    }
+
+    .leaderboard {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+
+    .employee-card {
+        width: 240px;
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        padding: 1.8rem 1.2rem;
+        position: relative;
+        transition: all 0.3s ease;
+        text-align: center;
+        margin-left:0px;
+    }
+
+    .employee-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+            }
+
+            .employee-card.gold {
+                height:310px;
+                top:-20px;
+            }
+            .employee-card.bronze{
+                height:270px;
+                top:20px;
+            }
+            .employee-card.silver{
+                height:290px;
+            }
+
+    .rank {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        z-index: 2;
+    }
+
+    .rank.gold { background: var(--gold); color: var(--text-dark); }
+    .rank.silver { background: var(--silver); color: var(--text-dark); }
+    .rank.bronze { background: var(--bronze); color: var(--text-dark); }
+
+    .crown {
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 50px;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    .profile-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 1.2rem;
+        border: 3px solid white;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+    }
+
+    .position {
+        font-size: 1rem;
+        color: var(--secondary-color);
+        font-weight: 500;
+    }
+
+    .position.bronze{
+        margin-bottom:4px;
+    }
+
+    .stats {
+        display: flex;
+        justify-content: space-around;
+        background: #FDE2F320;
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+            .stats.bronze{
+                padding:0rem 1rem 1rem 1rem;
+            }
+            .stats.silver{
+                padding: 0rem 1rem 1rem 1rem;
+            }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: var(--secondary-color);
+    }
+    .sub-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin: 2rem 100px 0px 100px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--secondary-color);
+    display: inline-block;
+}
+
+.other-employees {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.employee-card.other-card {
+    width: 500px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.employee-card.other-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.employee-left {
+    display: flex;
+    align-items: center;
+}
+
+.profile-img.small-profile {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 3px solid white;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-details .name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.employee-details .position {
+    font-size: 1rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.employee-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-item {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.rank-number {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    background: var(--secondary-color);
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    min-width: 40px;
+    text-align: center;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+    .employee-card.other-card {
+        width: 70%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .employee-left {
+        display: flex;
+        align-items: center;
+    }
+
+    .employee-stats {
+        margin-top: 10px;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
+    }
+
+    .rank-number {
+        top: 10px;
+    }
+
+        .filters {
+            text-align: center;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            background: #f0f0f0;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 0.95rem;
+        }
+
+            .filter-btn:hover,
+            .filter-btn.active {
+                background: var(--secondary-color);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
+            }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1050;
+            top: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px); /* Glassmorphism effect */
+            -webkit-backdrop-filter: blur(15px);
+            overflow-x: hidden;
+            transition: 0.4s ease-in-out;
+            padding-top: 70px;
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+            border-radius: 20px 0 0 20px;
+        }
+
+        .sidebar-content {
+            padding: 20px;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .close-btn:hover {
+                background: var(--secondary-color);
+                color: white;
+                transform: scale(1.1);
+            }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 10px auto;
+            border: 4px solid white;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h3, .sidebar p {
+            margin: 5px 0;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            border-radius: 12px;
+        }
+
+        .statside-bar{
+            background: rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+        }
+
+        #sidebarTasks {
+            margin-top: 20px;
+        }
+
+        #sidebarTaskList {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+            #sidebarTaskList li {
+                padding: 10px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                font-size: 0.95rem;
+            }
+
+                #sidebarTaskList li:last-child {
+                    border-bottom: none;
+                }
+
+        .sidebar-filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+        }
+
+            .sidebar-filters .filter-btn {
+                flex: 1;
+                padding: 8px;
+                text-align: center;
+                font-size: 0.9rem;
+                font-weight: bold;
+                text-decoration: none;
+                color: var(--text-dark);
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 10px;
+                transition: all 0.3s ease;
+            }
+
+                .sidebar-filters .filter-btn:hover,
+                .sidebar-filters .filter-btn.active {
+                    background: var(--secondary-color);
+                    color: white;
+                    transform: translateY(-2px);
+                    box-shadow: 0 3px 10px rgba(25, 118, 210, 0.3);
+                }
+
+        .task-status {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+            .task-status .stat-item {
+                margin-bottom: 8px;
+            }
+
+            .task-status .stat-value {
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: var(--text-dark);
+            }
+
+            .task-status .stat-label {
+                font-size: 0.9rem;
+                color: var(--secondary-color);
+            }
+
+        /* Make sure stats and performance chart are displayed side by side */
+        .statside-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+    @@media (max-width: 768px) {
+        .leaderboard {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .employee-card {
+            width: 90%;
+            max-width: 400px;
+        }
+
+            .other-employees {
+                flex-direction: column;
+                align-items: center;
+            }
+    }
+    @@media (max-width: 1169px){
+            .employee-card{
+                margin-left:0px;
+            }
+
+            }
+</style>
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<div class="main-container">
+    <h2 class="leaderboard-title">Top Puntorët</h2>
+
+    <!-- Add Filters -->
+    <div class="filters">
+        <a asp-action="Leaderboard" asp-route-period="week" asp-route-profession="@ViewBag.Profession" class="filter-btn @(ViewBag.Period == "week" ? "active" : "")">Java</a>
+        <a asp-action="Leaderboard" asp-route-period="month" asp-route-profession="@ViewBag.Profession" class="filter-btn @(ViewBag.Period == "month" ? "active" : "")">Muaj</a>
+        <a asp-action="Leaderboard" asp-route-period="year" asp-route-profession="@ViewBag.Profession" class="filter-btn @(ViewBag.Period == "year" ? "active" : "")">Vit</a>
+        <a asp-action="Leaderboard" asp-route-period="all" asp-route-profession="@ViewBag.Profession" class="filter-btn @(ViewBag.Period == "all" ? "active" : "")">Gjithë kohës</a>
+
+            @if (userRole == "Admin")
+            {
+        <!-- Profession Filter Dropdown -->
+        <select id="professionFilter" onchange="filterByProfession(this.value)" class="filter-btn">
+            <option value="">All Professions</option>
+            <option value="Tester" selected="@(ViewBag.Profession == "Tester" ? "selected" : null)">Tester</option>
+            <option value="IT Support" selected="@(ViewBag.Profession == "IT Support" ? "selected" : null)">IT Support</option>
+            <option value="Cyber Security Specialist" selected="@(ViewBag.Profession == "Cyber Security Specialist" ? "selected" : null)">Cyber Security Specialist</option>
+            <option value="Project Manager" selected="@(ViewBag.Profession == "Project Manager" ? "selected" : null)">Project Manager</option>
+            <option value="Developer" selected="@(ViewBag.Profession == "Developer" ? "selected" : null)">Developer</option>
+        </select>
+            }
+    </div>
+
+    <div class="leaderboard">
+        @if (Model.Count >= 2)
+        {
+            <!-- Silver (2nd Place) -->
+            <div class="employee-card silver"
+                 onclick='showEmployeeDetails(@Html.Raw(Json.Serialize(new {
+        id = Model[1].Id,
+        fullName = Model[1].FullName,
+        profession = Model[1].Profession,
+        profilePicturePath = Model[1].ProfilePicturePath,
+ totalTasks = Model[1].TotalTasks,
+        completedTasks = Model[1].CompletedTasks,
+        inProgressTasks = Model[1].InProgressTasks,
+        pendingTasks = Model[1].PendingTasks,
+        overdueTasks = Model[1].OverdueTasks,
+        performancePercentage = Model[1].PerformancePercentage
+     })))'>
+                <svg class="crown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48">
+                    <defs>
+                        <linearGradient id="silver-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#C0C0C0; stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#E5E4E2; stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#silver-gradient)" d="M24 14l8-10 8 10 6-2 6 2-12 18H24L12 14l6-2 6 2z" />
+                </svg>
+
+                <div class="rank silver">2</div>
+                <img src="@Model[1].ProfilePicturePath" class="profile-img" style="width:100px; height:100px;" alt="@Model[1].FullName">
+                <h3 class="name">@Model[1].FullName</h3>
+                <p class="position">@Model[1].Profession</p>
+                <div class="stats silver">
+                    <div class="stat-item">
+                        <div class="stat-value">@Model[1].PerformancePercentage%</div>
+                        <div class="stat-label">Përqindja e Produktivitetit</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">@Model[1].TotalTasks</div>
+                        <div class="stat-label">Numri i Detyrave</div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if(Model.Count >= 1)
+        {
+            
+        
+        <!-- Gold (1st Place) -->
+            <div class="employee-card gold" onclick='showEmployeeDetails(@Html.Raw(Json.Serialize(new {
+        id = Model[0].Id,
+        fullName = Model[0].FullName,
+        profession = Model[0].Profession,
+        profilePicturePath = Model[0].ProfilePicturePath,
+ totalTasks = Model[0].TotalTasks,
+        completedTasks = Model[0].CompletedTasks,
+        inProgressTasks = Model[0].InProgressTasks,
+        pendingTasks = Model[0].PendingTasks,
+        overdueTasks = Model[0].OverdueTasks,
+        performancePercentage = Model[0].PerformancePercentage
+     })))'>
+                <svg class="crown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48">
+                    <defs>
+                        <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FFD700; stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#FFEC8B; stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#gold-gradient)" d="M24 14l8-10 8 10 6-2 6 2-12 18H24L12 14l6-2 6 2z" />
+                </svg>
+
+
+                <div class="rank gold">1</div>
+                <img src="@Model[0].ProfilePicturePath" class="profile-img" style="width:100px; height:100px;"  alt="@Model[0].FullName">
+                <h3 class="name">@Model[0].FullName</h3>
+                <p class="position">@Model[0].Profession</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">@Model[0].PerformancePercentage%</div>
+                        <div class="stat-label">Përqindja e Produktivitetit</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">@Model[0].TotalTasks</div>
+                        <div class="stat-label">Numri i Detyrave</div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.Count >= 3)
+        {
+            
+        
+            <!-- Bronze (3rd Place) -->
+            <div class="employee-card bronze" onclick='showEmployeeDetails(@Html.Raw(Json.Serialize(new {
+        id = Model[2].Id,
+        fullName = Model[2].FullName,
+        profession = Model[2].Profession,
+        profilePicturePath = Model[2].ProfilePicturePath,
+ totalTasks = Model[2].TotalTasks,
+        completedTasks = Model[2].CompletedTasks,
+        inProgressTasks = Model[2].InProgressTasks,
+        pendingTasks = Model[2].PendingTasks,
+        overdueTasks = Model[2].OverdueTasks,
+        performancePercentage = Model[2].PerformancePercentage
+     })))'>
+                <svg class="crown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48">
+                    <defs>
+                        <linearGradient id="bronze-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#CD7F32; stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#E6BE8A; stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#bronze-gradient)" d="M24 14l8-10 8 10 6-2 6 2-12 18H24L12 14l6-2 6 2z" />
+                </svg>
+
+                <div class="rank bronze">3</div>
+                <img src="@Model[2].ProfilePicturePath" class="profile-img" style="width:100px; height:100px;" alt="@Model[2].FullName">
+                <h3 class="name">@Model[2].FullName</h3>
+                <p class="position bronze">@Model[2].Profession</p>
+                <div class="stats bronze">
+                    <div class="stat-item">
+                        <div class="stat-value">@Model[2].PerformancePercentage%</div>
+                        <div class="stat-label">Përqindja e Produktivitetit</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">@Model[2].TotalTasks</div>
+                        <div class="stat-label">Numri i Detyrave</div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Other Employees (4th and onwards) -->
+        @if (Model.Count > 3)
+        {
+            <h3 class="sub-title">Punonjësit e Tjerë</h3>
+            <div class="other-employees">
+                @for (int i = 3; i < Model.Count; i++)
+                {
+                    <div class="employee-card other-card"
+                         onclick='showEmployeeDetails(@Html.Raw(Json.Serialize(new {
+                             id = Model[i].Id,
+                             fullName = Model[i].FullName,
+                             profession = Model[i].Profession,
+                             profilePicturePath = Model[i].ProfilePicturePath,
+                             totalTasks = Model[i].TotalTasks,
+                             completedTasks = Model[i].CompletedTasks,
+                             inProgressTasks = Model[i].InProgressTasks,
+                             pendingTasks = Model[i].PendingTasks,
+                             overdueTasks = Model[i].OverdueTasks,
+                             performancePercentage = Model[i].PerformancePercentage
+                         })))'>
+                        <div class="employee-left">
+                            <img src="@Model[i].ProfilePicturePath" class="profile-img small-profile" alt="@Model[i].FullName" />
+                            <div class="employee-details">
+                                <h4 class="name">@Model[i].FullName</h4>
+                                <p class="position">@Model[i].Profession</p>
+                            </div>
+                        </div>
+                        <div class="employee-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">@Model[i].PerformancePercentage%</div>
+                                <div class="stat-label">Përqindja e Produktivitetit</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">@Model[i].TotalTasks</div>
+                                <div class="stat-label">Numri i Detyrave</div>
+                            </div>
+                        </div>
+                        <!-- Show the rank number for the 'other' employees -->
+                        <div class="rank-number">@(@i + 1)</div>
+                    </div>
+                }
+            </div>
+        }
+        
+
+        <!-- SIDEBAR FOR EMPLOYEE DETAILS -->
+        <div id="employeeSidebar" class="sidebar">
+            <div class="sidebar-content">
+                <!-- Filters inside sidebar -->
+                <div class="sidebar-filters">
+                    <a href="javascript:void(0);" class="filter-btn" onclick="changeSidebarFilter('week')">Java</a>
+                    <a href="javascript:void(0);" class="filter-btn" onclick="changeSidebarFilter('month')">Muaj</a>
+                    <a href="javascript:void(0);" class="filter-btn" onclick="changeSidebarFilter('year')">Vit</a>
+                    <a href="javascript:void(0);" class="filter-btn active" onclick="changeSidebarFilter('all')">Të Gjitha</a>
+                </div>
+
+                <span class="close-btn" onclick="closeEmployeeDetails()">&times;</span>
+                <img id="sidebarProfileImg" class="profile-img" src="" alt="Profile Image" />
+                <h3 id="sidebarName"></h3>
+                <p id="sidebarPosition"></p>
+
+                <div class="stats statside-bar">
+                    <div class="stat-item">
+                        <div class="stat-value" id="sidebarPerformance"></div>
+                        <div class="stat-label">Përqindja e Produktivitetit</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="sidebarTotalTasks"></div>
+                        <div class="stat-label">Numri i Detyrave</div>
+                    </div>
+                </div>
+
+                <div class="stats statside-bar">
+                    <div class="stat-item task-stats">
+                        <div class="task-status">
+                            <div class="stat-item">
+                                <div class="stat-value" id="sidebarCompletedTasks"></div>
+                                <div class="stat-label">Të Përfunduara</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="sidebarInProgressTasks"></div>
+                                <div class="stat-label">Në Progres</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="sidebarPendingTasks"></div>
+                                <div class="stat-label">Në Pritje</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="sidebarOverdueTasks"></div>
+                                <div class="stat-label">Të Vonuara</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <canvas id="performanceChart" width="180" height="180"></canvas>
+                    </div>
+                </div>
+
+                <div id="sidebarTasks">
+                    <h4>Detyrat e Fundit</h4>
+                    <ul id="sidebarTaskList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let performanceChart = null;
+    // Store selected employee's full task list
+    let selectedEmployeeId = null;
+    let sidebarCurrentFilter = '@ViewBag.Period';
+
+    // Function to filter sidebar tasks from the controller via AJAX
+    function filterSidebarTasks(period) {
+        if (!selectedEmployeeId) return;
+
+
+        fetch(`/Users/GetUserTasks?userId=${selectedEmployeeId}&period=${period}`)
+            .then(response => response.json())
+            .then(tasks => {
+                let totalTasks = tasks.length;
+                let pendingTasks = tasks.filter(t => t.status === "Në Pritje").length;
+                let completedTasks = tasks.filter(t => t.status === "Të Përfunduara").length;
+                let inProgressTasks = tasks.filter(t => t.status === "Në Progres").length;
+                let overdueTasks = tasks.filter(t => t.status === "Të Vonuara").length;
+
+                let performanceScore = totalTasks === 0 ? 0 :
+                    ((completedTasks * 1.0) + (inProgressTasks * 0.5) - (overdueTasks * 0.75)) / totalTasks * 100;
+
+                performanceScore = Math.max(0, Math.round(performanceScore * 100) / 100); // Round to 2 decimal places
+
+                // ✅ Update Sidebar Stats
+                document.getElementById('sidebarTotalTasks').innerText = totalTasks;
+                document.getElementById('sidebarCompletedTasks').innerText = completedTasks;
+                document.getElementById('sidebarPendingTasks').innerText = pendingTasks;
+                document.getElementById('sidebarInProgressTasks').innerText = inProgressTasks;
+                document.getElementById('sidebarOverdueTasks').innerText = overdueTasks;
+                document.getElementById('sidebarPerformance').innerText = performanceScore + "%";
+
+                // ✅ Update Task List in Sidebar
+                const taskList = document.getElementById('sidebarTaskList');
+                taskList.innerHTML = tasks.length === 0
+                    ? '<li>No tasks found for this period.</li>'
+                    : tasks.map(task => `<li>${task.title} - ${task.status}</li>`).join("");
+
+                // ✅ Update Chart with Filtered Data
+                updatePerformanceChart(completedTasks, inProgressTasks, pendingTasks, overdueTasks);
+            })
+            .catch(error => console.error("Error fetching tasks:", error));
+    }
+
+
+    function showEmployeeDetails(employee) {
+        selectedEmployeeId = employee.id;
+
+        document.getElementById('sidebarProfileImg').src = employee.profilePicturePath;
+        document.getElementById('sidebarName').innerText = employee.fullName;
+        document.getElementById('sidebarPosition').innerText = employee.profession;
+
+        // ✅ Update sidebar statistics dynamically
+        document.getElementById('sidebarTotalTasks').innerText = employee.totalTasks ?? 0;
+        document.getElementById('sidebarCompletedTasks').innerText = employee.completedTasks ?? 0;
+        document.getElementById('sidebarInProgressTasks').innerText = employee.inProgressTasks ?? 0;
+        document.getElementById('sidebarPendingTasks').innerText = employee.pendingTasks ?? 0;
+        document.getElementById('sidebarOverdueTasks').innerText = employee.overdueTasks ?? 0;
+
+        // ✅ Calculate Performance Score Using Your Formula
+        let totalTasks = employee.totalTasks ?? 0;
+        let completedTasks = employee.completedTasks ?? 0;
+        let inProgressTasks = employee.inProgressTasks ?? 0;
+        let overdueTasks = employee.overdueTasks ?? 0;
+
+        let performanceScore = totalTasks === 0 ? 0 :
+            ((completedTasks * 1.0) + (inProgressTasks * 0.5) - (overdueTasks * 0.75)) / totalTasks * 100;
+
+        performanceScore = Math.max(0, Math.round(performanceScore * 100) / 100); // Ensures no negative scores
+
+        // ✅ Update Sidebar Performance Display
+        document.getElementById('sidebarPerformance').innerText = performanceScore + "%";
+
+        // ✅ Update Chart with real values
+        updatePerformanceChart(
+            employee.completedTasks,
+            employee.inProgressTasks,
+            employee.pendingTasks,
+            employee.overdueTasks
+        );
+
+
+        // ✅ Set sidebar filter to the same as the leaderboard
+        changeSidebarFilter(sidebarCurrentFilter);
+
+        // ✅ Open sidebar
+        document.getElementById('employeeSidebar').style.width = '380px';
+    }
+
+    // ✅ 4. Ensure sidebar filters match leaderboard filter on page load
+    document.addEventListener("DOMContentLoaded", function () {
+        let leaderboardCurrentFilter = '@ViewBag.Period';
+
+        // ✅ Remove "active" from all leaderboard filter buttons
+        document.querySelectorAll('.filters .filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // ✅ Add "active" to the correct filter button
+        let activeFilterButton = document.querySelector(`.filters .filter-btn[href*="period=${leaderboardCurrentFilter}"]`);
+        if (activeFilterButton) {
+            activeFilterButton.classList.add('active');
+        }
+    });
+
+    // Function to update or create performance chart
+    function updatePerformanceChart(completed, inProgress, pending, overdue) {
+        let ctx = document.getElementById('performanceChart').getContext('2d');
+
+        if (performanceChart) {
+            performanceChart.destroy(); // Destroy previous instance
+        }
+
+        performanceChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ["Të Përfunduara", "Në Progres", "Në Pritje", "Të Vonuara"],
+                datasets: [{
+                    data: [completed, inProgress, pending, overdue], // Data values
+                    backgroundColor: ["#4CAF50", "#FFC107", "#2196F3", "#F44336"], // Green, Yellow, Blue, Red
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                cutout: '60%', // Makes it a doughnut
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+
+    function filterByProfession(profession) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('profession', profession);
+        window.location.href = url.toString();
+    }
+
+    // Function to change sidebar filters
+    function changeSidebarFilter(period) {
+        sidebarCurrentFilter = period;
+        document.querySelectorAll('.sidebar-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.sidebar-filters .filter-btn[onclick="changeSidebarFilter('${period}')"]`).classList.add('active');
+        filterSidebarTasks(period);
+    }
+
+    // Function to close the sidebar
+    function closeEmployeeDetails() {
+        document.getElementById('employeeSidebar').style.width = '0';
+    }
+
+</script>

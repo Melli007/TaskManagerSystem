@@ -1,0 +1,326 @@
+﻿@model IEnumerable<ETechTaskManager.Models.NotificationsViewModel> // Updated to an enumerable model
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+
+
+<style>
+    :root {
+    --Red: hsl(1, 90%, 64%);
+    --Blue: hsl(219, 85%, 26%);
+    --White: hsl(0, 0%, 100%);
+    --Very-light-grayish-blue: hsl(210, 60%, 98%);
+    --Light-grayish-blue-1: hsl(211, 68%, 94%);
+    --Light-grayish-blue-2: hsl(205, 33%, 90%);
+    --Grayish-blue: hsl(219, 14%, 63%);
+    --Dark-grayish-blue: hsl(219, 12%, 42%);
+    --Very-dark-blue: hsl(224, 21%, 14%);
+}
+
+body {
+    margin: 0px;
+    font-family: "Plus Jakarta Sans";
+    background-color: var(--Very-light-grayish-blue);
+    min-height: 10vh;
+}
+
+.container {
+    width: 400px;
+    max-width: 100%;
+    margin: 0 auto;
+    border: 1px black solid;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 15px;
+    border: none;
+    background-color: var(--White);
+    height: 100%;
+    margin-top:15px;
+}
+
+.top-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24%;
+    height: 83px;
+}
+
+.left-top {
+    display: flex;
+    align-items: center;
+}
+
+    .left-top div {
+        border: 1px black solid;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 3px;
+        border-radius: 5px;
+        background-color: var(--Blue);
+        color: var(--White);
+        align-items: center;
+        margin-left: 10px;
+    }
+
+.to-be-read {
+    font-weight: 800;
+}
+
+.right-top p {
+    width: 156px;
+    font-weight: 800;
+    color: var(--Dark-grayish-blue);
+    cursor: pointer;
+    margin-left: 23px;
+}
+
+.information {
+    margin-left: 20px;
+}
+
+.messages > * {
+    margin-bottom: 10px;
+}
+
+.unread-message img,
+.read-message img {
+    width: 50px;
+}
+
+.unread-message img {
+    margin-left: 20px;
+}
+
+.read-message img {
+    margin-top: 1rem;
+}
+
+.unread-message,
+.top-information {
+    display: flex;
+    align-items: center;
+}
+
+.unread-message {
+    border: 1px black solid;
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    background-color: var(--Light-grayish-blue-1);
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+}
+
+.read-message {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+    .read-message article {
+        border: 1px rgb(184, 184, 184) solid;
+        border-radius: 5px;
+        color: var(--Dark-grayish-blue);
+        font-weight: 500;
+        font-size: 0.9rem;
+        padding: 15px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        width: 490px;
+        max-width: 100%;
+    }
+
+.comment-image {
+    cursor: pointer;
+    justify-content: end;
+}
+
+.read-message article:hover {
+    background-color: var(--Light-grayish-blue-2);
+}
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: var(--Red);
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    align-items: flex-end;
+}
+
+.time {
+    margin-top: 10px;
+    font-weight: 500;
+    color: var(--Dark-grayish-blue);
+}
+
+
+.CC {
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.CC {
+    color: var(--Dark-grayish-blue);
+}
+
+
+
+    .CC:hover {
+        color: var(--Blue);
+    }
+
+.kimberly {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.close {
+    margin-top: 83px;
+  left: 42%;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  background: #455A64;
+  border-radius: 50%;
+  box-shadow: 0 0 20px -5px rgba(255, 255, 255, 0.5);
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+  animation: fade-in 0.5s ease-out 0.25s both;
+}
+
+@@keyframes fade-in {
+  from { opacity: 0; transform: scale(1.1); }
+}
+
+.close .circle path {
+  stroke: rgba(255, 255, 255, 1);
+  fill: none;
+  stroke-width: 1px;
+  stroke-linecap: round;
+  animation: progress 0.5s ease-out 0.25s both;
+}
+
+@@keyframes progress {
+  from { stroke-dasharray: 0 100; }
+}
+
+.close span {
+  margin: 4px;
+  display: block;
+  width: 6px;
+  height: 2px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 20px -5px rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  position: absolute;
+  transition: 0.25s ease-in-out;
+  animation: slide-in 0.5s ease-in-out 0.25s both;
+}
+
+@@keyframes slide-in {
+  from { width: 0; }
+}
+
+.close span:nth-child(1) {
+  top: 18px;
+  left: 20px;
+  transform: rotate(45deg);
+  transform-origin: top left;
+}
+
+.close span:nth-child(2) {
+  top: 18px;
+  right: 20px;
+  transform: rotate(-45deg);
+  transform-origin: top right;
+}
+
+.close span:nth-child(3) {
+  bottom: 18px;
+  left: 20px;
+  transform: rotate(-45deg);
+  transform-origin: bottom left;
+}
+
+.close span:nth-child(4) {
+  bottom: 18px;
+  right: 20px;
+  transform: rotate(45deg);
+  transform-origin: bottom right;
+}
+
+.close:hover {
+  background: #37474F;
+}
+
+.close:hover span {
+  width: 11px;
+}
+
+
+</style>
+
+    <main class="container">
+        <div class="top-container">
+            <div class="left-top">
+                <h1>Notifications</h1>
+                <div id="to-be-read">@Model.Count(m => !m.IsRead)</div>
+            </div>
+            <div class="right-top"> 
+                <p id="mark-as-read">Mark as read</p>
+            </div>
+        </div>
+        <div class="messages">
+            @foreach (var notification in Model)
+            {
+                <div class="@(notification.IsRead ? "read-message" : "unread-message")">
+                    <div class="information">
+                        <div class="top-information">
+                            <p>
+                                <span>@notification.User?.FullName</span>
+                                @notification.Type
+                                <c class="CC">@notification.Message</c>
+                            </p>
+                            @if (!notification.IsRead)
+                            {
+                                <span class="dot"></span>
+                            }
+                        </div>
+                        <p class="time">@notification.Date.ToString("g")</p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="close">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <svg viewBox="0 0 36 36" class="circle">
+    <path
+      stroke-dasharray="100, 100"
+      d="M18 2.0845
+        a 15.9155 15.9155 0 0 1 0 31.831
+        a 15.9155 15.9155 0 0 1 0 -31.831"
+    />
+  </svg>
+</div>
+    </main>
+
+    <script src="~/js/index.js"></script>
+

@@ -1,0 +1,2870 @@
+﻿@model IEnumerable<EtechTaskManager.Models.MessagesViewModel>
+
+@{
+    ViewData["Title"] = "Get Messages By User";
+    var userId = ViewData["UserId"] != null ? (int)ViewData["UserId"] : 0;
+    var userName = ViewData["UserName"];
+    var FullName = ViewData["FullName"];
+    var currentContactId = ViewData["CurrentContactId"] != null ? (int)ViewData["CurrentContactId"] : 0;
+}
+
+@section Styles {
+    <style>
+        .container{
+            width:100%;
+        }
+        .side-bar{
+            min-height:100vh;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #56CCF2 0%, #2F80ED 100%);
+            height: 100vh;
+        }
+
+        .top-bar-wrapper {
+            position: relative; /* Allows search-results to position relative to this container */
+            z-index: 1000; /* Ensures it stays on top */
+        }
+
+        .search-results-wrapper {
+            position: absolute;
+            top: 100%; /* Position it right below the top bar */
+            left: 0;
+            width: 100%; /* Ensure it takes the full width of the container */
+            z-index: 200; /* Make sure it appears above other elements */
+        }
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            padding: 20px 20px 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Wrap the search area and buttons */
+        .search-section {
+            display: flex;
+            flex-direction: column; /* Stack the search bar and buttons vertically */
+            align-items: flex-start; /* Align items to the left */
+            gap: 10px; /* Add spacing between the search bar and buttons */
+        }
+
+        .search-area {
+            position:relative;
+            display: flex;
+            align-items: center;
+            background: #f5f5f5; /* light background, as in screenshot */
+            border-radius: 20px;
+            padding: 5px 10px;
+            width: 258px; /* pick the width that fits your top bar */
+            gap: 8px; /* space between icons/input */
+            z-index:100;
+        }
+
+            .search-area input {
+                flex: 1;
+                border: none;
+                background: transparent;
+                outline: none;
+                font-size: 14px;
+                color: #333;
+                padding: 5px 0;
+            }
+
+            .search-area:hover {
+                background: #eee;
+            }
+
+        /* Buttons container styling */
+        .search-mode-container {
+            display: flex;
+            gap: 8px; /* Spacing between buttons */
+            margin-top: -3px; /* Adjust space between search bar and buttons */
+            justify-content: flex-start; /* Align buttons to the left */
+        }
+
+        /* Buttons */
+        .search-mode {
+            padding: 6px 10px; /* Adjust padding for a sleek design */
+            border: 1px solid #2A3942; /* Border to match screenshot */
+            border-radius: 14px; /* Rounded corners */
+            background-color: #262931; /* Background color */
+            color: #8696A0; /* Light text color */
+            font-size: 14px; /* Font size */
+            font-weight: 600; /* Font weight for boldness */
+            cursor: pointer;
+            transition: all 0.2s ease; /* Smooth hover transition */
+        }
+
+            /* Hover and Active Styles */
+            .search-mode:hover {
+                background-color: #2A3942; /* Slightly lighter background on hover */
+                color: #D1D7DB; /* Brighter text on hover */
+            }
+
+            .search-mode.active {
+                background-color: #2F80ED; /* Active button background (green) */
+                color: #FFFFFF; /* White text for active button */
+                border-color: #2F80ED; /* Green border for active button */
+                box-shadow: 0px 1px 4px rgba(0, 168, 132, 0.6); /* Subtle shadow for depth */
+            }
+
+        /* The SVG icons in the top bar */
+        .search-icon, .plus-icon {
+            cursor: pointer;
+        }
+
+            .search-icon path,
+            .plus-icon path {
+                transition: fill 0.2s;
+            }
+
+            .search-icon:hover path {
+                fill: #666;
+            }
+
+            .plus-icon:hover path {
+                fill: #666;
+            }
+
+        .top-bar .user-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative; /* Ensures content stays above the shape */
+            z-index: 1; /* Ensures content stays above the shape */
+        }
+
+        .top-bar .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Aligns text to the left */
+            position: relative; /* Ensures content stays above the shape */
+        }
+
+        .top-bar .user-name {
+            font-size: 14px;
+            margin-left: 25px;
+            font-weight: bold;
+            color: #333;
+            position: relative;
+        }
+
+        .top-bar .user-status {
+            font-size: 12px;
+            color: #00FF00; /* Green color for "Online" */
+            font-weight: normal;
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .top-bar .user-avatar {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+            .top-bar .user-avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border: 3px solid #fff; /* White border around the image */
+                border-radius: 50%; /* Ensures the border follows the circular shape */
+                box-sizing: border-box; /* Ensures the border is inside the container dimensions */
+                box-shadow: 0 0 0 0.5px #999;
+                background: #999;
+            }
+
+        .user-shape {
+            position: absolute;
+            top: -32.2px;
+            right: -48px;
+            width: 350px;
+            height: 104px;
+            background: linear-gradient(to right, #2F80ED, #56CCF2);
+            transform: skewX(-20deg);
+            z-index: 0;
+            clip-path: polygon(86.6% 0, 97.3% 98%, 1% 98%, 10% 0);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        /* Container */
+        .containerChat {
+            display: flex;
+            height: calc(94vh - 60px); /* 60px approx. for top bar height */
+            width: 100%;
+            margin: 0 auto;
+            background: #eaeff7;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 0px 0px 10px 0px;
+            overflow: visible;
+            position: relative;
+            margin-bottom: 3px;
+        }
+
+        /* Contact Panel */
+        .contact-panel {
+            width: 280px;
+            background: linear-gradient(to bottom right, #E0E7FF 0%, #a7c9f2 100%);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index:1;
+        }
+
+        .contact-list {
+            flex: 1;
+            overflow-y: auto; /* Enables vertical scrolling */
+            max-height: calc(100vh - 50px); /* Adjust to leave space for the header and any padding */
+            position: relative;
+
+        }
+
+            .contact-list::-webkit-scrollbar {
+                width: 8px; /* Width of the scrollbar */
+                background: none !important;
+              
+            }
+
+            .contact-list::-webkit-scrollbar-track {
+                background: #f1f1f1; /* Background color of the track */
+                border-radius: 4px; /* Rounded corners for the track */
+                margin-top: 30px; /* Adds spacing above the scrollbar track */
+                margin-bottom: 30px; /* Adds spacing below the scrollbar track */
+            }
+
+            .contact-list::-webkit-scrollbar-thumb {
+                background: #999; /* Color of the scrollbar thumb */
+                border-radius: 4px; /* Rounded corners for the thumb */
+                height: 50%; /* Reduce scrollbar thumb height by 50% */
+                transform: scaleY(0.5); /* Visually scales the scrollbar height */
+            }
+
+                .contact-list::-webkit-scrollbar-thumb:hover {
+                    background: #666; /* Darker color when hovered */
+                }
+
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 4px;
+            padding-top: 35px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+            position: relative;
+        }
+
+            .contact-item:hover {
+                background: linear-gradient(to left, #b3d0f5 0%, #56ccf2 100%);
+            }
+
+            .contact-item.active {
+                background: linear-gradient(to left, #b3d0f5 0%, #56ccf2 100%);
+                font-weight: bold;
+            }
+
+                .contact-item.active .contact-name,
+                .contact-item.active .contact-lastmsg,
+                .contact-item.active .contact-time {
+                    color: #fff;
+                }
+
+        .contact-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-name {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .contact-lastmsg {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .contact-time {
+            font-size: 12px;
+            color: #333;
+            font-weight:600;
+            margin-left: 63px;
+        }
+
+        /* Add a hidden SVG container */
+        .contact-time-container {
+            position: relative;
+            margin-left: auto;
+        }
+
+            .contact-time-container .hover-icon {
+                display: none;
+                position: absolute;
+                top: 55%;
+                left: 84%;
+                transform: translateX(-50%);
+                width: 18px;
+                height: 18px;
+                fill: #2F80ED;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+                opacity: 0;
+                margin-top: 10px;
+            }
+
+        .contact-item:hover .hover-icon {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Chat Area */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            position: relative;
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background: #fff;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-header-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .chat-header-status {
+            font-size: 12px;
+            opacity: 0.7;
+            color: #00FF00; /* Light green for "Online" */
+        }
+
+        .status-online {
+            color: #00FF00; /* Light green for "Online" */
+            font-weight: bold;
+        }
+
+        .status-offline {
+            color: #999999; /* Light Gray for "Offline"*/
+            font-weight: normal;
+        }
+
+        .online-dot {
+            position: absolute;
+            bottom: 31px; /* adjust as needed to position the dot */
+            right: 2px; /* adjust as needed */
+            width: 10px;
+            height: 10px;
+            background-color: #00FF00; /* bright green */
+            border: 2px solid #fff; /* white border if you want a ring around the dot */
+            border-radius: 50%; /* circle shape */
+        }
+
+        .dot-online {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 5px; /* space between dot and text */
+            border-radius: 50%;
+            background-color: #00FF00; /* green */
+            vertical-align: middle; /* aligns with text */
+        }
+
+        .dot-offline {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 5px;
+            border-radius: 50%;
+            background-color: #999999; /* gray */
+            vertical-align: middle;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f9f9f9;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            max-width: fit-content;
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.4;
+            color: #333;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+            word-wrap: break-word;
+        }
+
+            .message.from-other {
+                background: #fff;
+                align-self: flex-start;
+                position:relative;
+            }
+
+
+                .message.from-other::after {
+                    content: "";
+                    position: absolute;
+                    left: -10px;
+                    top: 15px;
+                    width: 0;
+                    height: 0;
+                    border: 10px solid transparent;
+                    border-right-color: #fff;
+                }
+
+            .message.from-me {
+                background: #2F80ED;
+                color: #fff;
+                margin-left: auto; /* Pushes the message to the right */
+                align-self: flex-end;
+                position:relative;
+            }
+
+                .message.from-me::after {
+                    content: "";
+                    position: absolute;
+                    right: -10px;
+                    top: 15px;
+                    width: 0;
+                    height: 0;
+                    border: 10px solid transparent;
+                    border-left-color: #2F80ED;
+                }
+
+                .message.from-me .message-info {
+                    color: #fff;
+                }
+
+        .message-info {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 11px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* ====== Chat Input Bar ====== */
+        .chat-input-bar {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px 15px;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.1); /* Slight shadow for depth */
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            flex: 1; /* Takes up remaining space */
+            background-color: #f2f2f2;
+            border-radius: 25px; /* Rounded, “pill” shape */
+            padding: 8px 22px;
+            margin-right: 10px; /* Spacing before the send button */
+        }
+
+            .input-wrapper input {
+                flex: 1; /* Let the text field stretch */
+                border: none;
+                background: transparent;
+                outline: none;
+                font-size: 14px;
+                padding: 0 8px; /* Some breathing room on left/right */
+                color: #333;
+            }
+
+            .input-wrapper .icon {
+                cursor: pointer;
+                margin: 0 1px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 24px; /* or whatever fits your design */
+                height: 28px;
+                transition: fill 0.2s;
+            }
+
+                .input-wrapper .icon:hover path {
+                    fill: #666; /* Darken on hover */
+                    transform: scale(1.1); /* Slightly enlarge the icon */
+                }
+
+                .input-wrapper .icon:hover circle:nth-of-type(2),
+                .input-wrapper .icon:hover circle:nth-of-type(3) {
+                    fill: #666; /* Darken the fill color for the second and third circles */
+                    transform: scale(1.1);
+                }
+
+                .input-wrapper .icon:hover circle:nth-of-type(1) {
+                    stroke: #666; /* Change the stroke color of the first circle on hover */
+                    transform: scale(1.1);
+                }
+
+        .chat-input-bar button {
+            background-color: #2F80ED;
+            color: #fff;
+            border: none;
+            border-radius: 25px; /* Matching the pill shape */
+            padding: 10px 20px; /* Comfortable click/tap target */
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+
+            .chat-input-bar button:hover {
+                background-color: #1b5fbf;
+            }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #eee;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #999;
+            border-radius: 3px;
+        }
+
+        .contact-avatar, .chat-header-avatar {
+            position: relative; /* Ensures pseudo-elements are positioned correctly */
+            width: 44px;
+            height: 44px;
+            background: #999;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+            .contact-avatar img, .chat-header-avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border: 3px solid #fff;
+                border-radius: 50%;
+                box-sizing: border-box;
+                box-shadow: 0 0 0 0.5px #999;
+            }
+
+        .plus-icon {
+            cursor: pointer;
+            transition: transform 0.3s ease, stroke 0.3s ease, fill 0.3s ease;
+        }
+
+            .plus-icon:hover {
+                transform: scale(1.1);
+            }
+
+            .plus-icon path {
+                transition: stroke 0.3s ease, fill 0.3s ease;
+            }
+
+            .plus-icon:hover path {
+                stroke: #00BFFF;
+                fill: none !important;
+            }
+
+        /*
+                   Hidden Panel for listing all users,
+                   same dimensions as contact panel, overlay on top,
+                   slides in from the left
+                */
+        #all-users-panel {
+            position: absolute;
+            top: 155px;
+            left:215px;
+            width: 280px;
+            height: 85.3%;
+            background: linear-gradient(to bottom right, #E0E7FF 0%, #a7c9f2 100%);
+            z-index: 999;
+            transform: translateX(-185%);
+            transition: transform 0.3s ease-in-out;
+            box-sizing: border-box;
+        }
+
+            /* Slide in when .show is toggled */
+            #all-users-panel.show {
+                transform: translateX(0);
+            }
+
+            #all-users-panel h4 {
+                display:flex;
+                justify-content:center;
+                margin: 10px 0 15px 0;
+                color: #333;
+            }
+
+        /* Mimic the contact list style for the new users list */
+        #all-users-list {
+            flex: 1;
+            overflow-y: auto;
+            margin: 0 0px 10px 0px;
+            max-height: calc(100vh - 150px); /* Adjust height based on your layout */
+            position: relative;
+        }
+
+            /* Optional Custom Scrollbar Styling */
+            #all-users-list::-webkit-scrollbar {
+                width: 8px; /* Width of the scrollbar */
+                background: none !important;
+            }
+
+            #all-users-list::-webkit-scrollbar-track {
+                background: #f1f1f1; /* Background color of the track */
+                border-radius: 4px; /* Rounded corners for the track */
+            }
+
+            #all-users-list::-webkit-scrollbar-thumb {
+                background: #999; /* Color of the scrollbar thumb */
+                border-radius: 4px; /* Rounded corners for the thumb */
+            }
+
+                #all-users-list::-webkit-scrollbar-thumb:hover {
+                    background: #666; /* Darker color when hovered */
+                }
+
+
+        /* Let's define a class for each user item in the panel */
+        .all-user-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 10px; /* same style as contact items, with some spacing */
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+            position: relative;
+        }
+
+            .all-user-item:hover {
+                background: linear-gradient(to left, #b3d0f5 0%, #56ccf2 100%);
+            }
+
+        /* Make emojionearea editor more chat-like (optional) */
+        .emojionearea .emojionearea-editor {
+            min-height: 26px; /* adjust for your design */
+            padding: 6px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            color: #333;
+        }
+
+            /* Override EmojiOneArea Editor Styles */
+            .emojionearea .emojionearea-editor {
+                background-color: transparent !important;
+                border: none !important;
+                outline: none !important;
+                color: #333 !important;
+            }
+
+        /* Optionally, override other styles if needed */
+        .emojionearea {
+            border: none !important;
+            background-color: transparent !important;
+            -webkit-box-shadow: none !important;
+             box-shadow:none !important;
+            -webkit-transition: none !important;
+            transition: none !important;
+        }
+
+
+        .emojionearea .emojionearea-picker.emojionearea-picker-position-bottom{
+            top:-288px !important;
+                right: -35px !important;
+        }
+        /* Hide the default EmojiOneArea button (the smiley icon) */
+        .emojionearea .emojionearea-button {
+            display: none !important;
+        }
+
+            .emojionearea .emojionearea-picker.emojionearea-picker-position-bottom .emojionearea-wrapper:after {
+                width: 19px;
+                height: 10px;
+                background-position: -2px -45px !important;
+                top: 272px !important;
+                right: 2px !important;
+            }
+
+        /* If you want no toolbar at all, you can do:
+                   .emojionearea .emojionearea-button, .emojionearea .emojionearea-filters,
+                   .emojionearea .emojionearea-tabs { display: none !important; }
+                */
+        #file-preview {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+            #file-preview img,
+            #file-preview video {
+                max-width: 80px;
+                max-height: 80px;
+                border-radius: 6px;
+                margin-left: 5px;
+            }
+
+        /* Style for the "remove file" (X) button */
+        .remove-preview {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f00;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .unread-circle {
+            width: 20px;
+            height: 20px;
+            background-color: #2F80ED; /* Red color for unread */
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left:40px;
+            margin-top: 2px;
+            position:absolute;
+        }
+
+        .scroll-to-bottom {
+            position: absolute;
+            bottom: 80px; /* Adjust this to position above your input bar */
+            right: 440px; /* Adjust this for the horizontal position */
+            width: 34px;
+            height: 34px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
+        }
+
+            .scroll-to-bottom svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .scroll-to-bottom.show {
+                opacity: 1;
+                visibility: visible;
+            }
+
+        .date-group {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .date-header {
+            text-align: center;
+            font-weight: bold;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .search-results {
+            position: absolute;
+            top: calc(100% + 5px); /* Add slight spacing below input */
+            left: 0;
+            width: calc(100% - 2px); /* Align with input, considering padding or border */
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .dropdown-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid #eee;
+        }
+
+            .dropdown-item:hover {
+                background: #f0f0f0;
+            }
+
+            .dropdown-item div:first-child {
+                font-weight: bold;
+                margin-bottom: 4px;
+            }
+
+            .dropdown-item div:last-child {
+                font-size: 14px;
+                color: #666;
+            }
+           .highlight {
+    animation: highlightFlash 2s ease;
+    background-color: #ffeb3b !important;
+}
+
+@@keyframes highlightFlash {
+    0%   { background-color: #ffeb3b; }
+    50%  { background-color: #fff176; }
+    100% { background-color: #ffeb3b; }
+}
+
+        /* Parent container for the arrow icon; hidden by default */
+        .message .message-options {
+            display: none; /* Hide by default */
+            /* If your .message is position:relative, this will place arrow absolutely */
+        }
+
+        /* Show the arrow when hovering the entire message bubble */
+        .message:hover .message-options {
+            display: block;
+        }
+
+        /* Button (the arrow) – style as needed */
+            .options-button{
+        position: absolute;
+        bottom: 2px;
+        right: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        padding: 7px 0px 0px 0px;
+        margin-right: -4px;
+        width: 30px;
+        height: 30px;
+        background-color: #2F80ED;
+        border-radius: 50%;
+    }
+        
+        
+
+        /* The dropdown menu itself */
+        .options-menu {
+            position: absolute;
+            top: 90%; /* just below the arrow button */
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-width: 80px;
+            display: none; /* Hide by default */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+
+            /* Show the menu when we toggle a `.show` class in JS */
+            .options-menu.show {
+                display: block;
+            }
+
+        .delete-options-menu {
+            position: absolute;
+            top: 230%; /* Just below the hover-icon */
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-width: 80px;
+            display: none; /* Hidden by default */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            width: 122px;
+        }
+
+            .delete-options-menu.show {
+                display: block; /* Visible only when the .show class is added */
+            }
+
+        .options-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+            transition: background 0.2s;
+        }
+
+            .options-item:hover {
+                background: #f0f0f0;
+            }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .modal-btn.cancel {
+                background-color: #f0f0f0;
+                color: #333;
+            }
+
+                .modal-btn.cancel:hover {
+                    background-color: #ddd;
+                }
+
+            .modal-btn.delete {
+                background-color: #f44336;
+                color: #fff;
+            }
+
+                .modal-btn.delete:hover {
+                    background-color: #e53935;
+                }
+
+            .modal-btn.delete-everyone {
+                background-color: #f44336;
+                color: #fff;
+            }
+
+                .modal-btn.delete-everyone:hover {
+                    background-color: #e53935;
+                }
+
+            .modal-btn:not(.cancel):hover {
+                background-color: #2196f3;
+                color: #fff;
+            }
+
+    </style>
+}
+
+@section Scripts {
+
+    <!-- 2) jQuery first -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+
+    <!-- 3) EmojiOneArea library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emojionearea@3.4.2/dist/emojionearea.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/emojionearea@3.4.2/dist/emojionearea.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+
+    <script>
+         $(document).ready(function () {
+            // 1) Initialize emojioneArea on the <input>
+            var $input = $("#message-box").emojioneArea({
+                pickerPosition: "bottom",
+                tonesStyle: "bullet",
+                search: true,
+                autocomplete: true,
+                useInternalCDN: true,
+                // Hide the default icon tooltip
+                buttonTitle: "",
+                events: {
+                     keydown: function (editor, event) {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+
+                            // Check if user typed anything
+                            const typed = this.getText();
+                            if (!typed.trim()) {
+                                alert("Message cannot be empty.");
+                                return;
+                            }
+
+                            // Trigger the form submission
+                            document.getElementById("sendMessageForm").dispatchEvent(
+                                new Event("submit", { cancelable: true, bubbles: true })
+                            );
+                        }
+                    }
+                }
+            });
+
+            // 2) Grab the instance so we can manually show/hide picker
+            var emojioneAreaInstance = $input[0].emojioneArea;
+
+            // 3) Attach a click listener on your custom emoji <svg> icon
+            $(".icon-emoji").on("click", function (e) {
+                e.stopPropagation();
+                // Show the picker (toggle logic if you want, but we typically just show)
+                emojioneAreaInstance.showPicker();
+            });
+
+            // Optionally, hide the picker if user clicks outside
+            $(document).on("click", function (e) {
+                // If clicked outside both the .icon-emoji and the editor/picker
+                if (!$(e.target).closest(".icon-emoji, .emojionearea, .emojionearea-picker").length) {
+                    emojioneAreaInstance.hidePicker();
+                }
+            });
+
+            // 4) If you have other code (plus icon, contact load, etc.), keep it here...
+        });
+
+        // currentContactId is passed in from the view
+        let currentContactId = @currentContactId;
+        // userId is the current user
+        const currentUserId = @userId;
+        let searchMode = "Users"; // Default search mode
+
+        signalRConnection.on("UserStatusChanged", (changedUserId, isOnline) => {
+            console.log("UserStatusChanged:", changedUserId, "isOnline?", isOnline);
+
+            // 1) Update the contact in the list (if present)
+            const contactItem = document.querySelector(`.contact-item[data-contact-id="${changedUserId}"]`);
+            if (contactItem) {
+                // Update the data attribute so future clicks or loads see correct status
+                contactItem.setAttribute("data-contact-online", isOnline.toString());
+                
+                // If there's an online-dot or something in the contact list, show/hide it
+                const onlineDot = contactItem.querySelector(".online-dot");
+                if (onlineDot) {
+                    if (isOnline) {
+                        onlineDot.style.display = "block";
+                    } else {
+                        onlineDot.style.display = "none";
+                    }
+                }
+            }
+
+            // 2) If the currently open chat is this user, update the chat header
+            if (currentContactId === parseInt(changedUserId)) {
+                const headerStatus = document.getElementById("chat-header-status");
+                if (headerStatus) {
+                    if (isOnline) {
+                        headerStatus.innerHTML = `<span class="status-online"><span class="dot-online"></span>Online</span>`;
+                    } else {
+                        headerStatus.innerHTML = `<span class="status-offline"><span class="dot-offline"></span>Offline</span>`;
+                    }
+                }
+            }
+        });
+
+        // Listen for real-time messages
+        signalRConnection.on("ReceiveMessage", (senderId, message, filePath) => {
+            console.log("Received message from:", senderId);
+
+            // ---- ADDED: If I'm currently *in* that chat, skip unread increment
+            if (parseInt(senderId) === currentContactId) {
+                // Load the new message into the conversation
+                loadConversation(currentContactId, null, null);
+
+                // Mark them read on the server
+                markAllAsRead(currentUserId, currentContactId);
+
+                // Locally hide or set unread = 0
+                const contactItem = document.querySelector(`.contact-item[data-contact-id="${senderId}"]`);
+                if (contactItem) {
+                    const unreadCircle = contactItem.querySelector('.unread-circle');
+                    if (unreadCircle) {
+                        unreadCircle.textContent = "0";
+                        unreadCircle.style.display = "none";
+                    }
+                }
+            } else {
+                // ---- ELSE: normal unread logic
+                updateContactLastMessage(senderId, message || "File upload");
+
+                const contactItem = document.querySelector(`.contact-item[data-contact-id="${senderId}"]`);
+                if (contactItem) {
+                    const unreadCircle = contactItem.querySelector('.unread-circle');
+                    if (unreadCircle) {
+                        let currentCount = parseInt(unreadCircle.textContent || '0') || 0;
+                        currentCount++;
+                        unreadCircle.textContent = currentCount;
+                        unreadCircle.style.display = "inline-block";
+                    }
+                }
+            }
+        });
+
+        signalRConnection.on("MessageEdited", (messageId, newText) => {
+            // Reload the conversation to reflect the updated message
+            loadConversation(currentContactId, null, null);
+            updateContactLastMessage(currentContactId, newText);
+        });
+
+        async function addNewContact(senderId, message) {
+            const contactList = document.querySelector(".contact-list");
+            if (!contactList) return;
+
+            // Check if the contact already exists to prevent duplicates
+            let existingContact = document.querySelector(`.contact-item[data-contact-id="${senderId}"]`);
+            if (existingContact) {
+                console.warn("Contact already exists:", senderId);
+                // Update the last message for the existing contact
+                updateContactLastMessage(senderId, message || "File upload");
+                return; // Exit here to avoid adding duplicates
+            }
+
+            // Create the contact element
+            const contactItem = document.createElement("div");
+            contactItem.className = "contact-item";
+            contactItem.setAttribute("data-contact-id", senderId);
+            contactItem.setAttribute("onclick", "handleContactClick(this, event)");
+
+            let senderName = "Fetching...";
+            let isOnline = false;
+            let profilePicturePath = "https://via.placeholder.com/40"; // Default avatar
+
+            // Fetch sender details
+            try {
+                const response = await fetch(`https://localhost:7013/api/Users/GetUserById/${senderId}`);
+                if (response.ok) {
+                    const user = await response.json();
+                    senderName = user.fullName || "Unknown Contact";
+                    isOnline = user.isOnline || false;
+                } else {
+                    console.error("Failed to fetch user details for senderId:", senderId);
+                }
+            } catch (error) {
+                console.error("Error fetching user details:", error);
+            }
+
+            // Fetch sender's profile picture
+            try {
+                const resp = await fetch(`https://localhost:7013/api/Users/GetProfilePicturePath/${senderId}`);
+                if (resp.ok) {
+                    const data = await resp.json();
+                    profilePicturePath = data.profilePicturePath || profilePicturePath;
+                } else {
+                    console.error("Error fetching avatar for user:", senderId);
+                }
+            } catch (err) {
+                console.error("Error fetching single-user avatar:", err);
+            }
+
+            contactItem.setAttribute("data-contact-name", senderName);
+            contactItem.setAttribute("data-contact-online", isOnline.toString());
+
+            contactItem.innerHTML = `
+                <div class="contact-avatar" style="position:relative;">
+                    <img src="${profilePicturePath}" alt="User" />
+                    <div class="online-dot" style="display: ${isOnline ? "block" : "none"};"></div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-name">${senderName}</div>
+                    <div class="contact-lastmsg">${message.length > 15 ? `${message.substring(0, 12)}...` : message}</div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-time-container">
+                                <div class="contact-time">${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hourCycle: "h23" })}</div>
+                        <svg class="hover-icon" width="18px" height="18px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill="#fff" />
+                        </svg>
+                        <div class="delete-options-menu">
+                            <div class="options-item delete-option" onclick="showDeleteChatModal(${senderId})">Delete Chat</div>
+                        </div>
+                        <div class="unread-circle" style="display: none;">0</div>
+                    </div>
+                </div>
+            `;
+
+            // Prepend the new contact to the list
+            contactList.prepend(contactItem);
+
+            // Automatically load the conversation for the new contact
+            contactItem.classList.add("active");
+
+            // Update the chat header (name + status)
+            const chatHeaderName = document.getElementById("chat-header-name");
+            const chatHeaderStatus = document.getElementById("chat-header-status");
+
+            if (chatHeaderName) {
+                chatHeaderName.textContent = senderName;
+            }
+
+            if (chatHeaderStatus) {
+                chatHeaderStatus.innerHTML = isOnline
+                    ? '<span class="status-online"><span class="dot-online"></span>Online</span>'
+                    : '<span class="status-offline"><span class="dot-offline"></span>Offline</span>';
+            }
+
+        }
+
+        // Listen for confirmation of sent messages
+        signalRConnection.on("MessageSent", (message, filePath) => {
+            console.log(", Message: " + message + ", FilePath: " + filePath);
+            // Reload the conversation to display the new message
+            loadConversation(currentContactId, null, null);
+        });
+
+        signalRConnection.on("MessageDeleted", function (messageId) {
+            const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
+            // Replace the message content with the "deleted message" placeholder
+            const timeElement = messageElement.querySelector('.message-info span');
+            const timestamp = timeElement ? timeElement.innerText : '';
+
+            if (messageElement) {
+                // Replace the message content with a placeholder
+                messageElement.innerHTML = `
+                    <div><em>This message was deleted</em></div>
+                            <div class="message-info">
+                        <span>${timestamp}</span>
+                    </div>
+                `;
+                messageElement.classList.add("deleted-message"); // Optional styling
+            }
+            updateContactLastMessage(currentContactId, "This message was deleted");
+        });
+
+        signalRConnection.on("MessageDeletedForMe", function (messageId) {
+            // Find and remove the message element
+            const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
+            if (messageElement) {
+                messageElement.remove();
+            }
+
+            // Update the last message for the contact
+            updateContactLastMessage(currentContactId);
+        });
+
+        // 3) On "MessagesRead"
+        signalRConnection.on("MessagesRead", (readerId, contactId) => {
+            console.log("MessagesRead => user:", readerId, " contact:", contactId);
+
+            if (readerId === currentUserId) {
+                // If I'm the reader, I know I've read them => set bubble to 0
+                const contactItem = document.querySelector(`.contact-item[data-contact-id="${contactId}"]`);
+                if (contactItem) {
+                    const unreadCircle = contactItem.querySelector('.unread-circle');
+                    if (unreadCircle) {
+                        unreadCircle.textContent = "0";
+                        unreadCircle.style.display = 'none';
+                    }
+                }
+            } else {
+                // another user read messages
+                // do nothing or update read receipts
+            }
+            // POSSIBLY skip fetchUnreadCounts() here to avoid racing
+        });
+
+        // 4) On "UpdateUnreadCounts"
+        signalRConnection.on("UpdateUnreadCounts", () => {
+            // This signals we should refresh our unread badges
+            console.log("UpdateUnreadCounts triggered => fetching unread data...");
+            fetchUnreadCounts();
+        });
+
+        // 5) On "ContactListUpdated"
+        signalRConnection.on("ContactListUpdated", (senderId, recipientId, message, filePath) => {
+            const contactId = currentUserId === parseInt(senderId) ? recipientId : senderId;
+            // Fetch contact name and online status dynamically
+            fetch(`https://localhost:7013/api/Users/GetUserById/${contactId}`)
+                .then(response => response.json())
+                .then(contact => {
+                    const contactName = contact?.fullName || "Unknown Contact";
+                    const isOnline = contact?.isOnline || false;
+
+                    // Update the chat header if the current contact is active
+                    if (currentContactId === contactId) {
+                        loadConversation(contactId, contactName, isOnline);
+                    }
+
+                    // Update the contact list
+                    updateContactLastMessage(contactId, message || "File upload");
+                })
+                .catch(err => console.error("Error fetching contact details:", err));
+        });
+
+        signalRConnection.onclose(() => {
+            console.log("SignalR connection lost. Attempting to reconnect...");
+            setTimeout(() => signalRConnection.start(), 5000);
+        });
+
+        // =========== Fetch + Display Unread Counts ===========
+        function fetchUnreadCounts() {
+            fetch('/MessagesController1/GetUnreadCounts')
+                .then(r => r.json())
+                .then(result => {
+                    if (!result.success) {
+                        console.error("Failed to fetch unread counts:", result.message);
+                        return;
+                    }
+
+                    result.data.forEach(({ contactId, count }) => {
+                        const contactItem = document.querySelector(
+                            `.contact-item[data-contact-id="${contactId}"]`
+                        );
+                        if (!contactItem) return;
+
+                        const unreadCircle = contactItem.querySelector('.unread-circle');
+                        if (!unreadCircle) return;
+
+                        // 1) If the contactId is the currently active chat, skip
+                        if (parseInt(contactId) === currentContactId) {
+                            // Because we know we've read them locally,
+                            // do NOT overwrite with server's data
+                            unreadCircle.textContent = '0';
+                            unreadCircle.style.display = 'none';
+                            return;
+                        }
+
+                        // 2) Normal logic
+                        if (count > 0) {
+                            unreadCircle.textContent = count;
+                            unreadCircle.style.display = "inline-block";
+                        } else {
+                            unreadCircle.textContent = "0";
+                            unreadCircle.style.display = "none";
+                        }
+                    });
+                })
+                .catch(err => console.error("Failed to fetch unread counts:", err));
+        }
+
+        // =========== Mark Messages as Read ===========
+        function markAllAsRead(userId, contactId) {
+            fetch(`/MessagesController1/MarkMessagesAsRead?userId=${userId}&contactId=${contactId}`, {
+                method: 'PUT'
+            })
+                .then(res => {
+                    if (!res.ok) console.error("Failed to mark messages as read.");
+                })
+                .catch(err => console.error("Error marking messages as read:", err));
+        }
+
+
+        function updateContactLastMessage(contactId, defaultMessage = "New message") {
+            const contactItem = document.querySelector(`.contact-item[data-contact-id="${contactId}"]`);
+            const contactList = document.querySelector('.contact-list');
+          
+            if (!contactList) return;
+
+            if (contactItem) {
+                fetch(`/MessagesController1/GetLastMessageForContact?contactId=${contactId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch last message.');
+                        }
+                        return response.json();
+                    })
+                    .then(message => {
+                        // Update last message text
+                        const lastMessageElement = contactItem.querySelector('.contact-lastmsg');
+                        if (lastMessageElement) {
+                            const lastMessageText = message.message || "File upload";
+                            lastMessageElement.textContent = lastMessageText.length > 15
+                                ? `${lastMessageText.substring(0, 12)}...`
+                                : lastMessageText;
+                        }
+
+                        // Update timestamp
+                        const timeElement = contactItem.querySelector('.contact-time');
+                        if (timeElement) {
+                            const isOlderThan24Hours = new Date(message.sentAt) < Date.now() - 24 * 60 * 60 * 1000;
+                            const timestamp = isOlderThan24Hours
+                                ? new Date(message.sentAt).toLocaleDateString(undefined, { day: '2-digit', month: '2-digit', year: '2-digit' })
+                                : new Date(message.sentAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+                            timeElement.textContent = timestamp;
+
+                            // Store timestamp for sorting
+                            contactItem.setAttribute('data-last-message-time', new Date(message.sentAt).getTime());
+                        }
+
+                        // Update unread count
+
+                        // Re-sort the contact list after updating
+                        const contactItems = Array.from(contactList.children);
+                        contactItems.sort((a, b) => {
+                            const timeA = parseInt(a.getAttribute('data-last-message-time') || '0', 10);
+                            const timeB = parseInt(b.getAttribute('data-last-message-time') || '0', 10);
+                            return timeB - timeA; // Sort descending by time
+                        });
+
+                        // Append sorted items back to the contact list
+                        contactItems.forEach(item => contactList.appendChild(item));
+                    })
+                    .catch(err => {
+                        console.error('Error updating contact last message:', err);
+
+                        // Use default message as fallback
+                        const lastMessageElement = contactItem.querySelector('.contact-lastmsg');
+                        if (lastMessageElement) {
+                            lastMessageElement.textContent = defaultMessage.length > 15
+                                ? `${defaultMessage.substring(0, 12)}...`
+                                : defaultMessage;
+                        }
+                    });
+            } // Fallback for cases where the contact isn't found
+            else {
+                // If contact doesn't exist yet, create it
+                addNewContact(contactId, defaultMessage);
+                fetchUnreadCounts();
+            }
+        }
+
+
+        // Listen for clicks on all arrow buttons
+        document.addEventListener('click', function (e) {
+            // 1) If the user clicked on an .options-button, toggle that menu
+            if (e.target.closest('.options-button')) {
+                e.stopPropagation();  // Prevent the click from closing itself
+
+
+                const btn = e.target.closest('.options-button');
+                const menu = btn.nextElementSibling; // The .options-menu
+
+                // Close any other open menus first
+                document.querySelectorAll('.options-menu.show').forEach(m => {
+                    if (m !== menu) m.classList.remove('show');
+                });
+
+                // Toggle this one
+                menu.classList.toggle('show');
+            }
+            // 2) If the user clicked on *anything else*, close all open menus
+            else {
+                document.querySelectorAll('.options-menu.show').forEach(m => {
+                    m.classList.remove('show');
+                });
+            }
+        });
+
+        // Listen for clicks on all arrow buttons
+        document.addEventListener('click', function (e) {
+            // 1) If the user clicked on an .options-button, toggle that menu
+            if (e.target.closest('.delete-option')) {
+                e.stopPropagation();  // Prevent the click from closing itself
+
+                // Get the message element and its attributes
+                const messageDiv = e.target.closest('.message');
+                const messageId = messageDiv?.getAttribute('data-message-id');
+                const isFromMe = messageDiv.classList.contains('from-me'); // Check if the message was sent by the current user
+
+                if (messageId) {
+                    const modal = document.getElementById('deleteModal');
+                    const deleteForMeBtn = document.getElementById('deleteForMe');
+                    const deleteForEveryoneBtn = document.getElementById('deleteForEveryone');
+
+                    // Show the modal
+                    modal.style.display = 'block';
+                    modal.setAttribute('data-message-id', messageId); // Store message ID in modal
+
+                    // Adjust modal buttons
+                    if (isFromMe) {
+                        // Show all options for messages sent by the user
+                        deleteForMeBtn.style.display = 'block';
+                        deleteForEveryoneBtn.style.display = 'block';
+                    } else {
+                        // Only show "Delete for Me" for messages received
+                        deleteForMeBtn.style.display = 'block';
+                        deleteForEveryoneBtn.style.display = 'none';
+                    }
+                }
+            }
+        });
+
+        document.addEventListener('click', async function (e) {
+            // 1) If user clicks the "edit-option" in the dropdown:
+            if (e.target.classList.contains('edit-option')) {
+                e.stopPropagation();
+
+                const messageDiv = e.target.closest('.message');
+                const messageId = messageDiv?.getAttribute('data-message-id');
+
+                // Grab the existing text content
+                // Assume the text is in the first <div> inside .message
+                // that is *not* .message-info or .message-options
+                const originalDiv = messageDiv.querySelector('div:not(.message-info):not(.message-options)');
+                if (!originalDiv) return;
+
+                const originalText = originalDiv.innerText;
+
+                // 2) Create an <input> (or <textarea>) for editing
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = originalText;
+                input.style.width = '95%';  // or adjust as you like
+
+                // 3) Replace original text with the input
+                originalDiv.replaceWith(input);
+                input.focus();
+
+                // 4) We'll define cancel and confirm logic:
+
+                // CANCEL: revert to original text
+                function onCancel() {
+                    // restore original text
+                    input.replaceWith(originalDiv);
+                }
+
+                // CONFIRM: call the EditMessage endpoint, then replace
+                async function onConfirm(newText) {
+                    try {
+                        // Call your new PATCH endpoint
+                        // e.g. /MessagesController1/EditMessage?messageId=123&newText=abc
+                        const response = await fetch(`/MessagesController1/EditMessage?messageId=${messageId}&newText=${encodeURIComponent(newText)}`, {
+                            method: 'PATCH'
+                        });
+
+                        if (!response.ok) {
+                            console.error('Failed to edit message:', await response.text());
+                            onCancel();  // revert on failure
+                            return;
+                        }
+
+                        // If success, show "Edited:" + new text
+                        const editedDiv = document.createElement('div');
+                        editedDiv.innerHTML = `<b>Edited:</b><br> ${newText}`;
+                        input.replaceWith(editedDiv);
+
+                    } catch (err) {
+                        console.error('Error calling EditMessage:', err);
+                        onCancel();
+                    }
+                }
+
+                // 5) Listen for keydown on that <input>:
+                input.addEventListener('keydown', async (evt) => {
+                    if (evt.key === 'Enter') {
+                        evt.preventDefault();
+                        const newText = input.value.trim();
+                        if (!newText || newText === originalText) {
+                            // If no change, just revert
+                            onCancel();
+                        } else {
+                            await onConfirm(newText);
+                        }
+                    }
+                    else if (evt.key === 'Escape') {
+                        // revert
+                        onCancel();
+                    }
+                });
+            }
+           else if (e.target.classList.contains('delete-option')) {
+                e.stopPropagation();
+
+                // Get the message ID from the clicked element
+                const messageDiv = e.target.closest('.message');
+                const messageId = messageDiv?.getAttribute('data-message-id');
+
+                if (messageId) {
+                    const modal = document.getElementById('deleteModal');
+                    modal.style.display = 'block';
+                    modal.setAttribute('data-message-id', messageId); // Store message ID in modal
+                }
+            }
+        });
+
+        // API call to delete a message for the current user
+        async function deleteForMe(messageId) {
+            try {
+                const response = await fetch(`/MessagesController1/DeleteForMe?messageId=${messageId}`, {
+                    method: 'PATCH'
+                });
+                if (response.ok) {
+                    console.log('Message deleted for me');
+                    document.querySelector(`.message[data-message-id="${messageId}"]`).remove();
+                } else {
+                    console.error('Failed to delete message for me');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // API call to delete a message for everyone
+        async function deleteForEveryone(messageId) {
+            try {
+                const response = await fetch(`/MessagesController1/DeleteForEveryone?messageId=${messageId}`, {
+                    method: 'PATCH'
+                });
+                if (response.ok) {
+                    console.log('Message deleted for everyone');
+
+                    // Update the message content instead of removing it
+                    const messageDiv = document.querySelector(`.message[data-message-id="${messageId}"]`);
+                    if (messageDiv) {
+                        const isSender = messageDiv.classList.contains('from-me');
+                        const timeElement = messageDiv.querySelector('.message-info span');
+                        const timestamp = timeElement ? timeElement.innerText : '';
+
+                        const newContent = `
+                            <div>
+                                <em>${isSender ? 'You deleted this message' : 'This message was deleted'}</em>
+                            </div>
+                            <div class="message-info">
+                                <span>${timestamp}</span>
+                            </div>
+                        `;
+
+                        // Replace the message's inner content with the placeholder
+                        messageDiv.innerHTML = newContent;
+                        messageDiv.classList.add('deleted-message'); // Optionally add a class for styling
+                    }
+                } else {
+                    console.error('Failed to delete message for everyone');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        document.addEventListener('click', function (event) {
+            // Check if the clicked element is the hover-icon
+            const hoverIcon = event.target.closest('.hover-icon');
+
+            if (hoverIcon) {
+                // Prevent the click from triggering the contact item click event
+                event.stopPropagation();
+
+                // Toggle the delete-options-menu visibility
+                const deleteOptionsMenu = hoverIcon.nextElementSibling;
+                if (deleteOptionsMenu) {
+                    deleteOptionsMenu.classList.toggle('show');
+                }
+                return; // Stop further execution
+            }
+
+            // If clicked outside, hide all open delete-options-menus
+            document.querySelectorAll('.delete-options-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+        });
+
+        // Function to scroll to the bottom of the chat
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Function to show or hide the scroll-to-bottom button
+        function toggleScrollButton() {
+            const chatMessages = document.getElementById('chat-messages');
+            const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
+
+            // Show button only if not at the bottom
+            if (chatMessages.scrollHeight - chatMessages.scrollTop > chatMessages.clientHeight + 50) {
+                scrollToBottomBtn.classList.add('show');
+            } else {
+                scrollToBottomBtn.classList.remove('show');
+            }
+        }
+
+        // Handle contact click to load conversation
+        function handleContactClick(contactElement, event) {
+
+            // Prevent action if the click originated from the hover-icon or its dropdown
+            if (event.target.closest('.hover-icon') || event.target.closest('.delete-options-menu')) {
+                return;
+            }
+
+            const contactId = parseInt(contactElement.getAttribute("data-contact-id"));
+            const contactName = contactElement.getAttribute("data-contact-name");
+            const isOnline = contactElement.getAttribute("data-contact-online") === "true";
+
+
+            loadConversation(contactId, contactName, isOnline);
+
+             // Mark messages as read => triggers "MessagesRead" for both sides
+            markAllAsRead(currentUserId, contactId);
+
+
+            const chatInputBar = document.getElementById('chat-input-bar');
+            if (chatInputBar) {
+                chatInputBar.style.display = "flex";
+            }
+
+            // Hide the unread circle after 3 seconds
+            const unreadCircle = contactElement.querySelector('.unread-circle');
+            if (unreadCircle) {
+                setTimeout(() => {
+                    unreadCircle.textContent = "0";
+                    unreadCircle.style.display = 'none';
+                }, 1000); // 2 seconds
+            }
+
+        }
+
+
+
+        function handleFilePreview(evt) {
+            const file = evt.target.files[0];
+            const previewContainer = document.getElementById('file-preview');
+            previewContainer.innerHTML = ''; // Clear any previous preview
+
+            if (!file) {
+                // No file selected or user canceled
+                return;
+            }
+
+            const fileURL = URL.createObjectURL(file);
+
+            // We'll create a wrapper (div) to hold the preview + remove button
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'relative';
+            wrapper.style.display = 'inline-block';
+
+            // Create an "X" remove button
+            const removeBtn = document.createElement('button');
+            removeBtn.innerHTML = '&times;';
+            removeBtn.className = 'remove-preview';
+            removeBtn.addEventListener('click', function () {
+                // Clear input value and preview
+                document.getElementById('chat-file-input').value = '';
+                previewContainer.innerHTML = '';
+            });
+
+            // Check if it's an image or a video
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = fileURL;
+                wrapper.appendChild(img);
+            } else if (file.type.startsWith('video/')) {
+                const vid = document.createElement('video');
+                vid.src = fileURL;
+                vid.controls = true;
+                vid.style.maxWidth = '100px';
+                vid.style.maxHeight = '80px';
+                wrapper.appendChild(vid);
+            } else {
+                // Some other file type, just show file.name
+                const p = document.createElement('p');
+                p.innerText = 'File: ' + file.name;
+                wrapper.appendChild(p);
+            }
+
+            wrapper.appendChild(removeBtn);
+            previewContainer.appendChild(wrapper);
+
+        }
+
+
+        function loadConversation(contactId, contactName = null, isOnline = null, highlightMsgId = null) {
+            // 1. Update the global currentContactId
+            currentContactId = contactId;
+
+            // 2. Highlight the active contact in the contact list
+            document.querySelectorAll('.contact-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeContact = document.querySelector(`[data-contact-id="${contactId}"]`);
+            if (activeContact) {
+                activeContact.classList.add('active');
+            }
+
+            // 3. Update the chat header (name + online status)
+            const headerName = document.getElementById('chat-header-name');
+            const headerStatus = document.getElementById('chat-header-status');
+
+            if (headerName) {
+                // Use provided name, or fallback to the active contact's data, or default
+                headerName.innerText =
+                    contactName || activeContact?.getAttribute('data-contact-name') || "Unknown Contact";
+            }
+            if (headerStatus) {
+                const isOnlineStatus =
+                    isOnline !== null ? isOnline : activeContact?.getAttribute('data-contact-online') === "true";
+
+                headerStatus.innerHTML = isOnlineStatus
+                    ? '<span class="status-online"><span class="dot-online"></span>Online</span>'
+                    : '<span class="status-offline"><span class="dot-offline"></span>Offline</span>';
+            }
+
+            // 3) Force the chat header avatar to a placeholder right away
+            const chatHeaderAvatar = document.querySelector('.chat-header-avatar img');
+            if (chatHeaderAvatar) {
+                chatHeaderAvatar.src = "https://via.placeholder.com/40"; // reset
+
+                // Then fetch the actual path
+                fetch(`https://localhost:7013/api/Users/GetProfilePicturePath/${contactId}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.profilePicturePath) {
+                            chatHeaderAvatar.src = data.profilePicturePath;
+                        } else {
+                            // If no path from server, stay with placeholder
+                            chatHeaderAvatar.src = "https://via.placeholder.com/40";
+                        }
+                    })
+                    .catch(err => console.error("Error fetching chat-header avatar:", err));
+            }
+
+            // Reset chat messages and fetch new conversation
+            const chatMessages = document.getElementById('chat-messages');
+            if (chatMessages) chatMessages.innerHTML = ''; // Clear existing messages
+
+
+            // 4. Fetch the conversation from the server
+            fetch(`/MessagesController1/GetConversation?contactId=${contactId}`)
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error("Failed to fetch conversation");
+                    }
+                    return res.json();
+                })
+                .then(conversation => {
+                   
+                    if (!chatMessages) return;
+
+                    // Show "No messages found" if empty
+                    if (!Array.isArray(conversation) || conversation.length === 0) {
+                        chatMessages.innerHTML =
+                            '<p class="text-center text-muted">No messages found.</p>';
+                        return;
+                    }
+
+                    // 5. Group messages by date (Today, Yesterday, etc.)
+                    const groupedMessages = conversation.reduce((groups, msg) => {
+                        const isFromMe = msg.senderId === currentUserId;
+
+                        // Skip the message if it's invisible for the current user
+                        if (isFromMe && !msg.isVisibleToSender) {
+                            // If the current user is the sender and `isVisibleToSender` is false
+                            return groups;
+                        }
+                        if (!isFromMe && !msg.isVisibleToRecipient) {
+                            // If the current user is the recipient and `isVisibleToRecipient` is false
+                            return groups;
+                        }
+
+                        const sentDate = new Date(msg.sentAt);
+                        let groupKey;
+
+                        const today = new Date();
+                        const yesterday = new Date();
+                        yesterday.setDate(today.getDate() - 1);
+
+                        // Compare date portion only
+                        const sentDateStr = sentDate.toDateString();
+                        const todayStr = today.toDateString();
+                        const yesterdayStr = yesterday.toDateString();
+
+                        if (sentDateStr === todayStr) {
+                            groupKey = "Today";
+                        } else if (sentDateStr === yesterdayStr) {
+                            groupKey = "Yesterday";
+                        } else if (sentDate > new Date().setDate(today.getDate() - 7)) {
+                            // If within last 7 days, use weekday name
+                            groupKey = sentDate.toLocaleDateString(undefined, { weekday: 'long' });
+                        } else {
+                            // Else use full date format
+                            groupKey = sentDate.toLocaleDateString(undefined, {
+                                month: 'long',
+                                day: 'numeric',
+                                year: 'numeric',
+                            });
+                        }
+
+                        if (!groups[groupKey]) groups[groupKey] = [];
+                        groups[groupKey].push(msg);
+                        return groups;
+                    }, {});
+
+                    // 6. Render each date-group with its messages
+                    for (const [dateLabel, msgs] of Object.entries(groupedMessages)) {
+                        // A wrapper for each "date group"
+                        const dateGroup = document.createElement('div');
+                        dateGroup.className = 'date-group';
+
+                        // Date header
+                        const dateHeader = document.createElement('div');
+                        dateHeader.className = 'date-header';
+                        dateHeader.innerText = dateLabel;
+                        dateGroup.appendChild(dateHeader);
+
+                        // Now render each message
+                        msgs.forEach(msg => {
+                            // Check if it's from the current user or from the other
+                            const isFromMe = msg.senderId === currentUserId;
+
+                            if (isFromMe && !msg.isVisibleToSender) {
+                                // Skip entirely - user can't see this message anymore
+                                return;
+                            }
+                            if (!isFromMe && !msg.isVisibleToRecipient) {
+                                // The other user can't see it => skip
+                                return;
+                            }
+                            // Create the message div
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = `message ${isFromMe ? 'from-me' : 'from-other'}`;
+
+                            // If you want the ability to highlight a specific message:
+                            messageDiv.setAttribute('data-message-id', msg.id);
+
+                            // Build HTML content
+                            let contentHTML = '';
+
+                            if (msg.isDeletedForEveryone) {
+                                // If sender
+                                if (msg.senderId === currentUserId) {
+                                    contentHTML += `<div><em>You deleted this message</em></div>`;
+                                } else {
+                                    contentHTML += `<div><em>This message was deleted</em></div>`;
+                                }
+                            }
+                            else {
+                                // Normal message logic (files, edited, etc.)
+
+                                // If there's a file path
+                                if (msg.filePath) {
+                                    const ext = msg.filePath.split('.').pop().toLowerCase();
+
+                                    if (['jpg', 'jpeg', 'png'].includes(ext)) {
+                                        contentHTML += `
+                                            <img src="${msg.filePath}"
+                                                 style="max-width:200px; border-radius:6px; display:block; margin-bottom:5px;" />
+                                        `;
+                                    } else if (['mp4', 'avi', 'mov'].includes(ext)) {
+                                        contentHTML += `
+                                            <video src="${msg.filePath}" controls
+                                                   style="max-width:200px; border-radius:6px; display:block; margin-bottom:5px;">
+                                            </video>
+                                        `;
+                                    } else {
+                                        const filename = msg.filePath.split('/').pop();
+                                        contentHTML += `
+                                            <a href="${msg.filePath}" target="_blank" style="color:blue;">
+                                                File: ${filename}
+                                            </a>
+                                        `;
+                                    }
+                                }
+
+                                // If edited => show "Edited: ..."
+                                if (msg.isEdited === true) {
+                                    contentHTML += `<div><b>Edited:</b><br>${msg.message}</div>`;
+                                }
+                                // If normal text
+                                else if (msg.message && msg.message !== "File upload") {
+                                    contentHTML += `<div>${msg.message}</div>`;
+                                }
+                            }
+
+                            // Timestamp
+                            const timeString = new Date(msg.sentAt).toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            });
+
+                            contentHTML += `
+                                <div class="message-info">
+                                    <span>${timeString}</span>
+                                    ${isFromMe && !msg.isDeletedForEveryone
+                                    ? `
+                                            <div class="message-options">
+                                                <button class="options-button">
+                                                    <!-- The down-arrow icon -->
+                                                    <svg width="18px" height="18px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill="#fff" />
+                                                    </svg>
+                                                </button>
+                                                <div class="options-menu">
+                                                    <div class="options-item edit-option">Edit</div>
+                                                    <div class="options-item delete-option">Delete</div>
+                                                </div>
+                                            </div>
+                                          `
+                                    : ''
+                                }
+                                ${!isFromMe && !msg.isDeletedForEveryone
+                                    ? `
+                                                    <div class="message-options">
+                                                                <button class="options-button" style="background-color:#fff;;">
+                                                            <!-- The down-arrow icon -->
+                                                            <svg width="18px" height="18px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill="black" />
+                                                            </svg>
+                                                        </button>
+                                                        <div class="options-menu">
+                                                            <div class="options-item delete-option">Delete</div>
+                                                        </div>
+                                                    </div>
+                                                  `
+                                    : ''
+                                }
+                                </div>
+                            `;
+
+
+
+                            messageDiv.innerHTML = contentHTML;
+                            dateGroup.appendChild(messageDiv);
+
+                        });
+
+                        chatMessages.appendChild(dateGroup);
+                    }
+
+                    // If we specifically have a highlightMsgId, we won't do the "scroll to bottom"
+                    if (!highlightMsgId) {
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
+
+
+
+                    if (highlightMsgId) {
+                        const targetMsg = document.querySelector(`[data-message-id="${highlightMsgId}"]`);
+                        if (targetMsg) {
+                            targetMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            targetMsg.classList.add('highlight');
+                            setTimeout(() => targetMsg.classList.remove('highlight'), 2000);
+                        }
+                    }
+
+                    // Add delete modal dynamically
+                    if (!document.getElementById('deleteModal')) {
+                        const deleteModalHTML = `
+                                    <div id="deleteModal" class="modal">
+                                        <div class="modal-content">
+                                            <p>Delete message?</p>
+                                            <button class="modal-btn" id="deleteForMe">Delete for Me</button>
+                                            <button class="modal-btn cancel" id="cancelDelete">Cancel</button>
+                                            <button class="modal-btn delete-everyone" id="deleteForEveryone">Delete for Everyone</button>
+                                        </div>
+                                    </div>
+                                `;
+                        document.body.insertAdjacentHTML('beforeend', deleteModalHTML);
+
+                        // Attach modal button handlers
+                        attachDeleteModalHandlers();
+                    }
+
+
+                })
+                .catch(err => {
+                    console.error("[loadConversation] Error:", err);
+                    const chatMessages = document.getElementById('chat-messages');
+                    if (chatMessages) {
+                        chatMessages.innerHTML =
+                            '<p class="text-center text-danger">Failed to load conversation.</p>';
+                    }
+                });
+
+            // 9. Set the RecipientId in your hidden form so you know who to send to
+            const recipientField = document.getElementById('recipient-id');
+            if (recipientField) {
+                recipientField.value = contactId;
+            }
+
+            // 10. Show the chat input bar now that a contact is selected
+            const chatInputBar = document.getElementById('chat-input-bar');
+            if (chatInputBar) {
+                chatInputBar.style.display = "flex";
+            }
+        }
+
+        // Attach event listeners for modal buttons
+        function attachDeleteModalHandlers() {
+            const modal = document.getElementById('deleteModal');
+
+            // Close the modal on "Cancel"
+            document.getElementById('cancelDelete').onclick = function () {
+                modal.style.display = 'none';
+            };
+
+            // "Delete for Me" action
+            document.getElementById('deleteForMe').onclick = function () {
+                const messageId = modal.getAttribute('data-message-id');
+                deleteForMe(messageId);
+                modal.style.display = 'none';
+            };
+
+            // "Delete for Everyone" action
+            document.getElementById('deleteForEveryone').onclick = function () {
+                const messageId = modal.getAttribute('data-message-id');
+                deleteForEveryone(messageId);
+                modal.style.display = 'none';
+            };
+
+            // Close the modal if the user clicks outside of it
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+        }
+
+
+        // Toggle the all-users panel open/closed
+        function toggleAllUsersPanel() {
+            const panel = document.getElementById('all-users-panel');
+
+            // If it's not visible, show it (and fetch users).
+            // If it is visible, slide it out.
+            if (!panel.classList.contains('show')) {
+                panel.classList.add('show');
+                fetchAllUsers();
+            } else {
+                panel.classList.remove('show');
+            }
+        }
+
+        // Fetch all users from your API and exclude current user
+        function fetchAllUsers() {
+            fetch('https://localhost:7013/api/Users/GetUsers')
+                .then(res => {
+                    if (!res.ok) throw new Error('Failed to fetch users.');
+                    return res.json();
+                })
+                .then(users => {
+                    // users is an array of { id, username, ... } from your API
+                    const filteredUsers = users.filter(u => u.id !== currentUserId);
+                    populateAllUsersPanel(filteredUsers);
+                })
+                .catch(err => console.error('[fetchAllUsers] Error:', err));
+        }
+
+        // Populate the hidden panel with all other users
+        function populateAllUsersPanel(users) {
+            const listContainer = document.getElementById('all-users-list');
+            listContainer.innerHTML = '';
+
+            if (!users || users.length === 0) {
+                listContainer.innerHTML = '<p>No other users found.</p>';
+                return;
+            }
+
+            users.forEach(user => {
+                // Create a user div with the same styling as "contact-item"
+                const userDiv = document.createElement('div');
+                userDiv.classList.add('all-user-item'); // for styling & hover effect
+
+                // Build the avatar + name layout
+                userDiv.innerHTML = `
+                            <div style="display:flex; align-items:center;">
+                                <img src="https://via.placeholder.com/30"
+                                     style="border-radius:50%; margin-right:8px; width:32px; height:32px;"/>
+                                <div>
+                                    <b>${user.fullName}</b>
+                                    <span style="font-size: 11px; margin-left:8px; font-weight:bold; color:${user.isOnline ? '#00FF00;' : '#999'};">
+                                        ${user.isOnline ? '(Online)' : '(Offline)'}
+                                    </span>
+                                </div>
+                            </div>
+                        `;
+
+                // Clicking a user => load conversation immediately, close panel
+                userDiv.addEventListener('click', () => {
+                    // Close the overlay by removing the 'show' class
+                    const panel = document.getElementById('all-users-panel');
+                    panel.classList.remove('show');
+
+                    // Now load the conversation
+                    loadConversation(user.id, user.fullName, user.isOnline);
+                });
+
+                // Now fetch the user's profile pic:
+                fetch(`https://localhost:7013/api/Users/GetProfilePicturePath/${user.id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.profilePicturePath) {
+                            const avatarImg = userDiv.querySelector('img');
+                            if (avatarImg) {
+                                avatarImg.src = data.profilePicturePath;
+                            }
+                        }
+                    })
+                    .catch(err => console.error('Error fetching user avatar:', err));
+
+                listContainer.appendChild(userDiv);
+            });
+        }
+
+        function setSearchMode(mode) {
+            const usersButton = document.getElementById('search-users');
+            const messagesButton = document.getElementById('search-messages');
+
+            // Reset active state
+            usersButton.classList.remove('active');
+            messagesButton.classList.remove('active');
+
+            // Set active button
+            if (mode === 'Users') {
+                usersButton.classList.add('active');
+                console.log('Switched to Users mode');
+            } else if (mode === 'Messages') {
+                messagesButton.classList.add('active');
+                console.log('Switched to Messages mode');
+            }
+        }
+
+        document.getElementById("sendMessageForm").addEventListener("submit", async function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const messageInput = document.getElementById("message-box");
+            const fileInput = document.getElementById("chat-file-input");
+
+            // 1) If using EmojiOneArea, do this:
+            if (messageInput.emojioneArea) {
+                // Grab typed text from the editor
+                const typed = messageInput.emojioneArea.getText();
+                // Copy it into the actual <input> value
+                messageInput.value = typed;
+            }
+
+            // Check if the message input is empty and no file is selected
+            if (!messageInput.value.trim() && !fileInput.value) {
+                alert("Message cannot be empty.");
+                return; // Stop the form submission
+            }
+
+            const formData = new FormData(e.target);
+
+            try {
+                const response = await fetch("/MessagesController1/CreateMessage", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Reload conversation to display the new message
+                    loadConversation(currentContactId, null, null);
+                    console.log(result.message); // Optionally log the success message
+
+                    // Clear the input field and file input
+                    messageInput.value = "";
+                    fileInput.value = "";
+
+                    // If using EmojiOneArea, reset the input
+                    if (messageInput.emojioneArea) {
+                        messageInput.emojioneArea.setText("");
+                    }
+                } else {
+                    alert(result.message || "Failed to send the message.");
+                }
+            } catch (error) {
+                console.error("Error sending message:", error);
+                alert("An error occurred while sending the message.");
+            }
+        });
+
+        async function updateContactAvatars() {
+            // 1) Select all contact-item divs
+            const contactItems = document.querySelectorAll('.contact-item');
+            for (const contactItem of contactItems) {
+                // 2) Extract the userId (contactId) from data attributes
+                const contactId = contactItem.getAttribute('data-contact-id');
+
+                // 3) Make a fetch call to get the profile path
+                try {
+                    const resp = await fetch(`https://localhost:7013/api/Users/GetProfilePicturePath/${contactId}`);
+                    if (!resp.ok) {
+                        console.error("Failed to fetch profile picture for user:", contactId);
+                        continue; // Move to next contact
+                    }
+
+                    const data = await resp.json();
+                    // data should look like: { "profilePicturePath": "https://..." }
+
+                    // 4) If there's no path, skip
+                    if (!data.profilePicturePath) {
+                        console.log(`No profile picture path found for userId: ${contactId}`);
+                        continue;
+                    }
+
+                    // 5) Update the <img> src
+                    const avatarImg = contactItem.querySelector('.contact-avatar img');
+                    if (avatarImg) {
+                        avatarImg.src = data.profilePicturePath;
+                    }
+                } catch (err) {
+                    console.error("Error fetching profile path for userId:", contactId, err);
+                }
+            }
+        }
+
+
+        // On page load, load the first contact or existing contact
+        document.addEventListener('DOMContentLoaded', async () => {
+
+            // 1) Update the top-bar user avatar using the currentUserId
+            try {
+                const resp = await fetch(`https://localhost:7013/api/Users/GetProfilePicturePath/${currentUserId}`);
+                if (!resp.ok) {
+                    console.warn("Could not fetch top-bar avatar for user:", currentUserId);
+                } else {
+                    const data = await resp.json(); // { profilePicturePath: '...' }
+                    if (data.profilePicturePath) {
+                        const topBarImg = document.querySelector(".top-bar .user-avatar img");
+                        if (topBarImg) {
+                            topBarImg.src = data.profilePicturePath;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching top-bar avatar:", err);
+            }
+
+            // Grab the search <input> in the top bar
+            const searchInput = document.querySelector(".search-area input");
+            if (searchInput) {
+                // On every keystroke, run our search
+                searchInput.addEventListener("input", (e) => {
+                    handleSearch(e.target.value);
+                });
+            }
+            // Update all contact last messages on page load
+            const contactItems = document.querySelectorAll(".contact-item");
+            contactItems.forEach(contactItem => {
+                const contactId = contactItem.getAttribute("data-contact-id");
+                if (contactId) {
+                    updateContactLastMessage(contactId);
+                }
+
+                // Update the online-dot based on the initial data attribute
+                const isOnline = contactItem.getAttribute("data-contact-online") === "true";
+                const onlineDot = contactItem.querySelector(".online-dot");
+                if (onlineDot) {
+                    onlineDot.style.display = isOnline ? "block" : "none";
+                }
+            });
+
+            // 1) Call the new function to fetch all contact pictures
+            await updateContactAvatars();
+
+            fetchUnreadCounts();
+
+            if (currentContactId > 0) {
+                const activeContact = document.querySelector(`[data-contact-id="${currentContactId}"]`);
+                if (activeContact) {
+                    const contactName = activeContact.getAttribute("data-contact-name");
+                    const isOnline = activeContact.getAttribute("data-contact-online") === "true";
+
+                    loadConversation(currentContactId, contactName, isOnline);
+                    markAllAsRead(currentUserId, currentContactId);
+
+                    const chatInputBar = document.getElementById('chat-input-bar');
+                    if (chatInputBar) {
+                        chatInputBar.style.display = "flex";
+                    }
+                }
+            }
+
+            // Add scroll listener to toggle the scroll-to-bottom button
+            const chatMessages = document.getElementById('chat-messages');
+            if (chatMessages) {
+                chatMessages.addEventListener('scroll', toggleScrollButton);
+            }
+
+            // Scroll to bottom initially when the page loads
+            scrollToBottom();
+
+            // 3) Listen for clicks on the plus icon
+            const plusIcon = document.querySelector('.plus-icon');
+            if (plusIcon) {
+                plusIcon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleAllUsersPanel();
+                });
+            }
+
+            // 4) Close the panel if user clicks outside it
+            document.addEventListener('click', (event) => {
+                const panel = document.getElementById('all-users-panel');
+                // If the panel is open (.show) and the click is outside both the panel & the plus icon, close it
+                if (panel.classList.contains('show')) {
+                    if (!panel.contains(event.target) && !plusIcon.contains(event.target)) {
+                        panel.classList.remove('show');
+                    }
+                }
+            });
+
+        });
+
+        // 2) Switch between "Users" or "Messages" mode
+        function setSearchMode(mode) {
+            searchMode = mode;
+            // Toggle active class on the buttons
+            document.getElementById("search-users").classList.remove("active");
+            document.getElementById("search-messages").classList.remove("active");
+
+            if (mode === "Users") {
+                document.getElementById("search-users").classList.add("active");
+            } else {
+                document.getElementById("search-messages").classList.add("active");
+            }
+
+            // Reset the dropdown
+            const dropdown = document.querySelector(".search-results");
+            if (dropdown) dropdown.innerHTML = "";
+        }
+
+        // 3) Decide which endpoint to call based on searchMode
+        function handleSearch(query) {
+            if (!query.trim()) {
+                // Clear dropdown if empty
+                document.querySelector(".search-results").innerHTML = "";
+                return;
+            }
+
+            if (searchMode === "Users") {
+                searchUsers(query);
+            } else {
+                searchMessages(query);
+            }
+        }
+
+        // 4) Call our MVC endpoints to fetch JSON data
+        function searchUsers(query) {
+            fetch(`/MessagesController1/SearchUsers?query=${encodeURIComponent(query)}`)
+                .then(res => res.json())
+                .then(users =>{
+                    const filteredUsers = users.filter(user => user.id !== currentUserId);
+                    populateSearchDropdown(filteredUsers, "Users");
+                })
+                .catch(err => console.error("Error fetching users:", err));
+        }
+
+        function searchMessages(query) {
+            fetch(`/MessagesController1/SearchMessages?query=${encodeURIComponent(query)}`)
+                .then(res => res.json())
+                .then(messages => populateSearchDropdown(messages, "Messages"))
+                .catch(err => console.error("Error fetching messages:", err));
+        }
+
+        // 5) Show results in a dropdown
+        function populateSearchDropdown(results, type) {
+            const dropdown = document.querySelector(".search-results");
+            if (!dropdown) return;
+
+
+
+            dropdown.innerHTML = ""; // Clear old results
+
+            if (!results || results.length === 0) {
+                dropdown.innerHTML = `<div class="dropdown-item">No ${type} found.</div>`;
+                return;
+            }
+
+            results.forEach(item => {
+                const dropdownItem = document.createElement("div");
+                dropdownItem.className = "dropdown-item";
+
+                if (type === "Users") {
+                    // For user results
+                    dropdownItem.textContent = item.userName || item.fullName;
+                    dropdownItem.onclick = () => {
+                        dropdown.innerHTML = ""; // Hide dropdown
+                        loadConversation(item.id, item.userName || item.fullName, item.isOnline);
+                    };
+                }
+                else if (type === "Messages") {
+                    // Show the message with timestamp and user info
+                    dropdownItem.innerHTML = `
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="font-weight: bold;">${item.contactName}</div>
+                            <div style="font-size: 12px; color: #666;">${new Date(item.sentAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                        </div>
+                        <div style="margin-top: 4px; color: #333;">${item.message || "[File]"}</div>
+                    `;
+                    dropdownItem.onclick = () => {
+                        dropdown.innerHTML = ""; // Hide dropdown
+                        loadConversation(item.contactId, item.contactName, item.isOnline,item.id);
+                    };
+                }
+
+
+                dropdown.appendChild(dropdownItem);
+            });
+        }
+
+
+        // 7) Scroll and highlight the desired message
+        function highlightMessage(messageId) {
+            const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
+            if (messageElement) {
+                messageElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                messageElement.classList.add("highlight");
+                setTimeout(() => messageElement.classList.remove("highlight"), 2000);
+            }
+        }
+
+        function showDeleteChatModal(contactId) {
+            const deleteChatModal = document.getElementById('deleteChatModal');
+            if (!deleteChatModal) {
+                console.error("Delete chat modal not found.");
+                return;
+            }
+
+            // Show the modal
+            deleteChatModal.style.display = 'block';
+
+            // Store the contact ID in a data attribute for later use
+            deleteChatModal.setAttribute('data-contact-id', contactId);
+
+            // Attach event listeners for modal buttons if not already attached
+            const cancelBtn = document.getElementById('cancelDeleteChat');
+            const confirmBtn = document.getElementById('confirmDeleteChat');
+
+            cancelBtn.onclick = function () {
+                deleteChatModal.style.display = 'none'; // Hide the modal
+            };
+
+            confirmBtn.onclick = function () {
+                // Call the delete chat function
+                const contactIdToDelete = deleteChatModal.getAttribute('data-contact-id');
+                deleteChat(contactIdToDelete);
+
+                // Hide the modal after confirming
+                deleteChatModal.style.display = 'none';
+            };
+
+            // Close the modal if user clicks outside of it
+            window.onclick = function (event) {
+                if (event.target === deleteChatModal) {
+                    deleteChatModal.style.display = 'none';
+                }
+            };
+        }
+
+        function deleteChat(contactId) {
+            // Perform an API call or any logic to delete the chat
+            fetch(`/MessagesController1/DeleteChatForMe?contactId=${contactId}`, {
+                method: 'PATCH',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to delete chat.");
+                    }
+                    console.log("Chat deleted successfully.");
+
+                    // Remove the contact from the contact list UI
+                    const contactItem = document.querySelector(`[data-contact-id="${contactId}"]`);
+                    if (contactItem) {
+                        contactItem.remove();
+                    }
+
+                    // Clear the chat area completely if the deleted contact is the current active contact
+                    if (parseInt(contactId) === currentContactId) {
+                        const chatMessages = document.getElementById('chat-messages');
+                        const chatHeaderName = document.getElementById('chat-header-name');
+                        const chatHeaderStatus = document.getElementById('chat-header-status');
+                        const chatInputBar = document.getElementById('chat-input-bar');
+
+                        if (chatMessages) {
+                            chatMessages.innerHTML =
+                                '<p class="text-center text-muted">No conversation selected. Please select a contact to start chatting.</p>';
+                        }
+
+                        if (chatHeaderName) {
+                            chatHeaderName.textContent = 'Select a contact';
+                        }
+
+                        if (chatHeaderStatus) {
+                            chatHeaderStatus.innerHTML = '';
+                        }
+
+                        if (chatInputBar) {
+                            chatInputBar.style.display = 'none';
+                        }
+
+                        // Reset the currentContactId to indicate no active chat
+                        currentContactId = null;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error deleting chat:", error);
+                });
+        }
+
+
+
+    </script>
+}
+
+<body>
+    <div class="top-bar-wrapper">
+    <div class="top-bar">
+        <div class="search-section">
+        <div class="search-area">
+            <!-- Magnifying Glass Icon -->
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24">
+                <path fill="#999" d="M9.5 2a7.5 7.5 0 015.85 12.32l4.66 4.66-1.42 1.42-4.66-4.66A7.5 7.5 0 119.5 2m0 2a5.5 5.5 0 100 11 5.5 5.5 0 000-11z" />
+            </svg>
+            <input type="text" placeholder="Search..." />
+
+
+            <!-- Plus Icon (inline SVG) -->
+            <svg class="plus-icon" width="22px" height="22px" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4V4C8.22876 4 6.34315 4 5.17157 5.17157C4 6.34315 4 8.22876 4 12V18C4 18.9428 4 19.4142 4.29289 19.7071C4.58579 20 5.05719 20 6 20H12C15.7712 20 17.6569 20 18.8284 18.8284C20 17.6569 20 15.7712 20 12V12"
+                      stroke="#222222" stroke-width="1.2" />
+                <path d="M9 10L15 10" stroke="#2A4157" stroke-opacity="0.24" stroke-width="1.2"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9 14H12" stroke="#2A4157" stroke-opacity="0.24" stroke-width="1.2"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M19 8L19 2M16 5H22" stroke="#222222" stroke-width="1.2"
+                      stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+                    <div class="search-results"></div>
+        </div>
+        <!-- Buttons for Users and Messages -->
+        <div class="search-mode-container">
+            <button class="search-mode active" id="search-users" onclick="setSearchMode('Users')">Users</button>
+            <button class="search-mode" id="search-messages" onclick="setSearchMode('Messages')">Messages</button>
+        </div>
+        </div>
+
+        <div class="user-area">
+            <div class="user-shape"></div>
+            <div class="user-info">
+                <span class="user-name">@FullName</span>
+                <span class="user-status">
+                    <span class="dot-online"></span>Online
+                </span>
+            </div>
+            <div class="user-avatar">
+                <img src="https://via.placeholder.com/40" alt="User" />
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="containerChat">
+        <!-- Contact Panel -->
+        <div class="contact-panel">
+            <div class="contact-list">
+                @if (Model != null && Model.Any())
+                {
+                    // Group messages by contact ID
+                    var groupedContacts = Model
+                    .Where(m =>
+                    (m.SenderId == userId && m.IsVisibleToSender) ||
+                    (m.RecipientId == userId && m.IsVisibleToRecipient))
+                    .GroupBy(m => m.SenderId == userId ? m.RecipientId : m.SenderId)
+                    .Select(g => new
+                    {
+                        ContactId = g.Key,
+                        ContactName = g.First().SenderId == userId ? g.First().RecipientName : g.First().SenderName,
+                        IsOnline = g.First().SenderId == userId ? g.First().RecipientIsOnline : g.First().SenderIsOnline,
+                        LastMessage = g.OrderByDescending(m => m.SentAt).FirstOrDefault()
+                    })
+                    .OrderByDescending(c => c.LastMessage.SentAt)
+                    .ToList();
+
+                    foreach (var contact in groupedContacts)
+                    {
+                        // Calculate unread messages from this contact
+                        var unreadCount = Model
+                        .Where(m =>
+                        m.SenderId == contact.ContactId && // Messages from the contact
+                        m.RecipientId == userId &&        // To the current user
+                        !m.IsRead &&                       // Unread
+                        !m.IsDeletedForEveryone           // Not deleted for everyone
+                        )
+                        .Count();
+
+                        <div class="contact-item"
+                             data-contact-id="@contact.ContactId"
+                             data-contact-name="@contact.ContactName"
+                             data-contact-online="@contact.IsOnline.ToString().ToLower()"
+                             onclick="handleContactClick(this, event)">
+                            <div class="contact-avatar" style="position:relative;">
+                                <img src="https://via.placeholder.com/40" alt="User" />
+                                <div class="online-dot" style="display: none;"></div> <!-- Always include the dot, initially hidden -->
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-name">@contact.ContactName</div>
+                                <div class="contact-lastmsg"></div> <!-- Updated dynamically -->
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-time-container">
+                                    <div class="contact-time"></div> <!-- Updated dynamically -->
+                                    <svg class="hover-icon" width="18px" height="18px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill="#fff" />
+                                    </svg>
+
+                                    <div class="delete-options-menu">
+                                        <div class="options-item delete-option" onclick="showDeleteChatModal(@contact.ContactId)">Delete Chat</div>
+                                    </div>
+
+                                    <div class="unread-circle" style="display:none;">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-center text-muted">No contacts available.</p>
+                }
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-header-avatar">
+                        <img src="https://via.placeholder.com/40" alt="User" />
+                    </div>
+                    <div>
+                        <div class="chat-header-name" id="chat-header-name">Select a contact</div>
+                        <div id="chat-header-status" class="chat-header-status">
+                            <!-- Status dynamically updated via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <!-- Here’s the default placeholder -->
+                 <p class="text-center text-muted">No conversation selected. Please click on a contact to start chatting.</p> 
+            </div>
+
+            <div class="scroll-to-bottom" id="scroll-to-bottom" onclick="scrollToBottom()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F80ED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-down-circle">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="8 12 12 16 16 12"></polyline>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                </svg>
+            </div>
+
+            <div class="chat-input-bar" style="display: none;" id="chat-input-bar">
+                <form asp-controller="MessagesController1"
+                      asp-action="CreateMessage"
+                      method="post"
+                      enctype="multipart/form-data"
+                      id="sendMessageForm"
+                      style="display: flex; flex: 1; align-items: center;">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" id="sender-id" name="SenderId" value="@userId" />
+                    <input type="hidden" id="recipient-id" name="RecipientId" value="0" />
+
+                    <div class="input-wrapper">
+                        <input type="text" id="message-box" name="Message" placeholder="Type your message here..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" />
+
+                        <!-- The hidden file input. We'll show a preview upon user selection. -->
+                        <input type="file" id="chat-file-input" name="File"
+                               accept="image/*,video/*"
+                               style="display:none;"
+                               onchange="handleFilePreview(event);" />
+
+                         <!-- A small placeholder to show the file preview (if any) -->
+                        <div id="file-preview" style="margin-left:8px;"></div>
+
+                        <!-- Emoji icon example -->
+                        <svg class="icon icon-emoji" style="max-width:40px; width:100%; height:27px;"
+                             width="16" height="16" fill="none" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" stroke="#2F80ED" stroke-width="1" />
+                            <circle cx="8.5" cy="10" r="1.5" fill="#2F80ED" />
+                            <circle cx="15.5" cy="10" r="1.5" fill="#2F80ED" />
+                            <path fill="#2F80ED" d="M8 14c1.333 1.333 2.667 2 4 2s2.667-0.667 4-2z" />
+                        </svg>
+
+                        <!-- Paperclip (attach file) icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2F80ED"
+                             class="bi bi-paperclip icon" viewBox="0 0 16 16" onclick="document.getElementById('chat-file-input').click();">
+                            <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z" />
+                        </svg>
+                    </div>
+
+                    <button type="submit" title="Send">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Panel for listing all users (the "plus" icon opens this) -->
+    <div id="all-users-panel">
+        <h4>All Users</h4>
+        <div id="all-users-list"></div>
+    </div>
+    
+    <!-- Hidden Modal for deleting chats -->
+    <div id="deleteChatModal" class="modal">
+        <div class="modal-content">
+            <p>Delete this chat?</p>
+            <div style="display: flex; justify-content: space-between; padding-top: 10px; gap:14px;">
+                <button class="modal-btn cancel" id="cancelDeleteChat">Cancel</button>
+                <button class="modal-btn delete-chat" id="confirmDeleteChat">Delete chat</button>
+            </div>
+        </div>
+    </div>
+</body>

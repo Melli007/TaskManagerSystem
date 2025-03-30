@@ -1,0 +1,6 @@
+@EtechTaskManagerBackend_HostAddress = http://localhost:5249
+
+GET {{EtechTaskManagerBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

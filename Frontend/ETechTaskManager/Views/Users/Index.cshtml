@@ -1,0 +1,530 @@
+﻿@model IEnumerable<ETechTaskManager.Models.UsersViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    int counter = 0;
+    int i = 1;
+}
+
+<style>
+    /* Table styling */
+    .content-table {
+        border-collapse: collapse;
+        margin: 25px 4% 4% 4%; /* Center the table */
+        font-size: 0.9em;
+        max-width: 100%; /* Limit the width of the table */
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+        .content-table thead tr {
+            background-color: #e9e9e9;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .content-table th, .content-table td {
+            padding: 12px 15px;
+        }
+
+        .content-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+            .content-table tbody tr:nth-of-type(even) {
+                background-color: #f3f3f3;
+            }
+
+            .content-table tbody tr:last-of-type {
+                border-bottom: 2px solid #0077cc;
+            }
+
+            .content-table tbody tr.active-row {
+                font-weight: bold;
+                color: #00BFFF;
+            }
+
+    /* Dropdown styling */
+    .dropbtn {
+        background-color: #0077cc;
+        color: white;
+        padding: 10px 16px;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #2980B9;
+        }
+
+    .dropdown {
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: auto;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border-radius: 4px;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 9px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    .show {
+        display: block;
+    }
+
+    .table-title {
+        padding-bottom: 15px;
+        background: #0077cc;
+        color: #fff;
+        padding: 16px 30px;
+        margin: -20px -25px 10px;
+        border-radius: 3px 3px 0 0;
+    }
+
+        .table-title h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+
+        .table-title .btn {
+            color: #566787;
+            float: right;
+            font-size: 16px;
+            background: #fff;
+            border: none;
+            min-width: 50px;
+            border-radius: 2px;
+            border: none;
+            outline: none !important;
+            margin-left: 10px;
+        }
+
+            .table-title .btn:hover, .table-title .btn:focus {
+                color: #566787;
+                background: #f2f2f2;
+            }
+
+            .table-title .btn i {
+                float: left;
+                font-size: 21px;
+                margin-right: 5px;
+            }
+
+            .table-title .btn span {
+                float: right;
+                margin-top: 2px;
+            }
+
+    /* For responsive design: Add a wrapper to control overflow */
+    .table-wrapper {
+        max-width: 1180px; /* Adjust to fit the page layout */
+        margin: 0 auto; /* Center the table on the page */
+        overflow-x: auto; /* Enable horizontal scrolling if needed */
+    }  
+
+    .filter-dropdown
+    {
+        position: relative;
+        display: flex;
+        justify-content: right;
+        margin: 20px 47px 0px 0px;
+    }
+
+    /* Dropdown Button */
+    .filter-dropbtn {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: white;
+        background-color: #2563eb; /* Blue-600 */
+        border: none;
+        border-radius: 0.375rem; /* Rounded-lg */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+        .filter-dropbtn:hover {
+            background-color: #1d4ed8; /* Blue-700 */
+        }
+
+        .filter-dropbtn:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5); /* Focus ring */
+        }
+
+    /* Dropdown Icon */
+    .dropdown-icon {
+        width: 1rem;
+        height: 1rem;
+        margin-left: 0.5rem;
+    }
+
+    /* Dropdown Content */
+    .filter-dropdown-content {
+        position: absolute;
+        right: 0;
+        z-index: 10;
+        display: none; /* Hidden by default */
+        width: 16rem; /* 64 */
+        padding: 1rem;
+        margin-top: 2.2rem;
+        background-color: white;
+        border: 1px solid #e5e7eb; /* Gray-200 */
+        border-radius: 0.5rem; /* Rounded-lg */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow-lg */
+    }
+
+        /* Show Dropdown Content */
+        .filter-dropdown-content.show {
+            display: block;
+        }
+
+    /* Filter Form */
+    .filter-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* Filter Group */
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+        .filter-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151; /* Gray-700 */
+        }
+
+        /* Input and Select Styles */
+        .filter-group select,
+        .filter-group input[type="date"] {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            color: #374151; /* Gray-700 */
+            background-color: white;
+            border: 1px solid #d1d5db; /* Gray-300 */
+            border-radius: 0.375rem; /* Rounded-md */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Shadow-sm */
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+            .filter-group select:focus,
+            .filter-group input[type="date"]:focus {
+                outline: none;
+                border-color: #2563eb; /* Blue-600 */
+                box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5); /* Focus ring */
+            }
+
+    /* Checkbox Style */
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151; /* Gray-700 */
+    }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 1rem;
+            height: 1rem;
+            color: #2563eb; /* Blue-600 */
+            border: 1px solid #d1d5db; /* Gray-300 */
+            border-radius: 0.25rem; /* Rounded */
+            cursor: pointer;
+        }
+
+            .checkbox-label input[type="checkbox"]:focus {
+                outline: none;
+                box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5); /* Focus ring */
+            }
+
+    /* Submit Button */
+    .btn-filter {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: white;
+        background-color: #2563eb; /* Blue-600 */
+        border: none;
+        border-radius: 0.375rem; /* Rounded-md */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+        .btn-filter:hover {
+            background-color: #1d4ed8; /* Blue-700 */
+        }
+
+        .btn-filter:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5); /* Focus ring */
+        }
+    }
+</style>
+
+<!-- Filter Section -->
+<div class="filter-dropdown">
+    <!-- Dropdown Button -->
+    <button onclick="toggleFilterDropdown()" class="filter-dropbtn">
+        <span>Filtrimet</span>
+        <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <!-- Dropdown Content -->
+    <div id="filter-dropdown-content" class="filter-dropdown-content">
+        <form method="get" class="filter-form">
+
+            <!-- Preserve the status if present -->
+            <input type="hidden" name="status" value="@Context.Request.Query["status"]" />
+
+            <!-- Sort Order -->
+            <div class="filter-group">
+                <label for="sortOrder">Rendit sipas datës krijimit:</label>
+                <select id="sortOrder" name="sortOrder">
+                    <option value="" selected="@(string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) ? "selected" : null)">Asnjë</option>
+                    <option value="asc" selected="@(Context.Request.Query["sortOrder"] == "asc" ? "selected" : null)">ASC</option>
+                    <option value="desc" selected="@(Context.Request.Query["sortOrder"] == "desc" ? "selected" : null)">DESC</option>
+                </select>
+            </div>
+
+            <!-- Date Range: Start -->
+            <div class="filter-group">
+                <label for="startDate">Nga data:</label>
+                <input type="date" id="startDate" name="startDate" value="@Context.Request.Query["startDate"]" />
+            </div>
+
+            <!-- Date Range: End -->
+            <div class="filter-group">
+                <label for="endDate">Deri më:</label>
+                <input type="date" id="endDate" name="endDate" value="@Context.Request.Query["endDate"]" />
+            </div>
+
+            <div class="filter-group">
+                <label for="onlineStatus">Lexuara / Palexuara:</label>
+                <select id="onlineStatus" name="onlineStatus">
+                    <option value="" selected="@(string.IsNullOrEmpty(Context.Request.Query["onlineStatus"]) ? "selected" : null)">Të gjithë</option>
+                    <option value="online" selected="@(Context.Request.Query["onlineStatus"] == "online" ? "selected" : null)">Online</option>
+                    <option value="offline" selected="@(Context.Request.Query["onlineStatus"] == "offline" ? "selected" : null)">Offline</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-filter">Filtro</button>
+        </form>
+    </div>
+</div>
+
+<div class="table-wrapper">
+<table class="content-table">
+
+    <thead>
+        <!-- Table Title Row -->
+        <tr>
+            <th colspan="12" class="table-title">
+                <div>
+                    <h2>Menagjo <b>Userat</b></h2>
+                </div>
+                    <div style="float: right;">
+
+                    <a asp-action="Create" class="btn btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-person-add " viewBox="0 0 16 16">
+                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                                <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
+                            </svg> <span>Shto user të ri </span>
+                        </a>
+                    <a asp-action="ExportToExcel" class="btn btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="23" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
+                                <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z" />
+                            </svg> <span>Exporto në excel </span>
+                        </a>
+                    </div>
+               
+            </th>
+        </tr>
+        <!-- Column Headers -->
+        <tr>
+            <th>#</th>
+            <th>Emri Mbiemri</th>
+            <th>@Html.DisplayNameFor(model => model.Username)</th>
+            <th style="padding-left:75px;">@Html.DisplayNameFor(model => model.Email)</th>
+            <th style="padding-left:32px;">Numri Telefonit</th>
+            <th>Roli</th>
+            <th style="padding-left:30px;">Departamenti</th>
+            <th>Krijuar Në</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            string rowClass = (counter % 2 == 1) ? "active-row" : "inactive-row"; // Alternating classes
+            <tr class="@rowClass">
+                <td>@i</td>
+                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Username)</td>
+                    <th>
+                        @if (!string.IsNullOrEmpty(item.Email))
+                        {
+                            @Html.Raw(item.Email.Replace("@", "<br />@"))
+                        }
+                        else
+                        {
+                            <span style="color: gray;">Ska Email</span>
+                        }
+                    </th>
+
+                    <th>
+                        @if (!string.IsNullOrEmpty(item.Phone))
+                        {
+                        @Html.DisplayFor(modelItem => item.Phone)
+                        }
+                        else
+                        {
+                            <span style="color: gray;">Ska Numer</span>
+                        }
+                    </th>
+                <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                <th>@Html.DisplayFor(modelItem => item.Profession)</th>
+                <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                <td>
+                    <div class="dropdown">
+                        <!-- Button with icon triggers the dropdown -->
+                        <button onclick="toggleDropdown('@item.Id')" class="dropbtn">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </button>
+                        <div id="dropdown-@item.Id" class="dropdown-content">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            <a href="#" class="performancaBtn" data-id="@item.Id">Performanca</a>
+
+                            @if (item.Banned)
+                            {
+                                <!-- If user is banned, show Unban option -->
+                                @Html.ActionLink("Unban", "Unban", new { id = item.Id })
+                            }
+                            else
+                            {
+                                <!-- If user is not banned, show Ban option -->
+                                @Html.ActionLink("Ban", "Ban", new { id = item.Id })
+                            }
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            i++;
+            counter++;
+        }
+    </tbody>
+</table>
+</div>
+
+<script>
+
+    function toggleFilterDropdown() {
+        const filterDropdown = document.getElementById("filter-dropdown-content");
+        const dropdownIcon = document.querySelector(".filter-dropbtn svg");
+
+        // Toggle the dropdown visibility
+        filterDropdown.classList.toggle("show");
+
+        // Rotate the dropdown icon
+        if (filterDropdown.classList.contains("show")) {
+            dropdownIcon.style.transform = "rotate(180deg)";
+        } else {
+            dropdownIcon.style.transform = "rotate(0deg)";
+        }
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    document.addEventListener("click", function (event) {
+        const filterDropdown = document.getElementById("filter-dropdown-content");
+        const dropdownButton = document.querySelector(".filter-dropbtn");
+        const dropdownIcon = document.querySelector(".filter-dropbtn svg");
+
+        // Check if the click is outside the dropdown and button
+        if (!event.target.closest(".filter-dropdown")) {
+            // Hide the dropdown
+            filterDropdown.classList.remove("show");
+
+            // Reset the dropdown icon rotation
+            dropdownIcon.style.transform = "rotate(0deg)";
+        }
+    });
+
+    function toggleDropdown(id) {
+        document.getElementById("dropdown-" + id).classList.toggle("show");
+    }
+
+    window.onclick = function (event) {
+        // Close the dropdown if the click is outside the button or icon
+        if (!event.target.closest('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".performancaBtn").forEach(button => {
+            button.addEventListener("click", function (e) {
+                e.preventDefault(); // Prevent navigation
+                const userId = this.getAttribute("data-id");
+
+                fetch(`https://localhost:7013/api/Pdf/GenerateInvoice/${userId}`, {
+                    method: 'POST'
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Failed to generate PDF");
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.style.display = "none";
+                        a.href = url;
+                        a.download = `Invoice_${userId}.pdf`;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                    })
+                    .catch(error => {
+                        console.error("Error generating PDF:", error);
+                        alert("Failed to generate PDF");
+                    });
+            });
+        });
+    });
+</script>

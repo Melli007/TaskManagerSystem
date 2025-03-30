@@ -1,0 +1,1654 @@
+﻿
+
+Message: Ju keni një task të ri: 'Hacking Project' të caktuar për ju,
+ Id e userit: 1064,
+ Type: task,
+ Date: 11/21/2024 3:04:23 PM,
+ IsRead: False
+Timestamp: 11/21/2024 3:04:23 PM
+
+Message: Ju keni një task të ri: 'Hacking Project' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/21/2024 3:04:23 PM,
+ IsRead: False
+Timestamp: 11/21/2024 3:04:23 PM
+
+Message: Ju keni një task të ri: 'Hacking Project' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 11/21/2024 3:04:24 PM,
+ IsRead: False
+Timestamp: 11/21/2024 3:04:24 PM
+
+Message: Ju keni një task të ri: 'Hacking Project' të caktuar për ju,
+ Id e userit: 1067,
+ Type: task,
+ Date: 11/21/2024 3:04:24 PM,
+ IsRead: False
+Timestamp: 11/21/2024 3:04:24 PM
+
+Message: Ju keni një task të ri: 'Hacking Project' të caktuar për ju,
+ Id e userit: 1068,
+ Type: task,
+ Date: 11/21/2024 3:04:24 PM,
+ IsRead: False
+Timestamp: 11/21/2024 3:04:24 PM
+
+Message: Ju keni një task të ri: 'Hacking Project' të caktuar për ju,
+ Id e userit: 1069,
+ Type: task,
+ Date: 11/21/2024 3:04:24 PM,
+ IsRead: False
+Timestamp: 11/21/2024 3:04:24 PM
+
+Message: Ju keni një task të ri: 'BUUKA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 11:43:13 AM,
+ IsRead: False
+Timestamp: 11/25/2024 11:43:13 AM
+
+Message: Ju keni një task të ri: 'ARKIVA E 90VE' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 11:53:24 AM,
+ IsRead: False
+Timestamp: 11/25/2024 11:53:24 AM
+
+Message: Ju keni një task të ri: 'KPAK AWKDAWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 11:54:14 AM,
+ IsRead: False
+Timestamp: 11/25/2024 11:54:14 AM
+
+Message: Ju keni një task të ri: 'HAJ MEDET' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 12:41:41 PM,
+ IsRead: False
+Timestamp: 11/25/2024 12:41:41 PM
+
+Message: Ju keni një task të ri: 'HAJ MORE QAV' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 12:47:30 PM,
+ IsRead: False
+Timestamp: 11/25/2024 12:47:30 PM
+
+Message: Ju keni një task të ri: 'FADWDASDFAWDSDW' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 2:03:19 PM,
+ IsRead: False
+Timestamp: 11/25/2024 2:03:19 PM
+
+Message: Ju keni një task të ri: 'ADAWDSFAWDDSDW' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 2:04:19 PM,
+ IsRead: False
+Timestamp: 11/25/2024 2:04:19 PM
+
+Message: Ju keni një task të ri: 'ZVZCXDASCZXC' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 2:08:43 PM,
+ IsRead: False
+Timestamp: 11/25/2024 2:08:43 PM
+
+Message: Ju keni një task të ri: 'KMDALWKDSADMAWK' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 2:20:12 PM,
+ IsRead: False
+Timestamp: 11/25/2024 2:20:12 PM
+
+Message: Ju keni një task të ri: 'DANODKNASOIDMAD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 2:34:49 PM,
+ IsRead: False
+Timestamp: 11/25/2024 2:34:49 PM
+
+Message: Ju keni një task të ri: 'AFWDASDA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 2:37:28 PM,
+ IsRead: False
+Timestamp: 11/25/2024 2:37:28 PM
+
+Message: Ju keni një task të ri: 'DASDAWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 2:37:45 PM,
+ IsRead: False
+Timestamp: 11/25/2024 2:37:45 PM
+
+Message: Ju keni një task të ri: 'AWDADXVVVV' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 2:38:03 PM,
+ IsRead: False
+Timestamp: 11/25/2024 2:38:03 PM
+
+Message: Ju keni një task të ri: 'QAVOOO' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 2:46:07 PM,
+ IsRead: False
+Timestamp: 11/25/2024 2:46:07 PM
+
+Message: Ju keni një task të ri: 'PREJEKTI I PRERJES' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 3:10:16 PM,
+ IsRead: False
+Timestamp: 11/25/2024 3:10:16 PM
+
+Message: Ju keni një task të ri: 'ADSFAWDSDW' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 3:11:40 PM,
+ IsRead: False
+Timestamp: 11/25/2024 3:11:40 PM
+
+Message: Ju keni një task të ri: 'NOFKJSKJDA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 3:13:10 PM,
+ IsRead: False
+Timestamp: 11/25/2024 3:13:10 PM
+
+Message: Ju keni një task të ri: 'AKDALWDAKWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 3:14:15 PM,
+ IsRead: False
+Timestamp: 11/25/2024 3:14:15 PM
+
+Message: Ju keni një task të ri: 'MLAWDALMSKDA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 3:15:14 PM,
+ IsRead: False
+Timestamp: 11/25/2024 3:15:14 PM
+
+Message: Ju keni një task të ri: 'ADLADKALDAWKLD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 3:57:25 PM,
+ IsRead: False
+Timestamp: 11/25/2024 3:57:25 PM
+
+Message: Ju keni një task të ri: 'ASDAWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 4:51:16 PM,
+ IsRead: False
+Timestamp: 11/25/2024 4:51:16 PM
+
+Message: Ju keni një task të ri: 'ADASASSDSA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 4:52:31 PM,
+ IsRead: False
+Timestamp: 11/25/2024 4:52:31 PM
+
+Message: Ju keni një task të ri: 'QAVA UNDERCOVER' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 4:55:54 PM,
+ IsRead: False
+Timestamp: 11/25/2024 4:55:54 PM
+
+Message: Ju keni një task të ri: 'JBAJK DKJA KDJA WD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 5:10:13 PM,
+ IsRead: False
+Timestamp: 11/25/2024 5:10:13 PM
+
+Message: Ju keni një task të ri: 'QAVUSHI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 5:12:53 PM,
+ IsRead: False
+Timestamp: 11/25/2024 5:12:53 PM
+
+Message: Ju keni një task të ri: 'AWDAWWDAWDSAD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 5:22:43 PM,
+ IsRead: False
+Timestamp: 11/25/2024 5:22:43 PM
+
+Message: Ju keni një task të ri: 'QAVOOO' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:08:42 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:08:42 PM
+
+Message: Ju keni një task të ri: 'QAVOO KAP MSO MA SHUM' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:09:45 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:09:45 PM
+
+Message: Ju keni një task të ri: 'HAJ MORE QAVOO' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:13:38 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:13:38 PM
+
+Message: Ju keni një task të ri: 'INVESTO NE CRYPTO' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:16:38 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:16:38 PM
+
+Message: Ju keni një task të ri: 'JSNFOAWDAWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:19:14 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:19:14 PM
+
+Message: Ju keni një task të ri: 'AJDJANDAOKDMAWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:23:47 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:23:47 PM
+
+Message: Ju keni një task të ri: 'NODAWNDAWND' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:25:06 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:25:06 PM
+
+Message: Ju keni një task të ri: 'VFVSCAWC' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:25:32 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:25:32 PM
+
+Message: Ju keni një task të ri: 'CAXZSCZC' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:26:07 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:26:07 PM
+
+Message: Ju keni një task të ri: 'sASAsqA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:26:33 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:26:33 PM
+
+Message: Ju keni një task të ri: '\CZC\AXXZC\X' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:26:52 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:26:52 PM
+
+Message: Ju keni një task të ri: 'X\AX\ZXZC\AX' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 7:27:18 PM,
+ IsRead: False
+Timestamp: 11/25/2024 7:27:18 PM
+
+Message: Ju keni një task të ri: 'FSSDAWDA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 9:37:18 PM,
+ IsRead: False
+Timestamp: 11/25/2024 9:37:19 PM
+
+Message: Ju keni një task të ri: 'ONANEIOAWNIDAWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 9:44:38 PM,
+ IsRead: False
+Timestamp: 11/25/2024 9:44:38 PM
+
+Message: Ju keni një task të ri: 'FADDACGqDF' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 9:53:32 PM,
+ IsRead: False
+Timestamp: 11/25/2024 9:53:32 PM
+
+Message: Ju keni një task të ri: 'FAAWDAWDFADSDAF' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 11/25/2024 10:22:25 PM,
+ IsRead: False
+Timestamp: 11/25/2024 10:22:25 PM
+
+Message: Ju keni një task të ri: 'adkaopdpawma' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/2/2024 10:49:20 AM,
+ IsRead: False
+Timestamp: 12/2/2024 10:49:20 AM
+
+Message: Ju keni një task të ri: 'haCKING PROJECT' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/3/2024 11:53:46 AM,
+ IsRead: False
+Timestamp: 12/3/2024 11:53:46 AM
+
+Message: Ju keni një task të ri: 'Hack Project' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/3/2024 3:18:32 PM,
+ IsRead: False
+Timestamp: 12/3/2024 3:18:32 PM
+
+Message: Ju keni një task të ri: 'dadasdwa' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/3/2024 3:22:16 PM,
+ IsRead: False
+Timestamp: 12/3/2024 3:22:16 PM
+
+Message: Ju keni një task të ri: 'VAWDEFAW' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/4/2024 2:56:46 PM,
+ IsRead: False
+Timestamp: 12/4/2024 2:56:46 PM
+
+Message: Ju keni një task të ri: 'JONNY' të caktuar për ju,
+ Id e userit: 1069,
+ Type: task,
+ Date: 12/4/2024 2:57:26 PM,
+ IsRead: False
+Timestamp: 12/4/2024 2:57:26 PM
+
+Message: Ju keni një task të ri: 'Qava undercover' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 11:01:00 AM,
+ IsRead: False
+Timestamp: 12/5/2024 11:01:00 AM
+
+Message: Ju keni një task të ri: 'Ki me qa dru' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 12:12:13 PM,
+ IsRead: False
+Timestamp: 12/5/2024 12:12:13 PM
+
+Message: Ju keni një task të ri: 'ADAEWFEAWDA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 2:40:55 PM,
+ IsRead: False
+Timestamp: 12/5/2024 2:40:55 PM
+
+Message: Ju keni një task të ri: 'bajdoawnd' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 2:59:30 PM,
+ IsRead: False
+Timestamp: 12/5/2024 2:59:30 PM
+
+Message: Ju keni një task të ri: 'oaowdnaiowdjfapwdjfapn' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 3:25:13 PM,
+ IsRead: False
+Timestamp: 12/5/2024 3:25:13 PM
+
+Message: Ju keni një task të ri: 'oaowdnaiowdjfapwdjfapn' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 3:26:04 PM,
+ IsRead: False
+Timestamp: 12/5/2024 3:26:04 PM
+
+Message: Ju keni një task të ri: 'sHUJJ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 4:56:17 PM,
+ IsRead: False
+Timestamp: 12/5/2024 4:56:17 PM
+
+Message: Ju keni një task të ri: 'BLABLABLA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 5:30:29 PM,
+ IsRead: False
+Timestamp: 12/5/2024 5:30:29 PM
+
+Message: Ju keni një task të ri: 'fhianoidawdoad' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 6:14:13 PM,
+ IsRead: False
+Timestamp: 12/5/2024 6:14:13 PM
+
+Message: Ju keni një task të ri: 'haj meda' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/5/2024 6:14:38 PM,
+ IsRead: False
+Timestamp: 12/5/2024 6:14:38 PM
+
+Message: Ju keni një task të ri: 'pdmpampdosawmdp' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 10:12:56 AM,
+ IsRead: False
+Timestamp: 12/6/2024 10:12:56 AM
+
+Message: Ju keni një task të ri: 'mslmdpwamopsdldm' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 10:52:36 AM,
+ IsRead: False
+Timestamp: 12/6/2024 10:52:36 AM
+
+Message: Ju keni një task të ri: 'uagjbiaeiwadas' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 11:15:37 AM,
+ IsRead: False
+Timestamp: 12/6/2024 11:15:37 AM
+
+Message: Ju keni një task të ri: 'bandhaioooiwdawd' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 11:17:28 AM,
+ IsRead: False
+Timestamp: 12/6/2024 11:17:28 AM
+
+Message: Ju keni një task të ri: 'ablknsjdawikd' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 12:10:46 PM,
+ IsRead: False
+Timestamp: 12/6/2024 12:10:46 PM
+
+Message: Ju keni një task të ri: 'ahhhhhhhhhhh' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 12:11:33 PM,
+ IsRead: False
+Timestamp: 12/6/2024 12:11:33 PM
+
+Message: Ju keni një task të ri: 'AVAHDBAIUWDAS' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 12:39:34 PM,
+ IsRead: False
+Timestamp: 12/6/2024 12:39:34 PM
+
+Message: Ju keni një task të ri: 'FASFAWDS' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 2:41:42 PM,
+ IsRead: False
+Timestamp: 12/6/2024 2:41:42 PM
+
+Message: Ju keni një task të ri: 'O jarani jem' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 2:43:30 PM,
+ IsRead: False
+Timestamp: 12/6/2024 2:43:30 PM
+
+Message: Ju keni një task të ri: 'ADLKSDKAWDS' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 2:46:02 PM,
+ IsRead: False
+Timestamp: 12/6/2024 2:46:02 PM
+
+Message: Ju keni një task të ri: 'QAVO AJE LODH' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 2:49:08 PM,
+ IsRead: False
+Timestamp: 12/6/2024 2:49:08 PM
+
+Message: Ju keni një task të ri: 'haj qav  ta qift' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 2:51:37 PM,
+ IsRead: False
+Timestamp: 12/6/2024 2:51:37 PM
+
+Message: Ju keni një task të ri: 'LOP E GJALL' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 2:55:30 PM,
+ IsRead: False
+Timestamp: 12/6/2024 2:55:30 PM
+
+Message: Ju keni një task të ri: 'ZCZXCZSSXC' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 2:58:24 PM,
+ IsRead: False
+Timestamp: 12/6/2024 2:58:24 PM
+
+Message: Ju keni një task të ri: 'AHII BURR' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 3:13:06 PM,
+ IsRead: False
+Timestamp: 12/6/2024 3:13:06 PM
+
+Message: Ju keni një task të ri: 'ZZZ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 3:15:30 PM,
+ IsRead: False
+Timestamp: 12/6/2024 3:15:30 PM
+
+Message: Ju keni një task të ri: 'UHMM QASHTU QASHTU' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 3:34:38 PM,
+ IsRead: False
+Timestamp: 12/6/2024 3:34:38 PM
+
+Message: Ju keni një task të ri: 'HI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 3:47:28 PM,
+ IsRead: False
+Timestamp: 12/6/2024 3:47:28 PM
+
+Message: Ju keni një task të ri: 'MAKDAKSMPDMAD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 4:23:28 PM,
+ IsRead: False
+Timestamp: 12/6/2024 4:23:28 PM
+
+Message: Ju keni një task të ri: 'NO WAY BRO WHAT' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 4:29:02 PM,
+ IsRead: False
+Timestamp: 12/6/2024 4:29:02 PM
+
+Message: Ju keni një task të ri: 'BLUBLABLAU' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 5:05:48 PM,
+ IsRead: False
+Timestamp: 12/6/2024 5:05:48 PM
+
+Message: Ju keni një task të ri: 'Haj medet haj' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/6/2024 5:12:48 PM,
+ IsRead: False
+Timestamp: 12/6/2024 5:12:48 PM
+
+Message: Ju keni një task të ri: 'UHMMMM' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 1:21:04 PM,
+ IsRead: False
+Timestamp: 12/7/2024 1:21:04 PM
+
+Message: Ju keni një task të ri: 'HEY O QAV' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 1:22:32 PM,
+ IsRead: False
+Timestamp: 12/7/2024 1:22:32 PM
+
+Message: Ju keni një task të ri: 'HAJ MEDET HAJ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 1:26:08 PM,
+ IsRead: False
+Timestamp: 12/7/2024 1:26:08 PM
+
+Message: Ju keni një task të ri: 'ADMINI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 1:31:13 PM,
+ IsRead: False
+Timestamp: 12/7/2024 1:31:13 PM
+
+Message: Ju keni një task të ri: 'AHAAA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 1:32:52 PM,
+ IsRead: False
+Timestamp: 12/7/2024 1:32:52 PM
+
+Message: Ju keni një task të ri: 'HAJ MEDET' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 1:34:21 PM,
+ IsRead: False
+Timestamp: 12/7/2024 1:34:21 PM
+
+Message: Ju keni një task të ri: 'BLA BLA BLA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 2:13:58 PM,
+ IsRead: False
+Timestamp: 12/7/2024 2:13:58 PM
+
+Message: Ju keni një task të ri: 'BBLABLA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 3:49:38 PM,
+ IsRead: False
+Timestamp: 12/7/2024 3:49:38 PM
+
+Message: Ju keni një task të ri: 'BLABLA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 3:50:54 PM,
+ IsRead: False
+Timestamp: 12/7/2024 3:50:54 PM
+
+Message: Ju keni një task të ri: 'ABDAHBWDH' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 3:54:40 PM,
+ IsRead: False
+Timestamp: 12/7/2024 3:54:40 PM
+
+Message: Ju keni një task të ri: 'HAJJJ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 3:56:55 PM,
+ IsRead: False
+Timestamp: 12/7/2024 3:56:55 PM
+
+Message: Ju keni një task të ri: 'HEC BRE' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:07:40 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:07:40 PM
+
+Message: Ju keni një task të ri: 'AKBDJANOWJSDA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:16:43 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:16:43 PM
+
+Message: Ju keni një task të ri: 'afanjndsondapwkdasda' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:18:40 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:18:40 PM
+
+Message: Ju keni një task të ri: 'IHAAA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:20:51 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:20:51 PM
+
+Message: Ju keni një task të ri: 'ADMIN' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:24:24 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:24:24 PM
+
+Message: Ju keni një task të ri: 'OH MY ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:33:25 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:33:25 PM
+
+Message: Ju keni një task të ri: 'HAJ TA QIFT' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:39:14 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:39:14 PM
+
+Message: Ju keni një task të ri: 'HAJJJJ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:40:53 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:40:53 PM
+
+Message: Ju keni një task të ri: 'GIPAA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:43:10 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:43:10 PM
+
+Message: Ju keni një task të ri: 'ADMAWPD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:44:18 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:44:18 PM
+
+Message: Ju keni një task të ri: 'IADBIAUDWA' të caktuar për ju,
+ Id e userit: 1064,
+ Type: task,
+ Date: 12/7/2024 4:45:53 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:45:53 PM
+
+Message: Ju keni një task të ri: 'HAJ MOEAMOWDS' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 4:54:31 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:54:31 PM
+
+Message: Ju keni një task të ri: 'HAJ MEDET' të caktuar për ju,
+ Id e userit: 1064,
+ Type: task,
+ Date: 12/7/2024 4:55:18 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:55:18 PM
+
+Message: Ju keni një task të ri: 'BLABLABLA' të caktuar për ju,
+ Id e userit: 1064,
+ Type: task,
+ Date: 12/7/2024 4:58:22 PM,
+ IsRead: False
+Timestamp: 12/7/2024 4:58:22 PM
+
+Message: Ju keni një task të ri: 'HAJ MEDET' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 5:03:03 PM,
+ IsRead: False
+Timestamp: 12/7/2024 5:03:03 PM
+
+Message: Ju keni një task të ri: 'HAJ MEDET' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 10:38:02 PM,
+ IsRead: False
+Timestamp: 12/7/2024 10:38:02 PM
+
+Message: Ju keni një task të ri: 'qobo' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 10:42:34 PM,
+ IsRead: False
+Timestamp: 12/7/2024 10:42:34 PM
+
+Message: Ju keni një task të ri: 'PUNOJ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 11:24:26 PM,
+ IsRead: False
+Timestamp: 12/7/2024 11:24:26 PM
+
+Message: Ju keni një task të ri: 'HELLO SIR' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 11:32:41 PM,
+ IsRead: False
+Timestamp: 12/7/2024 11:32:41 PM
+
+Message: Ju keni një task të ri: 'QIMI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 11:38:40 PM,
+ IsRead: False
+Timestamp: 12/7/2024 11:38:40 PM
+
+Message: Ju keni një task të ri: 'PUNOJJJJJJJJJJJJJJJJJJ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/7/2024 11:45:45 PM,
+ IsRead: False
+Timestamp: 12/7/2024 11:45:45 PM
+
+Message: Ju keni një task të ri: 'PUNOJ VALLA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 12:22:15 AM,
+ IsRead: False
+Timestamp: 12/8/2024 12:22:15 AM
+
+Message: Ju keni një task të ri: 'PUNOJ VALLA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 12:24:06 AM,
+ IsRead: False
+Timestamp: 12/8/2024 12:24:06 AM
+
+Message: Ju keni një task të ri: 'qsasd' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 12:29:19 AM,
+ IsRead: False
+Timestamp: 12/8/2024 12:29:19 AM
+
+Message: Ju keni një task të ri: 'ADMINIIIIIIIIIIII' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 12:30:40 AM,
+ IsRead: False
+Timestamp: 12/8/2024 12:30:40 AM
+
+Message: Ju keni një task të ri: 'QKEMI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 12:46:21 AM,
+ IsRead: False
+Timestamp: 12/8/2024 12:46:21 AM
+
+Message: Ju keni një task të ri: 'QIFSHA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 1:22:49 AM,
+ IsRead: False
+Timestamp: 12/8/2024 1:22:49 AM
+
+Message: Ju keni një task të ri: 'QA PO THU' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 1:47:44 AM,
+ IsRead: False
+Timestamp: 12/8/2024 1:47:44 AM
+
+Message: Ju keni një task të ri: 'HAJ MEDET' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 1:57:35 AM,
+ IsRead: False
+Timestamp: 12/8/2024 1:57:35 AM
+
+Message: Ju keni një task të ri: 'QIA NONEN' të caktuar për ju,
+ Id e userit: 1068,
+ Type: task,
+ Date: 12/8/2024 2:01:30 AM,
+ IsRead: False
+Timestamp: 12/8/2024 2:01:30 AM
+
+Message: Ju keni një task të ri: 'QA MI THON' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 2:04:21 AM,
+ IsRead: False
+Timestamp: 12/8/2024 2:04:21 AM
+
+Message: Ju keni një task të ri: 'PUNOJ YES' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 2:19:28 AM,
+ IsRead: False
+Timestamp: 12/8/2024 2:19:28 AM
+
+Message: Ju keni një task të ri: 'QA BONE' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 2:37:23 AM,
+ IsRead: False
+Timestamp: 12/8/2024 2:37:23 AM
+
+Message: Ju keni një task të ri: 'QA MET THON' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/8/2024 2:39:55 AM,
+ IsRead: False
+Timestamp: 12/8/2024 2:39:55 AM
+
+Message: Ju keni një task të ri: 'QA PO THUSH BE' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/8/2024 2:51:23 AM,
+ IsRead: False
+Timestamp: 12/8/2024 2:51:23 AM
+
+Message: Ju keni një task të ri: 'HEYHEYHEY' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 10:35:50 AM,
+ IsRead: False
+Timestamp: 12/9/2024 10:35:50 AM
+
+Message: Ju keni një task të ri: 'string gashi' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 10:40:12 AM,
+ IsRead: False
+Timestamp: 12/9/2024 10:40:12 AM
+
+Message: Ju keni një task të ri: 'PSE BONI MORE' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 10:54:25 AM,
+ IsRead: False
+Timestamp: 12/9/2024 10:54:25 AM
+
+Message: Ju keni një task të ri: 'QA BONE AJE SI JE' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 11:12:36 AM,
+ IsRead: False
+Timestamp: 12/9/2024 11:12:36 AM
+
+Message: Ju keni një task të ri: 'HAHA BONI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 11:29:46 AM,
+ IsRead: False
+Timestamp: 12/9/2024 11:29:46 AM
+
+Message: Ju keni një task të ri: 'haj medet' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 11:31:26 AM,
+ IsRead: False
+Timestamp: 12/9/2024 11:31:26 AM
+
+Message: Ju keni një task të ri: 'EQEQEQ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 11:48:34 AM,
+ IsRead: False
+Timestamp: 12/9/2024 11:48:34 AM
+
+Message: Ju keni një task të ri: 'HAJ BE NONEN' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 11:54:44 AM,
+ IsRead: False
+Timestamp: 12/9/2024 11:54:44 AM
+
+Message: Ju keni një task të ri: 'NAKSNKLDAW' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 11:56:19 AM,
+ IsRead: False
+Timestamp: 12/9/2024 11:56:19 AM
+
+Message: Ju keni një task të ri: 'qa bonee' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 1:50:06 PM,
+ IsRead: False
+Timestamp: 12/9/2024 1:50:06 PM
+
+Message: Ju keni një task të ri: 'BLA BLA BLA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 2:28:24 PM,
+ IsRead: False
+Timestamp: 12/9/2024 2:28:24 PM
+
+Message: Ju keni një task të ri: 'MONK MODE' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 2:35:31 PM,
+ IsRead: False
+Timestamp: 12/9/2024 2:35:31 PM
+
+Message: Ju keni një task të ri: 'Are you PIZDELE' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 3:10:48 PM,
+ IsRead: False
+Timestamp: 12/9/2024 3:10:48 PM
+
+Message: Ju keni një task të ri: 'ASOIDHOAWODN' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 3:28:29 PM,
+ IsRead: False
+Timestamp: 12/9/2024 3:28:29 PM
+
+Message: Ju keni një task të ri: 'ADMAKWDMASD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 3:40:47 PM,
+ IsRead: False
+Timestamp: 12/9/2024 3:40:48 PM
+
+Message: Ju keni një task të ri: 'QJNONADOINDA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 3:49:44 PM,
+ IsRead: False
+Timestamp: 12/9/2024 3:49:44 PM
+
+Message: Ju keni një task të ri: 'ADAODNSDW' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 3:59:41 PM,
+ IsRead: False
+Timestamp: 12/9/2024 3:59:41 PM
+
+Message: Ju keni një task të ri: 'IAIDUBAD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 4:08:29 PM,
+ IsRead: False
+Timestamp: 12/9/2024 4:08:29 PM
+
+Message: Ju keni një task të ri: 'HADE MORE QIKA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 4:28:22 PM,
+ IsRead: False
+Timestamp: 12/9/2024 4:28:22 PM
+
+Message: Ju keni një task të ri: 'QA BONE' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 5:00:43 PM,
+ IsRead: False
+Timestamp: 12/9/2024 5:00:43 PM
+
+Message: Ju keni një task të ri: 'QIMI QIMI QIMI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 5:17:24 PM,
+ IsRead: False
+Timestamp: 12/9/2024 5:17:24 PM
+
+Message: Ju keni një task të ri: 'qumaa' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 5:19:38 PM,
+ IsRead: False
+Timestamp: 12/9/2024 5:19:38 PM
+
+Message: Ju keni një task të ri: 'qumaa' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 5:20:15 PM,
+ IsRead: False
+Timestamp: 12/9/2024 5:20:15 PM
+
+Message: Ju keni një task të ri: 'QIMI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 5:50:08 PM,
+ IsRead: False
+Timestamp: 12/9/2024 5:50:08 PM
+
+Message: Ju keni një task të ri: 'QAVO' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 6:00:43 PM,
+ IsRead: False
+Timestamp: 12/9/2024 6:00:43 PM
+
+Message: Ju keni një task të ri: 'ADMIN' të caktuar për ju,
+ Id e userit: 1064,
+ Type: task,
+ Date: 12/9/2024 6:01:56 PM,
+ IsRead: False
+Timestamp: 12/9/2024 6:01:56 PM
+
+Message: Ju keni një task të ri: 'DKMAKPDAWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/9/2024 6:03:11 PM,
+ IsRead: False
+Timestamp: 12/9/2024 6:03:11 PM
+
+Message: Ju keni një task të ri: 'QAPAQULI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 1:09:57 AM,
+ IsRead: False
+Timestamp: 12/10/2024 1:09:57 AM
+
+Message: Ju keni një task të ri: 'FPOANWDAD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 1:32:51 AM,
+ IsRead: False
+Timestamp: 12/10/2024 1:32:51 AM
+
+Message: Ju keni një task të ri: 'HEJJ ' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/10/2024 1:39:20 AM,
+ IsRead: False
+Timestamp: 12/10/2024 1:39:20 AM
+
+Message: Ju keni një task të ri: 'MAHAMAH' të caktuar për ju,
+ Id e userit: 1067,
+ Type: task,
+ Date: 12/10/2024 2:17:29 AM,
+ IsRead: False
+Timestamp: 12/10/2024 2:17:29 AM
+
+Message: Ju keni një task të ri: 'QIVIVIVI' të caktuar për ju,
+ Id e userit: 1069,
+ Type: task,
+ Date: 12/10/2024 2:18:33 AM,
+ IsRead: False
+Timestamp: 12/10/2024 2:18:33 AM
+
+Message: Ju keni një task të ri: 'QIKIRIKI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 2:50:18 PM,
+ IsRead: False
+Timestamp: 12/10/2024 2:50:18 PM
+
+Message: Ju keni një task të ri: 'QIA NONEN' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 2:52:42 PM,
+ IsRead: False
+Timestamp: 12/10/2024 2:52:42 PM
+
+Message: Ju keni një task të ri: 'qia maman' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 2:54:47 PM,
+ IsRead: False
+Timestamp: 12/10/2024 2:54:47 PM
+
+Message: Ju keni një task të ri: 'ASDAWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 2:56:25 PM,
+ IsRead: False
+Timestamp: 12/10/2024 2:56:25 PM
+
+Message: Ju keni një task të ri: 'UHMMM' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 2:58:18 PM,
+ IsRead: False
+Timestamp: 12/10/2024 2:58:18 PM
+
+Message: Ju keni një task të ri: 'qkemi qikimiki' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 2:59:46 PM,
+ IsRead: False
+Timestamp: 12/10/2024 2:59:46 PM
+
+Message: Ju keni një task të ri: 'qorape' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 3:05:38 PM,
+ IsRead: False
+Timestamp: 12/10/2024 3:05:38 PM
+
+Message: Ju keni një task të ri: 'QAPAQULI' të caktuar për ju,
+ Id e userit: 1067,
+ Type: task,
+ Date: 12/10/2024 3:37:26 PM,
+ IsRead: False
+Timestamp: 12/10/2024 3:37:27 PM
+
+Message: Ju keni një task të ri: 'quma ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 3:58:22 PM,
+ IsRead: False
+Timestamp: 12/10/2024 3:58:23 PM
+
+Message: Ju keni një task të ri: 'HAJMALIA' të caktuar për ju,
+ Id e userit: 1067,
+ Type: task,
+ Date: 12/10/2024 4:00:49 PM,
+ IsRead: False
+Timestamp: 12/10/2024 4:00:49 PM
+
+Message: Ju keni një task të ri: 'qavadasdw' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 4:11:03 PM,
+ IsRead: False
+Timestamp: 12/10/2024 4:11:18 PM
+
+Message: Ju keni një task të ri: 'qavadasdw' të caktuar për ju,
+ Id e userit: 1064,
+ Type: task,
+ Date: 12/10/2024 4:14:27 PM,
+ IsRead: False
+Timestamp: 12/10/2024 4:14:30 PM
+
+Message: Ju keni një task të ri: 'HAJ MEDET HAJ HAHAHA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 4:17:07 PM,
+ IsRead: False
+Timestamp: 12/10/2024 4:17:08 PM
+
+Message: Ju keni një task të ri: 'CSCWDAD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 4:24:20 PM,
+ IsRead: False
+Timestamp: 12/10/2024 4:24:20 PM
+
+Message: Ju keni një task të ri: 'QE BE PUNOJ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 4:42:14 PM,
+ IsRead: False
+Timestamp: 12/10/2024 4:42:14 PM
+
+Message: Ju keni një task të ri: 'HAJ TA QIFT EJ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 4:54:21 PM,
+ IsRead: False
+Timestamp: 12/10/2024 4:54:21 PM
+
+Message: Ju keni një task të ri: 'HEC PI KTUHIT  MORE PIS ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 4:57:44 PM,
+ IsRead: False
+Timestamp: 12/10/2024 4:57:44 PM
+
+Message: Ju keni një task të ri: 'UHMMM' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 9:45:56 PM,
+ IsRead: False
+Timestamp: 12/10/2024 9:45:56 PM
+
+Message: Ju keni një task të ri: 'QKEMI ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/10/2024 9:48:20 PM,
+ IsRead: False
+Timestamp: 12/10/2024 9:48:20 PM
+
+Message: Ju keni një task të ri: 'HOADNOSND' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/11/2024 10:28:15 AM,
+ IsRead: False
+Timestamp: 12/11/2024 10:28:15 AM
+
+Message: Ju keni një task të ri: 'BLAAA' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/11/2024 10:52:29 AM,
+ IsRead: False
+Timestamp: 12/11/2024 10:52:29 AM
+
+Message: Ju keni një task të ri: 'ADSAFAWD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/11/2024 2:35:29 PM,
+ IsRead: False
+Timestamp: 12/11/2024 2:35:29 PM
+
+Message: Ju keni një task të ri: 'UYDHABWDIUJAD' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/11/2024 2:36:05 PM,
+ IsRead: False
+Timestamp: 12/11/2024 2:36:05 PM
+
+Message: hej qa bone njeri,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/11/2024 1:35:50 PM,
+ IsRead: False
+Timestamp: 12/11/2024 3:36:27 PM
+
+Message: maokwmdapmdas,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/11/2024 1:37:24 PM,
+ IsRead: False
+Timestamp: 12/11/2024 3:38:01 PM
+
+Message: Ju keni një task të ri: 'zhdapishnika bre bando' të caktuar për ju,
+ Id e userit: 1064,
+ Type: task,
+ Date: 12/12/2024 10:36:33 AM,
+ IsRead: False
+Timestamp: 12/12/2024 10:36:33 AM
+
+Message: Ju keni një task të ri: 'zhdapishnika bre bando' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/12/2024 10:36:34 AM,
+ IsRead: False
+Timestamp: 12/12/2024 10:36:34 AM
+
+Message: Ju keni një task të ri: 'zhdapishnika bre bando' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/12/2024 10:36:34 AM,
+ IsRead: False
+Timestamp: 12/12/2024 10:36:34 AM
+
+Message: Ju keni një task të ri: 'zhdapishnika bre bando' të caktuar për ju,
+ Id e userit: 1067,
+ Type: task,
+ Date: 12/12/2024 10:36:34 AM,
+ IsRead: False
+Timestamp: 12/12/2024 10:36:34 AM
+
+Message: Ju keni një task të ri: 'zhdapishnika bre bando' të caktuar për ju,
+ Id e userit: 1068,
+ Type: task,
+ Date: 12/12/2024 10:36:34 AM,
+ IsRead: False
+Timestamp: 12/12/2024 10:36:34 AM
+
+Message: Ju keni një task të ri: 'zhdapishnika bre bando' të caktuar për ju,
+ Id e userit: 1069,
+ Type: task,
+ Date: 12/12/2024 10:36:34 AM,
+ IsRead: False
+Timestamp: 12/12/2024 10:36:34 AM
+
+Message: Ju keni një task të ri: 'zhdapishnika bre bando' të caktuar për ju,
+ Id e userit: 1070,
+ Type: task,
+ Date: 12/12/2024 10:36:34 AM,
+ IsRead: False
+Timestamp: 12/12/2024 10:36:34 AM
+
+Message: Ju keni një task të ri: 'DAD I YOU ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/12/2024 10:46:28 AM,
+ IsRead: False
+Timestamp: 12/12/2024 10:46:28 AM
+
+Message: Ju keni një task të ri: 'QAV QA PU THU TI A BOHET MIR' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/12/2024 10:47:46 AM,
+ IsRead: False
+Timestamp: 12/12/2024 10:47:46 AM
+
+Message: Ju keni një task të ri: 'QAVO SEKSI POT PUNOJKA' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/12/2024 11:05:04 AM,
+ IsRead: False
+Timestamp: 12/12/2024 11:05:04 AM
+
+Message: Ju keni një task të ri: 'qav be ' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/12/2024 11:08:30 AM,
+ IsRead: False
+Timestamp: 12/12/2024 11:08:30 AM
+
+Message: Ju keni një task të ri: 'QAVAADIAWID' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/12/2024 11:15:17 AM,
+ IsRead: False
+Timestamp: 12/12/2024 11:15:17 AM
+
+Message: Ju keni një task të ri: 'QA TE THOT VLLai ty ndro profesion' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/12/2024 11:25:23 AM,
+ IsRead: False
+Timestamp: 12/12/2024 11:25:23 AM
+
+Message: Ju keni një task të ri: 'QAV DJAL I MIR JOM' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/13/2024 2:07:53 PM,
+ IsRead: False
+Timestamp: 12/13/2024 2:07:53 PM
+
+Message: Ju keni një task të ri: 'QITASH KJO BONI' të caktuar për ju,
+ Id e userit: 1065,
+ Type: task,
+ Date: 12/13/2024 3:24:53 PM,
+ IsRead: False
+Timestamp: 12/13/2024 3:24:53 PM
+
+Message: Ju keni një task të ri: 'Kjo detyr eshte per alexin' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/14/2024 5:15:23 PM,
+ IsRead: False
+Timestamp: 12/14/2024 5:15:23 PM
+
+Message: Ju keni një task të ri: 'ALEX' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/14/2024 5:46:40 PM,
+ IsRead: False
+Timestamp: 12/14/2024 5:46:40 PM
+
+Message: Ju keni një task të ri: 'HELLO WORLD' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/15/2024 5:08:57 PM,
+ IsRead: False
+Timestamp: 12/15/2024 5:08:57 PM
+
+Message: Ju keni një task të ri: 'HELLO ALEX' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 10:58:48 AM,
+ IsRead: False
+Timestamp: 12/16/2024 10:58:48 AM
+
+Message: Ju keni një task të ri: 'ALEX KJO SHKON PER TY' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 10:59:40 AM,
+ IsRead: False
+Timestamp: 12/16/2024 10:59:40 AM
+
+Message: Ju keni një task të ri: 'ALEX' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:00:31 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:00:31 AM
+
+Message: Ju keni një task të ri: 'ALEXY' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:01:12 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:01:12 AM
+
+Message: Ju keni një task të ri: 'alex qitash punoj' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:07:15 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:07:15 AM
+
+Message: Ju keni një task të ri: 'alex jarani' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:26:01 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:26:01 AM
+
+Message: Ju keni një task të ri: 'vjhvjhvkvvjb' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:26:37 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:26:37 AM
+
+Message: Ju keni një task të ri: 'adadfafe' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:30:46 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:30:46 AM
+
+Message: Ju keni një task të ri: 'jvhfyjvhjhv' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:31:47 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:31:47 AM
+
+Message: Ju keni një task të ri: 'asdvbbbbbbbbbb' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:37:31 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:37:31 AM
+
+Message: Ju keni një task të ri: 'aawdawd' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:38:29 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:38:29 AM
+
+Message: Ju keni një task të ri: 'bha bha' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:41:40 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:41:40 AM
+
+Message: Ju keni një task të ri: 'ppawodmpaw' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:42:56 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:42:56 AM
+
+Message: Ju keni një task të ri: 'cm..d' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:43:26 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:43:26 AM
+
+Message: Ju keni një task të ri: 'hell yeah' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:55:09 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:55:09 AM
+
+Message: Ju keni një task të ri: 'ally' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 11:57:03 AM,
+ IsRead: False
+Timestamp: 12/16/2024 11:57:03 AM
+
+Message: Ju keni një task të ri: 'ompmpodaw' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 12:03:10 PM,
+ IsRead: False
+Timestamp: 12/16/2024 12:03:10 PM
+
+Message: Ju keni një task të ri: 'hade alex jaro' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/16/2024 4:39:33 PM,
+ IsRead: False
+Timestamp: 12/16/2024 4:39:33 PM
+
+Message: Ju keni një task të ri: 'HELLO WORLD' të caktuar për ju,
+ Id e userit: 1068,
+ Type: task,
+ Date: 12/17/2024 11:59:21 AM,
+ IsRead: False
+Timestamp: 12/17/2024 11:59:21 AM
+
+Message: Ju keni një task të ri: 'KESH SHUM' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/17/2024 10:18:04 PM,
+ IsRead: False
+Timestamp: 12/17/2024 10:18:04 PM
+
+Message: Ju keni një task të ri: 'KESH SHUM' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/17/2024 10:18:53 PM,
+ IsRead: False
+Timestamp: 12/17/2024 10:18:53 PM
+
+Message: Ju keni një task të ri: 'AVER ' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/17/2024 10:19:52 PM,
+ IsRead: False
+Timestamp: 12/17/2024 10:19:52 PM
+
+Message: Ju keni një task të ri: 'ALEX ALEX ALEX' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/17/2024 10:22:46 PM,
+ IsRead: False
+Timestamp: 12/17/2024 10:22:46 PM
+
+Message: Ju keni një task të ri: 'qia nonen' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/17/2024 10:51:40 PM,
+ IsRead: False
+Timestamp: 12/17/2024 10:51:40 PM
+
+Message: Ju keni një task të ri: 'qia nonen' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/17/2024 10:52:35 PM,
+ IsRead: False
+Timestamp: 12/17/2024 10:52:35 PM
+
+Message: Ju keni një task të ri: 'Sot kom me bo loginin' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/25/2024 12:07:39 AM,
+ IsRead: False
+Timestamp: 12/25/2024 12:07:39 AM
+
+Message: Ju keni një task të ri: 'UHAADIUHAWUIWUIDA' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/26/2024 1:58:16 PM,
+ IsRead: False
+Timestamp: 12/26/2024 1:58:16 PM
+
+Message: QA DAWD,
+ Id e userit: 1066,
+ Type: paralajmërim,
+ Date: 12/26/2024 1:59:00 PM,
+ IsRead: False
+Timestamp: 12/26/2024 1:59:47 PM
+
+Message: Ju keni një task të ri: 'taoidaonwodinw' të caktuar për ju,
+ Id e userit: 1066,
+ Type: task,
+ Date: 12/26/2024 2:01:41 PM,
+ IsRead: False
+Timestamp: 12/26/2024 2:01:41 PM
+
