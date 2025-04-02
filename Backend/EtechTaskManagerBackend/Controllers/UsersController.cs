@@ -127,7 +127,7 @@ namespace EtechTaskManagerBackend.Controllers
                 Banned = usersCreate.Banned
             };
 
-                _loggingService.LogUserDetails(usersMap);            
+            _loggingService.LogUserDetails(usersMap);
 
             usersMap.Password = new PasswordHasher<Users>().HashPassword(usersMap, usersCreate.Password);
 
@@ -509,7 +509,7 @@ namespace EtechTaskManagerBackend.Controllers
             sanitizedFileName = string.Concat(sanitizedFileName.Split(Path.GetInvalidFileNameChars()));
 
             // Set up upload path
-            var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads", "ProfilePictures");
+            var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Pictures", "Uploads", "ProfilePictures");
             Directory.CreateDirectory(uploadDirectory); // Ensure directory exists
             var filePath = Path.Combine(uploadDirectory, sanitizedFileName);
 
@@ -522,7 +522,7 @@ namespace EtechTaskManagerBackend.Controllers
                 }
 
                 // Update user's profile picture path in the database
-                var profilePicturePath = $"/Uploads/ProfilePictures/{sanitizedFileName}";
+                var profilePicturePath = $"/Pictures/Uploads/ProfilePictures/{sanitizedFileName}";
                 var fullUrl = $"https://localhost:7013{profilePicturePath}";
                 if (!_usersRepository.UpdateProfilePicturePath(uploadProfilePicture.UserId, fullUrl))
                 {

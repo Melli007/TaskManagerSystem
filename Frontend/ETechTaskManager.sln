@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ETechTaskManager", "ETechTaskManager\ETechTaskManager.csproj", "{5BF78A7C-70E0-4C33-B724-9AE7B16365D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtechTaskManagerBackend", "..\Backend\EtechTaskManagerBackend\EtechTaskManagerBackend.csproj", "{93EC1E16-E218-8395-8CEA-BDA31F565908}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5BF78A7C-70E0-4C33-B724-9AE7B16365D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BF78A7C-70E0-4C33-B724-9AE7B16365D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BF78A7C-70E0-4C33-B724-9AE7B16365D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93EC1E16-E218-8395-8CEA-BDA31F565908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93EC1E16-E218-8395-8CEA-BDA31F565908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93EC1E16-E218-8395-8CEA-BDA31F565908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93EC1E16-E218-8395-8CEA-BDA31F565908}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

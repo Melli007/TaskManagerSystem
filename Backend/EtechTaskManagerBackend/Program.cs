@@ -1,7 +1,6 @@
 using EtechTaskManagerBackend.Data;
 using EtechTaskManagerBackend.EtechHubs;
 using EtechTaskManagerBackend.Interfaces;
-using EtechTaskManagerBackend.Migrations;
 using EtechTaskManagerBackend.Repository;
 using EtechTaskManagerBackend.Services;
 using Microsoft.AspNetCore.Http.Features;
@@ -59,7 +58,6 @@ builder.Services.AddSingleton<NotificationService>();
 builder.Services.AddHttpClient();
 
 
-builder.Services.AddTransient<Seed>();
 builder.Services.AddScoped<IUsersRepository , UsersRepository>();
 builder.Services.AddScoped<ITasksRepository , TasksRepository>();
 builder.Services.AddScoped<INotificationsRepository , NotificationsRepository>();
@@ -94,30 +92,7 @@ builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 var app = builder.Build();
 
 
-if (args.Length == 1 && args[0].ToLower() == "seeddata")
-{
-    SeedData(app);
-}
 
-void SeedData(IHost app)
-{
-    // Get IServiceScopeFactory to create a scope for the seed operation
-    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
-
-    if (scopedFactory != null)
-    {
-        using (var scope = scopedFactory.CreateScope())
-        {
-            // Resolve the Seed service and call SeedDataContext method
-            var service = scope.ServiceProvider.GetRequiredService<Seed>();
-            service.SeedDataContext();
-        }
-    }
-    else
-    {
-        Console.WriteLine("IServiceScopeFactory not available for seeding.");
-    }
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

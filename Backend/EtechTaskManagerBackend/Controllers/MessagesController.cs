@@ -137,7 +137,7 @@ namespace EtechTaskManagerBackend.Controllers
                     // Save file
                     var apiBase = "https://localhost:7013";
                     var safeFileName = $"{Guid.NewGuid()}_{Path.GetFileNameWithoutExtension(messagesCreate.File.FileName)}{fileExtension}";
-                    var uploadPath = Path.Combine(_env.WebRootPath, "SecureUploads_Messages");
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "Pictures", "SecureUploads_Messages");
                     Directory.CreateDirectory(uploadPath);
 
                     // Physical path
@@ -149,7 +149,7 @@ namespace EtechTaskManagerBackend.Controllers
                     }
 
                     // Store the final path in the DTO, or just a relative path
-                    filePath = $"{apiBase}/SecureUploads_Messages/{safeFileName}";
+                    filePath = $"{apiBase}/Pictures/SecureUploads_Messages/{safeFileName}";
                     messagesCreate.FilePath = filePath;
                 }
 
@@ -435,16 +435,16 @@ namespace EtechTaskManagerBackend.Controllers
         }
 
         [HttpPatch]
-public async Task<IActionResult> EditMessage([FromQuery] int messageId, [FromQuery] string newText)
-{
-    // Check if the message exists
-    if (!_messagesRepository.MessageExists(messageId))
-        return NotFound($"Message with ID {messageId} not found.");
+        public async Task<IActionResult> EditMessage([FromQuery] int messageId, [FromQuery] string newText)
+        {
+            // Check if the message exists
+            if (!_messagesRepository.MessageExists(messageId))
+                return NotFound($"Message with ID {messageId} not found.");
 
-    // Retrieve the message to get sender and recipient IDs
-    var message = _messagesRepository.GetMessageById(messageId);
-    if (message == null)
-        return NotFound("Message not found.");
+            // Retrieve the message to get sender and recipient IDs
+            var message = _messagesRepository.GetMessageById(messageId);
+            if (message == null)
+                return NotFound("Message not found.");
 
             // Check if the sender is banned
             var senderCheck = CheckIfUserIsBanned(message.SenderId);
@@ -456,15 +456,15 @@ public async Task<IActionResult> EditMessage([FromQuery] int messageId, [FromQue
 
             // Update the message in the database
             bool updated = _messagesRepository.EditMessage(messageId, newText);
-    if (!updated)
-        return StatusCode(500, "Failed to edit the message in the database.");
+            if (!updated)
+                return StatusCode(500, "Failed to edit the message in the database.");
 
-    // Notify sender and recipient about the edited message via SignalR
-    await _hubContext.Clients.Users(message.SenderId.ToString(), message.RecipientId.ToString())
-        .SendAsync("MessageEdited", messageId, newText);
+            // Notify sender and recipient about the edited message via SignalR
+            await _hubContext.Clients.Users(message.SenderId.ToString(), message.RecipientId.ToString())
+                .SendAsync("MessageEdited", messageId, newText);
 
-    return Ok("Message edited successfully.");
-}
+            return Ok("Message edited successfully.");
+        }
 
 
         [HttpPatch]
