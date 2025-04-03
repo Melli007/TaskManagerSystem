@@ -6,6 +6,7 @@ using EtechTaskManagerBackend.Services;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using QuestPDF.Infrastructure;
 
@@ -57,18 +58,18 @@ builder.Services.AddSingleton<LoggingService>();
 builder.Services.AddSingleton<NotificationService>();
 builder.Services.AddHttpClient();
 
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddScoped<INotificationsRepository, NotificationsRepository>();
+builder.Services.AddScoped<IMessagesRepository, MessagesRepository>();
 
-builder.Services.AddScoped<IUsersRepository , UsersRepository>();
-builder.Services.AddScoped<ITasksRepository , TasksRepository>();
-builder.Services.AddScoped<INotificationsRepository , NotificationsRepository>();
-builder.Services.AddScoped<IMessagesRepository , MessagesRepository>();
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",
         policy =>
         {
-            policy.WithOrigins("https://localhost:7097") 
+            policy.WithOrigins("https://localhost:7097")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
@@ -93,7 +94,6 @@ var app = builder.Build();
 
 
 
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -102,17 +102,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowSpecificOrigins");
+
+app.UseStaticFiles();
+
 app.UseStaticFiles(new StaticFileOptions
 {
+
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Pictures")),
+    RequestPath = "/Pictures",
     OnPrepareResponse = ctx =>
     {
-        // If you see a cross?origin block for images, you can add:
-        ctx.Context.Response.Headers.Append("Access-Control-Allow-Origin", "https://localhost:7097");
+
     }
 });
-
-
-app.UseCors("AllowSpecificOrigins");
 
 app.UseHttpsRedirection();
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Net;
+using SkiaSharp;
 
 namespace EtechTaskManagerBackend.Controllers
 {
