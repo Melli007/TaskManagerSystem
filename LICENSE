@@ -173,6 +173,22 @@
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.
 
+------------------------------------------------------------------------------
+
+                              Commons Clause License Condition v1.0
+
+The Software is provided to you under the Apache License, Version 2.0 (the "License")
+with the following additional restriction:
+
+Without limiting any other provisions of the License, the grant of rights under this
+License does not include any right to "Sell" the Software. For purposes of this clause,
+"Sell" means providing the Software to third parties for a fee or other consideration
+(including, without limitation, any form of commercial hosting, distribution, or licensing).
+Any use of the Software that constitutes "Sale" is prohibited unless you obtain a separate
+commercial license from the copyright holder.
+
+------------------------------------------------------------------------------
+
    END OF TERMS AND CONDITIONS
 
    APPENDIX: How to apply the Apache License to your work.
@@ -185,6 +201,7 @@
       file or class name and description of purpose be included on the
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
+
 
    Copyright [2025] [Melos Devolli]
 
