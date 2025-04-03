@@ -8,7 +8,18 @@ Task Manager System is a .NET-based application consisting of two projects:
 #### Note: Originally developed as a school project, this system earned a perfect grade upon presentation. However, it never fully realized my vision of a perfect Employee Task Manager System. I eventually left the project behind to focus on other endeavors, so it hasn't seen active development for some time. With further refinement and enhancements, it still holds the potential to be an outstanding solution.
 #### Additional Note on Image Paths  
 On my laptop, the project runs perfectly—every endpoint functions as expected still. If you follow the setup instructions, it should work seamlessly on your system as well. However, please note that the image paths for user picture posting and getting are configured to store files on the local server. You might need to adjust these paths or configure them to point to a cloud storage solution if you prefer, as the current setup saves images locally rather than on a platform like Cloudinary or similar.
+## Screenshots of the App
+
+For a full gallery of screenshots showcasing the various features of the app, please refer to the [Screenshots of the Employee task manager folder].
+
+* Highlights include:
+  - Login Screen
+  - Dashboard Overview
+  - Task Management Details
+  - Real-time updates with SignalR
+
 # Table of Contents
+
 
 
 - Getting Started
