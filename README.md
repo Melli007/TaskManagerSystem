@@ -50,12 +50,12 @@ After cloning, open Visual Studio, click "Open a project or solution", navigate 
  - In the Backend project, locate the appsettings.json file.
  - Update the ConnectionStrings section with your own connection string. For example:  
 
-      {  
-        "ConnectionStrings": {  
-          "DefaultConnection": "Server=YOUR_SERVER;Database=YOUR_DATABASE;User Id=YOUR_USER;Password=YOUR_PASSWORD;"  
-        },  
-        // ... other settings  
-      }      
+      {      
+            "ConnectionStrings": {  
+              "DefaultConnection": "Server=YOUR_SERVER;Database=YOUR_DATABASE;User                                      Id=YOUR_USER;Password=YOUR_PASSWORD;"  
+            },  
+            // ... other settings  
+          }          
 ### 3. Run Database Migrations  
  1. Open the Package Manager Console (PMC) in Visual Studio.
 
