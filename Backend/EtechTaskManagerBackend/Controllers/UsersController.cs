@@ -627,13 +627,13 @@ namespace EtechTaskManagerBackend.Controllers
                     smtp.UseDefaultCredentials = false;
 
                     // Replace with your Gmail address & app password
-                    smtp.Credentials = new NetworkCredential("melosdevolli23@gmail.com", "gxyd eald cywh xgyc");
+                    smtp.Credentials = new NetworkCredential("Putyourownemailhere@gmail.com", "gxyd eald cywh xgyc");
                     smtp.EnableSsl = true; // Gmail requires SSL/TLS
 
                     // 2) Build the MailMessage
                     var mail = new MailMessage
                     {
-                        From = new MailAddress("melosdevolli23@gmail.com"),
+                        From = new MailAddress("Putyourownemailhere@gmail.com"),
                         Subject = model.Subject,
                         Body = model.Body,
                         IsBodyHtml = true // If sending HTML content
